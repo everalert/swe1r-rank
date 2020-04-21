@@ -340,7 +340,7 @@ footer button {
 }*/
 
 
-@media (max-width: 400px) {
+@media all and (max-width: 480px) {
 	header {
 		position: initial;
 		padding: 0.25rem !important;
