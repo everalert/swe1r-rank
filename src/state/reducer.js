@@ -13,6 +13,10 @@ const initialState = {
 	loading : true,
 	table : [],
 	menu : [],
+	panel : {
+		title : null,
+		items : []
+	},
 	players : {},
 	levels : {},
 	runs : [],
@@ -237,6 +241,38 @@ export default (state = initialState, action) => {
 					return state;
 				else
 					output.runs.push(run);
+		}
+
+		if (action.type === 'SET_CTXPAN') {
+			const timeNeededForPoints = (wr,points=0) => (1+(1-points/100) * (VAL.Score.Scale-1)) * wr;
+
+			output.panel.title = action.title || null;
+			let items = []
+			switch (action.mode) {
+				case 'TRACK':
+					if (Object.keys(state.levels).indexOf(action.level)>=0) {
+						const f = VAL.Setting.Format.Time;
+						const l = action.level;
+						const c = state.trackTab;
+						items.push({name:'90 Points',value:
+							Moment.duration(timeNeededForPoints(state.levels[l][`best${c}`],90),'seconds').format(f,{trim:false})});
+						items.push({name:'50 Points',value:
+							Moment.duration(timeNeededForPoints(state.levels[l][`best${c}`],50),'seconds').format(f,{trim:false})});
+						items.push({name:'Point Baseline',value:
+							Moment.duration(timeNeededForPoints(state.levels[l][`best${c}`]),'seconds').format(f,{trim:false})});
+					}
+					break;
+				case 'RANKING':
+				default:
+					items.push({name:'Players',value:Object.keys(state.players).length});
+					items.push({name:'Runs',value:state.runs.length});
+					break;
+			}
+			output.panel.items = items;
+		}
+		if (action.type === 'RESET_CTXPAN') {
+			output.panel.title = action.title || null;
+			output.panel.items = [];
 		}
 
 		if (action.type === 'CALCULATE_POINTS') {
