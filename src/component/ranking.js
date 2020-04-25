@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PageSelector from '../element/page-selector';
 import Ranking from '../element/table-ranking';
+import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
 
 export default () => {
@@ -11,12 +12,15 @@ export default () => {
 	const sorting = useSelector(state => state.rankingTab);
 	const data = useSelector(state => state.table);
 	const pageName = menu.filter(item => item.value===sorting)[0].label;
+
+	dispatch(Actions.setCtxPanToRanking());
+
 	return (
 		<main>
 			<h1>Ranking</h1>
 			<h2>{pageName}</h2>
 			<PageSelector onChangeHandler={sort} menu={menu} initial={sorting} />
-			<div className='side-bar'><div className='side-panel'>CONTEXT PANEL</div></div>
+			<ContextPanel/>
 			<Ranking data={data}/>
 		</main>
 	);

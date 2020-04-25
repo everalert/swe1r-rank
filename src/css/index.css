@@ -33,6 +33,12 @@ h2 {
 	text-transform: uppercase;
 	grid-area: h2;
 }
+h3 {
+	margin: -0.1em 0 0.5rem !important;
+	font-size: 1.5rem;
+	text-transform: uppercase;
+	grid-area: h3;
+}
 
 
 button {
@@ -86,7 +92,7 @@ header {
 	grid-template-areas: 'logo nav';
 	background: inherit;
 	text-align: right;
-	z-index: 1;
+	z-index: 100;
 }
 
 header .logo {
@@ -125,7 +131,7 @@ footer {
 	text-align: right;
 	color: #888;
 	background: inherit;
-	z-index: 1;
+	z-index: 100;
 	/*min-width: calc(100vw - 2rem);*/
 }
 
@@ -148,11 +154,30 @@ footer button {
 
 .side-bar {
 	grid-area: panel;
-	display: none;
 }
 .side-panel {
 	position: sticky;
 	top: 3.8rem;
+	border: 1px solid #888;
+	padding: 1rem;
+	min-height: 20rem;
+}
+.side-panel.hide {
+	display: none;
+}
+.panel-item {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-areas: 'name value';
+	font-size: 1.4rem;
+	margin-bottom: 0.25rem;
+}
+.panel-item .name {
+	font-weight: bold;
+	grid-area: name;
+}
+.panel-item .value {
+	grid-area: value;
 }
 
 
@@ -260,7 +285,7 @@ footer button {
 
 
 .menu-container {
-	z-index: 0 !important;
+	z-index: 90 !important;
 }
 .menu__control {
 	border-color: #888 !important;
@@ -283,10 +308,12 @@ footer button {
 	padding: 0.35rem !important;
 }
 .menu__option--is-selected {
-	background-color: #DDD !important;
+	color: #000 !important;
+	background-color: #EEE !important;
 }
 .menu__option--is-focused {
-	background-color: #BBB !important;
+	color: #000 !important;
+	background-color: #DDD !important;
 }
 
 
@@ -325,9 +352,11 @@ footer button {
 	            0 4px 11px rgba(255,255,255,0.1);
 }
 #container.dark-theme .menu__option--is-selected {
+	color: #FFF !important;
 	background-color: #111 !important;
 }
 #container.dark-theme .menu__option--is-focused {
+	color: #FFF !important;
 	background-color: #222 !important;
 }
 
@@ -359,7 +388,8 @@ footer button {
 		grid-template-areas:
 			'h1 h1 h1 h1 h1 h1 page page page'
 			'h2 h2 h2 h2 h2 h2 page page page'
-			'table table table table table table table table table';
+			'table table table table table table table table table'
+			'panel panel panel panel panel panel panel panel panel';
 	}
 
 	footer {
@@ -381,9 +411,15 @@ footer button {
 	}
 
 
-	.side-bar {
-		display: none;
+	.side-panel {
+		min-height: auto;
+		margin-top: 1rem;
+		padding: 0.75rem;
 	}
+	.panel-item {
+		font-size: 1rem;
+	}
+
 
 	.table {
 		font-size: 1rem;

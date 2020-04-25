@@ -38,5 +38,9 @@ export default {
 			platform: platforms.data.filter(p => p.id===run.run.system.platform)[0].name,
 			character: run.run.values[chars.id] ? chars.values.values[run.run.values[chars.id]].label : ''
 		}
-	}
+	},
+
+	setCtxPanToRanking: () => ({type:'SET_CTXPAN',mode:'RANKING'}),
+	setCtxPanToTrack: (id) => ({type:'SET_CTXPAN',mode:'TRACK',level:id}),
+	resetCtxPan: () => ({type:'RESET_CTXPAN'}),
 };

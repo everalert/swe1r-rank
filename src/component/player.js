@@ -1,16 +1,22 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Player from '../element/table-player';
+import ContextPanel from '../element/ctxpan';
+import Actions from '../state/action';
 
 export default () => {
 	const data = useSelector(state => state.table);
 	const player = useSelector(state => state.page);
 	const playerName = useSelector(state => state.players[player].name);
+
+	const dispatch = useDispatch();
+	dispatch(Actions.resetCtxPan());
+
 	return (
 		<main>
 			<h1>Player</h1>
 			<h2>{playerName}</h2>
-			<div className='side-bar'><div className='side-panel'>CONTEXT PANEL</div></div>
+			<ContextPanel/>
 			<Player data={data}/>
 		</main>
 	);
