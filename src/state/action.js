@@ -40,7 +40,10 @@ export default {
 		}
 	},
 
-	setCtxPanToRanking: () => ({type:'SET_CTXPAN',mode:'RANKING'}),
-	setCtxPanToTrack: (id) => ({type:'SET_CTXPAN',mode:'TRACK',level:id}),
+	setCtxPanToRanking: (title) => ({type:'SET_CTXPAN',mode:'RANKING',title:title}),
+	setCtxPanToPlayerList: (title) => ({type:'SET_CTXPAN',mode:'PLAYERLIST',title:title}),
+	setCtxPanToPlayer: (id,title) => ({type:'SET_CTXPAN',mode:'PLAYER',player:id,title:title}),
+	setCtxPanToTrackList: (title) => ({type:'SET_CTXPAN',mode:'TRACKLIST',title:title}),
+	setCtxPanToTrack: (id,title) => ({type:'SET_CTXPAN',mode:'TRACK',level:id,title:title}),
 	resetCtxPan: () => ({type:'RESET_CTXPAN'}),
 };

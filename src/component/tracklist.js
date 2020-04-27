@@ -8,7 +8,7 @@ export default () => {
 	const data = useSelector(state => state.table);
 
 	const dispatch = useDispatch();
-	dispatch(Actions.resetCtxPan());
+	dispatch(Actions.setCtxPanToTrackList());
 
 	return (
 		<main>

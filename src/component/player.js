@@ -10,14 +10,14 @@ export default () => {
 	const playerName = useSelector(state => state.players[player].name);
 
 	const dispatch = useDispatch();
-	dispatch(Actions.resetCtxPan());
+	dispatch(Actions.setCtxPanToPlayer(player));
 
 	return (
 		<main>
 			<h1>Player</h1>
 			<h2>{playerName}</h2>
 			<ContextPanel/>
-			<Player data={data}/>
+			<Player player={player} data={data}/>
 		</main>
 	);
 }
