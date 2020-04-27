@@ -25,7 +25,7 @@ export default () => {
 			<h2>{trackName}</h2>
 			<PageSelector onChangeHandler={sort} menu={menu} initial={sorting} />
 			<ContextPanel/>
-			<Track data={data}/>
+			<Track track={track} data={data}/>
 		</main>
 	);
 }

@@ -247,11 +247,49 @@ export default (state = initialState, action) => {
 			const timeNeededForPoints = (wr,points=0) => (1+(1-points/100) * (VAL.Score.Scale-1)) * wr;
 
 			output.panel.title = action.title || null;
+			let f, totals;
 			let items = []
 			switch (action.mode) {
+				case 'PLAYERLIST':
+					items.push({name:'Players',value:Object.keys(state.players).length});
+					items.push({name:'Runs',value:state.runs.length});
+					break;
+				case 'PLAYER':
+					f = VAL.Setting.Format.TotalTimeFull;
+					totals = state.runs.reduce((v,t) => {
+						if (t.player === action.player) {
+							v[`time${t.cat}`] += t.time;
+							v.timeT += t.time;
+							if (t.points >= 50 && t.points < 90) v.pt50++;
+							if (t.points >= 90 && t.points < 100) v.pt90++;
+							if (t.points === 100) v.pt100++;
+							v.runT++;
+						}
+						return v;
+					}, {timeT:0, time3L:0, time1L:0, runT:0, pt50:0, pt90:0, pt100:0});
+					items.push({name:'Runs Posted',value:`${totals.runT}/50`});
+					items.push({name:'100 Point Times',value:totals.pt100});
+					items.push({name:'90+ Point Times',value:totals.pt90});
+					items.push({name:'50+ Point Times',value:totals.pt50});
+					items.push({name:'1-Lap Total',value:Moment.duration(totals.time1L,'seconds').format(f,{trim:false})});
+					items.push({name:'3-Lap Total',value:Moment.duration(totals.time3L,'seconds').format(f,{trim:false})});
+					items.push({name:'Overall Total',value:Moment.duration(totals.timeT,'seconds').format(f,{trim:false})});
+					break;
+				case 'TRACKLIST':
+					f = VAL.Setting.Format.TotalTimeFull;
+					totals = Object.keys(state.levels).reduce((v,t) => {
+						v['1L'] += state.levels[t].best1L;
+						v['3L'] += state.levels[t].best3L;
+						v.TOTAL += state.levels[t].best1L + state.levels[t].best3L;
+						return v;
+					}, {'TOTAL':0, '3L':0, '1L':0});
+					items.push({name:'1-Lap Total',value:Moment.duration(totals['1L'],'seconds').format(f,{trim:false})});
+					items.push({name:'3-Lap Total',value:Moment.duration(totals['3L'],'seconds').format(f,{trim:false})});
+					items.push({name:'Overall Total',value:Moment.duration(totals.TOTAL,'seconds').format(f,{trim:false})});
+					break;
 				case 'TRACK':
 					if (Object.keys(state.levels).indexOf(action.level)>=0) {
-						const f = VAL.Setting.Format.Time;
+						f = VAL.Setting.Format.Time;
 						const l = action.level;
 						const c = state.trackTab;
 						items.push({name:'90 Points',value:
@@ -263,9 +301,10 @@ export default (state = initialState, action) => {
 					}
 					break;
 				case 'RANKING':
-				default:
 					items.push({name:'Players',value:Object.keys(state.players).length});
 					items.push({name:'Runs',value:state.runs.length});
+					break;
+				default:
 					break;
 			}
 			output.panel.items = items;

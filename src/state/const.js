@@ -71,6 +71,7 @@ export default {
 		Format : {
 			Time: 'm:ss.SSS',
 			TotalTime: 'h:mm:ss',
+			TotalTimeFull: 'h:mm:ss.SSS',
 			Points: '0.000',
 			TotalPoints: '0.0',
 		},

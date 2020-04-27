@@ -35,9 +35,10 @@ h2 {
 }
 h3 {
 	margin: -0.1em 0 0.5rem !important;
-	font-size: 1.5rem;
-	text-transform: uppercase;
+	font-size: 1.65rem;
 	grid-area: h3;
+	border-bottom: 1px solid #888;
+	padding-bottom: 0.5rem !important;
 }
 
 
@@ -160,7 +161,7 @@ footer button {
 	top: 3.8rem;
 	border: 1px solid #888;
 	padding: 1rem;
-	min-height: 20rem;
+	min-height: 12rem;
 }
 .side-panel.hide {
 	display: none;
