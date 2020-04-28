@@ -1,4 +1,5 @@
 import VAL from './const';
+import { NewCtxItem, NewCtxHeading, NewCtxText } from '../module/ctxpan';
 //import { merge } from 'lodash';
 import Numeral from 'numeral';
 import Moment from 'moment';
@@ -251,8 +252,8 @@ export default (state = initialState, action) => {
 			let items = []
 			switch (action.mode) {
 				case 'PLAYERLIST':
-					items.push({name:'Players',value:Object.keys(state.players).length});
-					items.push({name:'Runs',value:state.runs.length});
+					items.push(NewCtxItem('Players',Object.keys(state.players).length));
+					items.push(NewCtxItem('Runs',state.runs.length));
 					break;
 				case 'PLAYER':
 					f = VAL.Setting.Format.TotalTimeFull;
@@ -267,42 +268,38 @@ export default (state = initialState, action) => {
 						}
 						return v;
 					}, {timeT:0, time3L:0, time1L:0, runT:0, pt50:0, pt90:0, pt100:0});
-					items.push({name:'Runs Posted',value:`${totals.runT}/50`});
-					items.push({name:'100 Point Times',value:totals.pt100});
-					items.push({name:'90+ Point Times',value:totals.pt90});
-					items.push({name:'50+ Point Times',value:totals.pt50});
-					items.push({name:'1-Lap Total',value:Moment.duration(totals.time1L,'seconds').format(f,{trim:false})});
-					items.push({name:'3-Lap Total',value:Moment.duration(totals.time3L,'seconds').format(f,{trim:false})});
-					items.push({name:'Overall Total',value:Moment.duration(totals.timeT,'seconds').format(f,{trim:false})});
+					items.push(NewCtxItem('Runs Posted',`${totals.runT}/50`));
+					items.push(NewCtxItem('100 Point Times',totals.pt100));
+					items.push(NewCtxItem('90+ Point Times',totals.pt90));
+					items.push(NewCtxItem('50+ Point Times',totals.pt50));
+					items.push(NewCtxItem('1-Lap Total',Moment.duration(totals.time1L,'seconds').format(f,{trim:false})));
+					items.push(NewCtxItem('3-Lap Total',Moment.duration(totals.time3L,'seconds').format(f,{trim:false})));
+					items.push(NewCtxItem('Overall Total',Moment.duration(totals.timeT,'seconds').format(f,{trim:false})));
 					break;
 				case 'TRACKLIST':
 					f = VAL.Setting.Format.TotalTimeFull;
 					totals = Object.keys(state.levels).reduce((v,t) => {
-						v['1L'] += state.levels[t].best1L;
-						v['3L'] += state.levels[t].best3L;
-						v.TOTAL += state.levels[t].best1L + state.levels[t].best3L;
+						v.time1L += state.levels[t].best1L;
+						v.time3L += state.levels[t].best3L;
+						v.timeT += state.levels[t].best1L + state.levels[t].best3L;
 						return v;
-					}, {'TOTAL':0, '3L':0, '1L':0});
-					items.push({name:'1-Lap Total',value:Moment.duration(totals['1L'],'seconds').format(f,{trim:false})});
-					items.push({name:'3-Lap Total',value:Moment.duration(totals['3L'],'seconds').format(f,{trim:false})});
-					items.push({name:'Overall Total',value:Moment.duration(totals.TOTAL,'seconds').format(f,{trim:false})});
+					}, {timeT:0, time3L:0, time1L:0});
+					items.push(NewCtxItem('1-Lap Total',Moment.duration(totals.time1L,'seconds').format(f,{trim:false})));
+					items.push(NewCtxItem('3-Lap Total',Moment.duration(totals.time3L,'seconds').format(f,{trim:false})));
+					items.push(NewCtxItem('Overall Total',Moment.duration(totals.timeT,'seconds').format(f,{trim:false})));
 					break;
 				case 'TRACK':
 					if (Object.keys(state.levels).indexOf(action.level)>=0) {
 						f = VAL.Setting.Format.Time;
-						const l = action.level;
-						const c = state.trackTab;
-						items.push({name:'90 Points',value:
-							Moment.duration(timeNeededForPoints(state.levels[l][`best${c}`],90),'seconds').format(f,{trim:false})});
-						items.push({name:'50 Points',value:
-							Moment.duration(timeNeededForPoints(state.levels[l][`best${c}`],50),'seconds').format(f,{trim:false})});
-						items.push({name:'Point Baseline',value:
-							Moment.duration(timeNeededForPoints(state.levels[l][`best${c}`]),'seconds').format(f,{trim:false})});
+						const time = state.levels[action.level][`best${state.trackTab}`];
+						items.push(NewCtxItem('90 Points',Moment.duration(timeNeededForPoints(time,90),'seconds').format(f,{trim:false})));
+						items.push(NewCtxItem('50 Points',Moment.duration(timeNeededForPoints(time,50),'seconds').format(f,{trim:false})));
+						items.push(NewCtxItem('Point Baseline',Moment.duration(timeNeededForPoints(time),'seconds').format(f,{trim:false})));
 					}
 					break;
 				case 'RANKING':
-					items.push({name:'Players',value:Object.keys(state.players).length});
-					items.push({name:'Runs',value:state.runs.length});
+					items.push(NewCtxItem('Players',Object.keys(state.players).length));
+					items.push(NewCtxItem('Runs',state.runs.length));
 					break;
 				default:
 					break;
