@@ -1,6 +1,7 @@
 import VAL from './const';
 import { NewCtxItem, NewCtxHeading, NewCtxText } from '../module/ctxpan';
 import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints } from '../module/format';
+import { CalculatePoints, TimeNeededForPoints } from '../module/points';
 //import { merge } from 'lodash';
 
 const initialState = {
@@ -49,8 +50,6 @@ export default (state = initialState, action) => {
 		if (action.type === 'GOTO_RANKING') {
 			output.section = 'RANKING';
 
-			const formatT = VAL.Setting.Format.TotalTime;
-			const formatP = VAL.Setting.Format.TotalPoints;
 			const table = Object.keys(state.players).map(k => {
 				let p = state.players[k];
 				let player = {
@@ -98,8 +97,6 @@ export default (state = initialState, action) => {
 
 
 		if (action.type === 'GOTO_PLAYERLIST') {
-			const formatT = VAL.Setting.Format.TotalTime;
-			const formatP = VAL.Setting.Format.TotalPoints;
 			const table = Object.keys(state.players).map(k => {
 				let p = state.players[k];
 				let player = { id:k, name:p.name, fields:{} };
@@ -130,7 +127,6 @@ export default (state = initialState, action) => {
 		}
 
 		if (action.type === 'GOTO_TRACKLIST') {
-			const formatT = VAL.Setting.Format.Time;
 			let table = Object.keys(state.levels).map(k => {
 				let t = state.levels[k];
 				let track = { id:k, name:t.name, fields:{} };
@@ -238,10 +234,8 @@ export default (state = initialState, action) => {
 		}
 
 		if (action.type === 'SET_CTXPAN') {
-			const timeNeededForPoints = (wr,points=0) => (1+(1-points/100) * (VAL.Score.Scale-1)) * wr;
-
 			output.panel.title = action.title || null;
-			let f, totals;
+			let totals;
 			let items = []
 			switch (action.mode) {
 				case 'PLAYERLIST':
@@ -249,7 +243,6 @@ export default (state = initialState, action) => {
 					items.push(NewCtxItem('Runs',state.runs.length));
 					break;
 				case 'PLAYER':
-					f = VAL.Setting.Format.TotalTimeFull;
 					totals = state.runs.reduce((v,t) => {
 						if (t.player === action.player) {
 							v[`time${t.cat}`] += t.time;
@@ -270,7 +263,6 @@ export default (state = initialState, action) => {
 					items.push(NewCtxItem('Overall Total',FormatFullTotalTime(totals.timeT)));
 					break;
 				case 'TRACKLIST':
-					f = VAL.Setting.Format.TotalTimeFull;
 					totals = Object.keys(state.levels).reduce((v,t) => {
 						v.time1L += state.levels[t].best1L;
 						v.time3L += state.levels[t].best3L;
@@ -283,11 +275,10 @@ export default (state = initialState, action) => {
 					break;
 				case 'TRACK':
 					if (Object.keys(state.levels).indexOf(action.level)>=0) {
-						f = VAL.Setting.Format.Time;
 						const time = state.levels[action.level][`best${state.trackTab}`];
-						items.push(NewCtxItem('90 Points',FormatTime(timeNeededForPoints(time,90))));
-						items.push(NewCtxItem('50 Points',FormatTime(timeNeededForPoints(time,50))));
-						items.push(NewCtxItem('Point Baseline',FormatTime(timeNeededForPoints(time))));
+						items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
+						items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
+						items.push(NewCtxItem('Point Baseline',FormatTime(TimeNeededForPoints(time))));
 					}
 					break;
 				case 'RANKING':
@@ -309,8 +300,7 @@ export default (state = initialState, action) => {
 				let times = state.runs.filter(r => r.player===p);
 				let totals = times.reduce((v,t) => {
 					let WR = state.levels[t.level][`best${t.cat}`];
-					let { Max, Scale, Precision } = VAL.Score;
-					let pts = t.time > WR*Scale ? 0 : Math.floor(((1-(t.time-WR)/(WR*Scale-WR))*Max)*(10^Precision))/(10^Precision);
+					let pts = CalculatePoints(WR, t.time);
 					v['ALL'] += pts;
 					v[t.cat] += pts;
 					t.points = pts;
