@@ -1,10 +1,7 @@
 import VAL from './const';
 import { NewCtxItem, NewCtxHeading, NewCtxText } from '../module/ctxpan';
+import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints } from '../module/format';
 //import { merge } from 'lodash';
-import Numeral from 'numeral';
-import Moment from 'moment';
-import MomentDurationFormat from 'moment-duration-format';
-MomentDurationFormat(Moment);
 
 const initialState = {
 	section : 'RANKING',
@@ -64,12 +61,12 @@ export default (state = initialState, action) => {
 					sort3L:p.pts3L,
 					fields:{},
 					data:{
-						ptsALL: Numeral(p.ptsALL).format(formatP),
-						timeALL: Moment.duration(Math.floor(p.timeALL),'seconds').format(formatT,{trim:false}),
-						pts1L: Numeral(p.pts1L).format(formatP),
-						time1L: Moment.duration(Math.floor(p.time1L),'seconds').format(formatT,{trim:false}),
-						pts3L: Numeral(p.pts3L).format(formatP),
-						time3L: Moment.duration(Math.floor(p.time3L),'seconds').format(formatT,{trim:false}),
+						ptsALL: FormatTotalPoints(p.ptsALL),
+						timeALL: FormatTotalTime(Math.floor(p.timeALL)),
+						pts1L: FormatTotalPoints(p.pts1L),
+						time1L: FormatTotalTime(Math.floor(p.time1L)),
+						pts3L: FormatTotalPoints(p.pts3L),
+						time3L: FormatTotalTime(Math.floor(p.time3L)),
 					}
 				};
 				return player;
@@ -106,8 +103,8 @@ export default (state = initialState, action) => {
 			const table = Object.keys(state.players).map(k => {
 				let p = state.players[k];
 				let player = { id:k, name:p.name, fields:{} };
-				player.fields.ptsALL = Numeral(p.ptsALL).format(formatP);
-				player.fields.timeALL = Moment.duration(Math.floor(p.timeALL),'seconds').format(formatT,{trim:false});
+				player.fields.ptsALL = FormatTotalPoints(p.ptsALL);
+				player.fields.timeALL = FormatTotalTime(Math.floor(p.timeALL));
 				return player;
 			});
 			table.sort((a,b) => a.name.localeCompare(b.name));
@@ -119,15 +116,13 @@ export default (state = initialState, action) => {
 			output.section = 'PLAYER';
 			output.page = action.player;
 
-			const formatT = VAL.Setting.Format.Time;
-			const formatP = VAL.Setting.Format.Points;
 			const times = state.runs.filter(t => t.player === action.player);
 			
 			let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, fields:{} }) );
 			times.forEach(t => {
 				let p = tracks.filter(p => p.id===t.level)[0];
-				p.fields[`time${t.cat}`] = Moment.duration(t.time,'seconds').format(formatT,{trim:false});
-				p.fields[`pts${t.cat}`] = Numeral(t.points).format(formatP);
+				p.fields[`time${t.cat}`] = FormatTime(t.time);
+				p.fields[`pts${t.cat}`] = FormatPoints(t.points);
 			});
 			const levels = Object.keys(VAL.Id.Level);
 			tracks.sort((a,b) => levels.indexOf(a.id) - levels.indexOf(b.id));
@@ -139,8 +134,8 @@ export default (state = initialState, action) => {
 			let table = Object.keys(state.levels).map(k => {
 				let t = state.levels[k];
 				let track = { id:k, name:t.name, fields:{} };
-				track.fields.best3L = Moment.duration(t.best3L,'seconds').format(formatT,{trim:false});
-				track.fields.best1L = Moment.duration(t.best1L,'seconds').format(formatT,{trim:false});
+				track.fields.best3L = FormatTime(t.best3L);
+				track.fields.best1L = FormatTime(t.best1L);
 				return track;
 			});
 			const levels = Object.keys(VAL.Id.Level);
@@ -153,8 +148,6 @@ export default (state = initialState, action) => {
 			output.section = 'TRACK';
 			output.page = action.level;
 
-			const formatT = VAL.Setting.Format.Time;
-			const formatP = VAL.Setting.Format.Points;
 			const times = state.runs.filter(t => t.level === action.level);
 			let players = [];
 			times.forEach(t => {
@@ -171,8 +164,8 @@ export default (state = initialState, action) => {
 			times.forEach(t => {
 				let p = players.filter(p => p.id===t.player)[0];
 				p[`sort${t.cat}`] = t.time;
-				p.data[`time${t.cat}`] = Moment.duration(t.time,'seconds').format(formatT,{trim:false});
-				p.data[`pts${t.cat}`] = Numeral(t.points).format(formatP);
+				p.data[`time${t.cat}`] = FormatTime(t.time,'seconds');
+				p.data[`pts${t.cat}`] = FormatPoints(t.points);
 			});
 			output.table = players;
 		}
@@ -272,9 +265,9 @@ export default (state = initialState, action) => {
 					items.push(NewCtxItem('100 Point Times',totals.pt100));
 					items.push(NewCtxItem('90+ Point Times',totals.pt90));
 					items.push(NewCtxItem('50+ Point Times',totals.pt50));
-					items.push(NewCtxItem('1-Lap Total',Moment.duration(totals.time1L,'seconds').format(f,{trim:false})));
-					items.push(NewCtxItem('3-Lap Total',Moment.duration(totals.time3L,'seconds').format(f,{trim:false})));
-					items.push(NewCtxItem('Overall Total',Moment.duration(totals.timeT,'seconds').format(f,{trim:false})));
+					items.push(NewCtxItem('1-Lap Total',FormatFullTotalTime(totals.time1L)));
+					items.push(NewCtxItem('3-Lap Total',FormatFullTotalTime(totals.time3L)));
+					items.push(NewCtxItem('Overall Total',FormatFullTotalTime(totals.timeT)));
 					break;
 				case 'TRACKLIST':
 					f = VAL.Setting.Format.TotalTimeFull;
@@ -284,17 +277,17 @@ export default (state = initialState, action) => {
 						v.timeT += state.levels[t].best1L + state.levels[t].best3L;
 						return v;
 					}, {timeT:0, time3L:0, time1L:0});
-					items.push(NewCtxItem('1-Lap Total',Moment.duration(totals.time1L,'seconds').format(f,{trim:false})));
-					items.push(NewCtxItem('3-Lap Total',Moment.duration(totals.time3L,'seconds').format(f,{trim:false})));
-					items.push(NewCtxItem('Overall Total',Moment.duration(totals.timeT,'seconds').format(f,{trim:false})));
+					items.push(NewCtxItem('1-Lap Total',FormatFullTotalTime(totals.time1L)));
+					items.push(NewCtxItem('3-Lap Total',FormatFullTotalTime(totals.time3L)));
+					items.push(NewCtxItem('Overall Total',FormatFullTotalTime(totals.timeT)));
 					break;
 				case 'TRACK':
 					if (Object.keys(state.levels).indexOf(action.level)>=0) {
 						f = VAL.Setting.Format.Time;
 						const time = state.levels[action.level][`best${state.trackTab}`];
-						items.push(NewCtxItem('90 Points',Moment.duration(timeNeededForPoints(time,90),'seconds').format(f,{trim:false})));
-						items.push(NewCtxItem('50 Points',Moment.duration(timeNeededForPoints(time,50),'seconds').format(f,{trim:false})));
-						items.push(NewCtxItem('Point Baseline',Moment.duration(timeNeededForPoints(time),'seconds').format(f,{trim:false})));
+						items.push(NewCtxItem('90 Points',FormatTime(timeNeededForPoints(time,90))));
+						items.push(NewCtxItem('50 Points',FormatTime(timeNeededForPoints(time,50))));
+						items.push(NewCtxItem('Point Baseline',FormatTime(timeNeededForPoints(time))));
 					}
 					break;
 				case 'RANKING':
