@@ -239,6 +239,7 @@ export default (state = initialState, action) => {
 			let items = []
 			switch (action.mode) {
 				case 'PLAYERLIST':
+					items.push(NewCtxHeading('Stats'));
 					items.push(NewCtxItem('Players',Object.keys(state.players).length));
 					items.push(NewCtxItem('Runs',state.runs.length));
 					break;
@@ -255,12 +256,14 @@ export default (state = initialState, action) => {
 						return v;
 					}, {timeT:0, time3L:0, time1L:0, runT:0, pt50:0, pt90:0, pt100:0});
 					items.push(NewCtxItem('Runs Posted',FormatRunsPosted(totals.runT,50)));
-					items.push(NewCtxItem('100 Point Times',totals.pt100));
-					items.push(NewCtxItem('90+ Point Times',totals.pt90));
-					items.push(NewCtxItem('50+ Point Times',totals.pt50));
-					items.push(NewCtxItem('1-Lap Total',FormatFullTotalTime(totals.time1L)));
-					items.push(NewCtxItem('3-Lap Total',FormatFullTotalTime(totals.time3L)));
-					items.push(NewCtxItem('Overall Total',FormatFullTotalTime(totals.timeT)));
+					items.push(NewCtxHeading('Run Summary'));
+					items.push(NewCtxItem('100 Points',totals.pt100));
+					items.push(NewCtxItem('90+ Points',totals.pt90));
+					items.push(NewCtxItem('50+ Points',totals.pt50));
+					items.push(NewCtxHeading('Time Totals'));
+					items.push(NewCtxItem('Overall',FormatFullTotalTime(totals.timeT)));
+					items.push(NewCtxItem('1-Lap',FormatFullTotalTime(totals.time1L)));
+					items.push(NewCtxItem('3-Lap',FormatFullTotalTime(totals.time3L)));
 					break;
 				case 'TRACKLIST':
 					totals = Object.keys(state.levels).reduce((v,t) => {
@@ -269,19 +272,22 @@ export default (state = initialState, action) => {
 						v.timeT += state.levels[t].best1L + state.levels[t].best3L;
 						return v;
 					}, {timeT:0, time3L:0, time1L:0});
-					items.push(NewCtxItem('1-Lap Total',FormatFullTotalTime(totals.time1L)));
-					items.push(NewCtxItem('3-Lap Total',FormatFullTotalTime(totals.time3L)));
-					items.push(NewCtxItem('Overall Total',FormatFullTotalTime(totals.timeT)));
+					items.push(NewCtxHeading('Record Totals'));
+					items.push(NewCtxItem('Overall',FormatFullTotalTime(totals.timeT)));
+					items.push(NewCtxItem('1-Lap',FormatFullTotalTime(totals.time1L)));
+					items.push(NewCtxItem('3-Lap',FormatFullTotalTime(totals.time3L)));
 					break;
 				case 'TRACK':
 					if (Object.keys(state.levels).indexOf(action.level)>=0) {
 						const time = state.levels[action.level][`best${state.trackTab}`];
+						items.push(NewCtxHeading('Milestones'));
 						items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
 						items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
-						items.push(NewCtxItem('Point Baseline',FormatTime(TimeNeededForPoints(time))));
+						items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time))));
 					}
 					break;
 				case 'RANKING':
+					items.push(NewCtxHeading('Stats'));
 					items.push(NewCtxItem('Players',Object.keys(state.players).length));
 					items.push(NewCtxItem('Runs',state.runs.length));
 					break;
