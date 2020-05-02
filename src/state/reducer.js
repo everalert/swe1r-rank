@@ -1,6 +1,6 @@
 import VAL from './const';
 import { NewCtxItem, NewCtxHeading, NewCtxText } from '../module/ctxpan';
-import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints } from '../module/format';
+import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints, FormatRunsPosted } from '../module/format';
 import { CalculatePoints, TimeNeededForPoints } from '../module/points';
 //import { merge } from 'lodash';
 
@@ -254,7 +254,7 @@ export default (state = initialState, action) => {
 						}
 						return v;
 					}, {timeT:0, time3L:0, time1L:0, runT:0, pt50:0, pt90:0, pt100:0});
-					items.push(NewCtxItem('Runs Posted',`${totals.runT}/50`));
+					items.push(NewCtxItem('Runs Posted',FormatRunsPosted(totals.runT,50)));
 					items.push(NewCtxItem('100 Point Times',totals.pt100));
 					items.push(NewCtxItem('90+ Point Times',totals.pt90));
 					items.push(NewCtxItem('50+ Point Times',totals.pt50));

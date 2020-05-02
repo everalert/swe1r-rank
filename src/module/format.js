@@ -35,3 +35,7 @@ export const FormatPoints = (points) => {
 export const FormatTotalPoints = (points) => {
 	return SplitPointsDecimal(Numeral(points).format(VAL.Setting.Format.TotalPoints));
 }
+
+export const FormatRunsPosted = (runs, max) => {
+	return <span className='runs-format'><span className='runs-done'>{runs}</span><span className='runs-max'>/{max}</span></span>;
+}
