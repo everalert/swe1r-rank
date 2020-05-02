@@ -159,19 +159,29 @@ footer button {
 .side-panel {
 	position: sticky;
 	top: 3.8rem;
-	border: 1px solid #888;
 	padding: 1rem;
 	min-height: 12rem;
+	background-image: url("../img/ctxpan-tl.png"), url("../img/ctxpan-br.png"), url("../img/ctxpan-base-tl.png"), url("../img/ctxpan-base-br.png"), url("../img/ctxpan-base.png");
+	background-position: top left, bottom right, top left, bottom right, center;
+	background-size: contain, contain, contain, contain, cover;
+	background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
 }
 .side-panel.hide {
 	display: none;
+}
+.panel-heading, .panel-text, .panel-item {
+	margin-bottom: 0.25rem;
+	font-size: 1.25rem;
+}
+.panel-heading {
+	font-size: 1.4rem;
+	margin: 0.75rem 0 0.35rem;
+	font-style: italic;
 }
 .panel-item {
 	display: grid;
 	grid-template-columns: 1fr auto;
 	grid-template-areas: 'name value';
-	font-size: 1.4rem;
-	margin-bottom: 0.25rem;
 }
 .panel-item .name {
 	font-weight: bold;
@@ -179,6 +189,12 @@ footer button {
 }
 .panel-item .value {
 	grid-area: value;
+}
+.side-panel :nth-child(1) {
+	margin-top: 0 !important;
+}
+.side-panel :nth-last-child(1) {
+	margin-bottom: 0 !important;
 }
 
 
@@ -284,6 +300,11 @@ footer button {
 .player-times .points-1lap {
 	grid-area: points-1lap;
 	color: #888;
+}
+
+
+.time-format .decimal, .points-format .decimal, .runs-format .runs-max {
+	font-size: 0.85em;
 }
 
 
@@ -419,7 +440,10 @@ footer button {
 		margin-top: 1rem;
 		padding: 0.75rem;
 	}
-	.panel-item {
+	.panel-heading {
+		font-size: 1.25rem;
+	}
+	.panel-item, .panel-text {
 		font-size: 1rem;
 	}
 
