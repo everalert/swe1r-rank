@@ -191,8 +191,9 @@ footer button {
 .table .header, .table .item {
 	display: grid;
 	grid-gap: 0 1rem;
-	padding: 0.25em 0;
-	margin: 0 0 0.1em;
+	padding: 0.22em 0.75rem;
+	margin: 0 0 0.2em;
+	box-sizing: border-box;
 }
 .table .header {
 	font-size: 1rem;
@@ -200,18 +201,19 @@ footer button {
 	position: sticky;
 	top: 3.8rem;
 	background: #FFF;
-	border-bottom: 1px solid #888;
+	/*border-bottom: 1px solid #888;*/
 }
 .table .item {
-	/*--col1: rgba(255,255,255,0.1);
-	--col2: rgba(0,0,0,0);
-	background: linear-gradient(-35deg, var(--col1) 0%, var(--col1) 5%, var(--col2) 5%, var(--col2) 90%, var(--col1) 90%, var(--col1) 100%);
-	transition: background-image 0.5s ease;*/
+	background-image: url("../img/tableitem-tl.png"), url("../img/tableitem-br.png"), url("../img/tableitem-base.png");
+	background-position: top left, bottom right, 100% center;
+	background-size: cover, cover, auto;
+	background-repeat: no-repeat, no-repeat, no-repeat;
+	transition: background-position 0.25s ease;
 }
 .table .item:hover {
-/*	--col1: rgba(255,255,255,0.15);
-	background: linear-gradient(-35deg, var(--col1) 0%, var(--col1) 10%, var(--col2) 10%, var(--col2) 85%, var(--col1) 85%, var(--col1) 100%);*/
 	cursor: pointer;
+	background-position: top left, bottom right, 75% center;
+	/*background-color: #00F;*/
 }
 
 .ranking-data .header, .ranking-data .item {
@@ -427,6 +429,9 @@ footer button {
 	}
 	.table .header {
 		position: initial;
+	}
+	.table .item:hover {
+		background-position: top left, bottom right, 65% center;
 	}
 	.ranking-data .header, .ranking-data .item {
 		grid-template-columns: 2rem 1fr 3.7rem 4rem;
