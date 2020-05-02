@@ -287,6 +287,11 @@ footer button {
 }
 
 
+.time-format .decimal, .points-format .decimal {
+	font-size: 0.85em;
+}
+
+
 .menu-container {
 	z-index: 90 !important;
 }

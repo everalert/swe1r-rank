@@ -1,11 +1,23 @@
+import React from 'react';
 import VAL from '../state/const';
 import Numeral from 'numeral';
 import Moment from 'moment';
 import MomentDurationFormat from 'moment-duration-format';
 MomentDurationFormat(Moment);
 
+const regex = /^(.+)(\.\d+)$/;
+
+const SplitTimeDecimal = (input) => {
+	let result = input.match(regex);
+	return <span className='time-format'><span className='whole'>{result[1]}</span><span className='decimal'>{result[2]}</span></span>;
+}
+const SplitPointsDecimal = (input) => {
+	let result = input.match(regex);
+	return <span className='points-format'><span className='whole'>{result[1]}</span><span className='decimal'>{result[2]}</span></span>;
+}
+
 export const FormatTime = (time) => {
-	return Moment.duration(time,'seconds').format(VAL.Setting.Format.Time,{trim:false})
+	return SplitTimeDecimal(Moment.duration(time,'seconds').format(VAL.Setting.Format.Time,{trim:false}));
 }
 
 export const FormatTotalTime = (time) => {
@@ -13,13 +25,13 @@ export const FormatTotalTime = (time) => {
 }
 
 export const FormatFullTotalTime = (time) => {
-	return Moment.duration(time,'seconds').format(VAL.Setting.Format.TotalTimeFull,{trim:false})
+	return SplitTimeDecimal(Moment.duration(time,'seconds').format(VAL.Setting.Format.TotalTimeFull,{trim:false}))
 }
 
 export const FormatPoints = (points) => {
-	return Numeral(points).format(VAL.Setting.Format.Points);
+	return SplitPointsDecimal(Numeral(points).format(VAL.Setting.Format.Points));
 }
 
 export const FormatTotalPoints = (points) => {
-	return Numeral(points).format(VAL.Setting.Format.TotalPoints);
+	return SplitPointsDecimal(Numeral(points).format(VAL.Setting.Format.TotalPoints));
 }
