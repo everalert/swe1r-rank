@@ -80,6 +80,19 @@ export default {
 			TotalTime: '---',
 			Points: 0,
 			TotalPoints: 0,
+		},
+		Tilt : {
+			CtxPan : {
+				reverse:true,
+				max:17.5,
+				scale:1.025
+			},
+			TableItem : {
+				reverse:true,
+				max:15,
+				scale:1.015,
+				axis:'x'
+			}
 		}
 	},
 	Sections : [
