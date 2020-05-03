@@ -1,6 +1,7 @@
 import VAR from '../state/const'
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import Tilt from 'react-tilt';
 import Actions from '../state/action';
 
 export default (props) => {
@@ -16,11 +17,13 @@ export default (props) => {
 				<div className='best-1lap'>1-LAP</div>
 			</div>
 			{ props.data.map((item,i) => {
-				return (<div onClick={()=>gotoTrack(item.id)} onMouseEnter={()=>showDetail(item.id,item.name)} className='item' key={i}>
-					<div className='track'>{item.name}</div>
-					{ Object.entries(item.fields).map((f,i) =>
-						<div key={i} className={VAR.TableFields[f[0]]}>{f[1]}</div>) }
-				</div>)
+				return (<Tilt className='Tilt' options={VAR.Setting.Tilt.TableItem}>
+					<div onClick={()=>gotoTrack(item.id)} onMouseEnter={()=>showDetail(item.id,item.name)} className='Tilt-inner item' key={i}>
+						<div className='track'>{item.name}</div>
+						{ Object.entries(item.fields).map((f,i) =>
+							<div key={i} className={VAR.TableFields[f[0]]}>{f[1]}</div>) }
+					</div>
+				</Tilt>)
 			}) }
 		</section>
 	);
