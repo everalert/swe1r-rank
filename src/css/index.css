@@ -97,9 +97,18 @@ header {
 }
 
 header .logo {
-	height: 2.35rem;
-	margin: 0.25rem;
+	--ratio: calc(824 / 128);
+	--height: 2.35rem;
+	height: var(--height);
+	width: calc(var(--ratio) * var(--height));
+	margin: 0.25rem auto;
+	text-indent: 100vw;
+	overflow: hidden;
 	grid-area: logo;
+	background-image: url("../img/logo.png");
+	background-size: 100% auto;
+	background-position: top center;
+	cursor: pointer;
 }
 
 header button {
@@ -352,6 +361,10 @@ footer button {
 	background-color: black;
 }
 
+
+#container.dark-theme header .logo {
+	background-position: bottom center;
+}
 #container.dark-theme nav button:hover {
 	background-color: #111;
 	color: #FFF;
@@ -407,7 +420,7 @@ footer button {
 		font-size: 1rem;
 	}
 	header .logo {
-		height: 1.5rem;
+		--height: 1.6rem;
 	}
 
 	main {
