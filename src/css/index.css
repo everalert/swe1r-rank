@@ -277,6 +277,9 @@ footer button {
 	grid-area: points;
 	text-align: right;
 }
+.player-times .points-3lap, .player-times .points-1lap {
+	font-size: 0.85em;
+}
 .track-list .best-3lap {
 	grid-area: best-3lap;
 	text-align: right;
