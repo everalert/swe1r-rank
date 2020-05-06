@@ -112,7 +112,7 @@ header button {
 main {
 	max-width: min(100vw,720px);
 	margin: 0 auto !important;
-	padding: 0 1rem !important;
+	padding: 0 1rem 4rem !important;
 	display: grid;
 	grid-template-columns: repeat(9,1fr);
 	grid-template-rows: auto auto 1fr;
@@ -126,7 +126,7 @@ main {
 
 
 footer {
-	position: sticky;
+	position: fixed;
 	bottom: 0;
 	font-size: 1rem;
 	padding: 0.5em 1rem !important;
@@ -134,7 +134,8 @@ footer {
 	color: #888;
 	background: inherit;
 	z-index: 100;
-	/*min-width: calc(100vw - 2rem);*/
+	width: 100%;
+	box-sizing: border-box;
 }
 
 footer button {
@@ -427,6 +428,7 @@ footer button {
 			'h2 h2 h2 h2 h2 h2 page page page'
 			'table table table table table table table table table'
 			'panel panel panel panel panel panel panel panel panel';
+		padding-bottom: 0 !important;
 	}
 
 	footer {
