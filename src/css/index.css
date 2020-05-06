@@ -16,7 +16,6 @@
 	color: black;
 	background-color: white;
 	min-height: 100vh;
-	box-sizing: border-box;
 }
 
 
@@ -198,6 +197,10 @@ footer button {
 .side-panel :nth-last-child(1) {
 	margin-bottom: 0 !important;
 }
+.side-bar .Tilt {
+	position: sticky;
+	top: 3.8rem;
+}
 
 
 .table {
@@ -214,6 +217,7 @@ footer button {
 	box-sizing: border-box;
 }
 .table .header {
+	z-index: 70;
 	font-size: 1rem;
 	font-weight: bold;
 	position: sticky;
