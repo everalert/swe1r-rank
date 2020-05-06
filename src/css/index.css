@@ -75,14 +75,6 @@ nav button.icon:hover {
 }
 
 
-.logo {
-
-}
-.logo img {
-	height: 100%;
-}
-
-
 
 header {
 	display: grid;
@@ -97,9 +89,18 @@ header {
 }
 
 header .logo {
-	height: 2.35rem;
-	margin: 0.25rem;
+	--ratio: calc(824 / 128);
+	--height: 2.35rem;
+	height: var(--height);
+	width: calc(var(--ratio) * var(--height));
+	margin: 0.25rem auto;
+	text-indent: 100vw;
+	overflow: hidden;
 	grid-area: logo;
+	background-image: url("../img/logo.png");
+	background-size: 100% auto;
+	background-position: top center;
+	cursor: pointer;
 }
 
 header button {
@@ -196,6 +197,10 @@ footer button {
 .side-panel :nth-last-child(1) {
 	margin-bottom: 0 !important;
 }
+.side-bar .Tilt {
+	position: sticky;
+	top: 3.8rem;
+}
 
 
 .table {
@@ -212,6 +217,7 @@ footer button {
 	box-sizing: border-box;
 }
 .table .header {
+	z-index: 70;
 	font-size: 1rem;
 	font-weight: bold;
 	position: sticky;
@@ -276,6 +282,9 @@ footer button {
 .points-3lap, .points-1lap, .points, .points-total {
 	grid-area: points;
 	text-align: right;
+}
+.player-times .points-3lap, .player-times .points-1lap {
+	font-size: 0.85em;
 }
 .track-list .best-3lap {
 	grid-area: best-3lap;
@@ -349,6 +358,10 @@ footer button {
 	background-color: black;
 }
 
+
+#container.dark-theme header .logo {
+	background-position: bottom center;
+}
 #container.dark-theme nav button:hover {
 	background-color: #111;
 	color: #FFF;
@@ -404,7 +417,7 @@ footer button {
 		font-size: 1rem;
 	}
 	header .logo {
-		height: 1.5rem;
+		--height: 1.6rem;
 	}
 
 	main {
