@@ -184,7 +184,7 @@ footer button {
 .panel-heading {
 	font-size: 2rem;
 	margin: 0.25em 0 0;
-	font-style: italic;
+	/*font-style: italic;*/
 	font-weight: 300;
 	font-family: 'Teko', 'Roboto', sans-serif;
 	letter-spacing: 0.02em;
