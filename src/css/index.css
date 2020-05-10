@@ -125,6 +125,7 @@ main {
 		'h1 h1 h1 h1 h1 h1 h1 page page'
 		'h2 h2 h2 h2 h2 h2 h2 page page'
 		'table table table table table table panel panel panel';
+	--panel-text-shadow: 1px 1px 4px #FFF;
 }
 
 
@@ -171,6 +172,7 @@ footer button {
 	background-position: top left, bottom right, top left, bottom right, center;
 	background-size: contain, contain, contain, contain, cover;
 	background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+	text-shadow: var(--panel-text-shadow);
 }
 .side-panel.hide {
 	display: none;
@@ -239,6 +241,7 @@ footer button {
 	background-size: cover, cover, auto;
 	background-repeat: no-repeat, no-repeat, no-repeat;
 	transition: background-position 0.25s ease;
+	text-shadow: var(--panel-text-shadow);
 }
 .table .item:hover {
 	cursor: pointer;
@@ -373,6 +376,10 @@ footer button {
 #container.dark-theme nav button:hover {
 	background-color: #111;
 	color: #FFF;
+}
+
+#container.dark-theme main {
+	--panel-text-shadow: 1px 1px 4px #000;
 }
 
 #container.dark-theme nav button.icon:hover {
