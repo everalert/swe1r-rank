@@ -31,14 +31,14 @@ class PlayerPage extends React.Component {
 	}
 
 	render() {
-		return (
-			<main>
-				<h1>Player</h1>
-				<h2>{this.props.players[this.playerId].name}</h2>
-				<ContextPanel/>
-				<Player player={this.playerId} data={this.props.data}/>
-			</main>
-		);
+		if (!this.props.players[this.playerId])
+			return <main><p>Player {this.playerId} not found.</p></main>
+		return <main>
+			<h1>Player</h1>
+			<h2>{this.props.players[this.playerId].name}</h2>
+			<ContextPanel/>
+			<Player player={this.playerId} data={this.props.data}/>
+		</main>
 	}
 }
 
