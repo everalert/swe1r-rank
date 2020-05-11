@@ -1,7 +1,7 @@
 export default {
 	0 : {
 		1 : {
-			Release : new Date("2020-04-21"),
+			Release : new Date('2020-04-21'),
 			Notes : [
 				"Initial release.",
 				"Overall, 3-Lap and 1-Lap rankings.",
@@ -15,7 +15,7 @@ export default {
 	},
 	1 : {
 		0 : {
-			Release : new Date(),
+			Release : new Date('2020-05-12'),
 			Notes : [
 				"Website moved to podracing.gg",
 				"Added About page.",

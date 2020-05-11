@@ -1,5 +1,5 @@
 import VAL from './const';
-import { NewCtxItem, NewCtxHeading, NewCtxText } from '../module/ctxpan';
+import { NewCtxItem, NewCtxHeading, /*NewCtxText*/ } from '../module/ctxpan';
 import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints, FormatRunsPosted, FormatIdFromPlayer } from '../module/format';
 import { CalculatePoints, TimeNeededForPoints } from '../module/points';
 //import { merge } from 'lodash';

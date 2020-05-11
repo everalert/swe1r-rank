@@ -1,5 +1,4 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Player from '../element/table-player';
 import ContextPanel from '../element/ctxpan';

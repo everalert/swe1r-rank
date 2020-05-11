@@ -7,7 +7,6 @@ import Actions from '../state/action';
 
 export default (props) => {
 	const dispatch = useDispatch();
-	const gotoTrack = (id) => dispatch(Actions.gotoTrack(id));
 	const showDetail = (id,title) => dispatch(Actions.setCtxPanToTrack(id,title));
 	const closeDetail = (id) => dispatch(Actions.setCtxPanToPlayer(id));
 	return (

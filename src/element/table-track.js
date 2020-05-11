@@ -9,7 +9,6 @@ import Actions from '../state/action';
 export default (props) => {
 	const sort = useSelector(state => state.trackTab);
 	const dispatch = useDispatch();
-	const gotoPlayer = (id) => dispatch(Actions.gotoPlayer(id));
 	const showDetail = (id,title) => dispatch(Actions.setCtxPanToPlayer(id,title));
 	const closeDetail = (id) => dispatch(Actions.setCtxPanToTrack(id));
 	return (

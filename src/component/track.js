@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import Track from '../element/table-track';
 import PageSelector from '../element/page-selector';
 import ContextPanel from '../element/ctxpan';
