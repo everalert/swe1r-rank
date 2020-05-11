@@ -1,12 +1,12 @@
-import VAR from '../state/const'
+import VAL from '../state/const'
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Tilt from 'react-tilt';
 import Actions from '../state/action';
 
 export default (props) => {
 	const dispatch = useDispatch();
-	const gotoPlayer = (id) => dispatch(Actions.gotoPlayer(id));
 	const showDetail = (id,title) => dispatch(Actions.setCtxPanToPlayer(id,title));
 	const closeDetail = () => dispatch(Actions.setCtxPanToPlayerList());
 	return (
@@ -17,12 +17,12 @@ export default (props) => {
 				<div className='time'>TIME</div>
 			</div>
 			{ props.data.map((item,i) => {
-				return (<Tilt className='Tilt' options={VAR.Setting.Tilt.TableItem}>
-					<div onClick={()=>gotoPlayer(item.id)} onMouseEnter={()=>showDetail(item.id,item.name)} className='Tilt-inner item' key={i}>
+				return (<Tilt className='Tilt' options={VAL.Setting.Tilt.TableItem}>
+					<Link to={VAL.Routes.PLAYER.replace(':id',item.id)} onMouseEnter={()=>showDetail(item.id,item.name)} className='Tilt-inner item' key={i}>
 						<div className='player'>{item.name}</div>
 						{ Object.entries(item.fields).map((f,i) =>
-							<div key={i} className={VAR.TableFields[f[0]]}>{f[1]}</div>) }
-					</div>
+							<div key={i} className={VAL.TableFields[f[0]]}>{f[1]}</div>) }
+					</Link>
 				</Tilt>)
 			}) }
 		</section>
