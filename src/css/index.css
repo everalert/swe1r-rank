@@ -137,7 +137,7 @@ main {
 
 main.about, main.changelog, main.error-message {
 	display: block;
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 }
 
 p, ul {
@@ -505,7 +505,7 @@ footer button {
 	}
 
 	p, ul {
-		font-size: 1.25rem;
+		font-size: 1.1rem;
 	}
 
 	nav button {
