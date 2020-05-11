@@ -134,7 +134,7 @@ export default (state = initialState, action) => {
 				track.fields.best1L = FormatTime(t.best1L);
 				return track;
 			});
-			const levels = Object.keys(VAL.Id.Level);
+			const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);
 			table.sort((a,b) => levels.indexOf(a.id) - levels.indexOf(b.id));
 			output.table = table;
 			output.section = 'TRACKLIST';
