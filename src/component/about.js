@@ -3,8 +3,8 @@ import VAL from '../state/const';
 
 export default () => (
 	<main className="about">
-		<h1>About</h1>
-		<h2>RacerRank</h2>
+		<h1>RacerRank</h1>
+		<h2>About</h2>
 
 		<p>RacerRank is a point system for Star Wars: Episode I Racer time trials. Players are ranked by total points based on performance in their personal records on each track.</p>
 

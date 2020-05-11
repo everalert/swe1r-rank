@@ -6,11 +6,13 @@ import Actions from '../state/action';
 export default () => {
 	const dispatch = useDispatch();
 	const gotoAbout = ()=>dispatch(Actions.gotoAbout());
+	const gotoChangelog = ()=>dispatch(Actions.gotoChangelog());
 	const toggleTheme = ()=>dispatch(Actions.toggleTheme());
 	return (
 		<footer>
 			<nav>
 				<button onClick={gotoAbout}>About</button>
+				<button onClick={gotoChangelog}>Changelog</button>
 				<button onClick={toggleTheme} className='icon'><MdLightbulbOutline/></button>
 			</nav>
 		</footer>

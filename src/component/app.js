@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Loader from './loader';
 import About from './about';
+import Changelog from './changelog';
 import Ranking from './ranking'
 import PlayerList from './playerlist'
 import Player from './player'
@@ -20,7 +21,8 @@ export default () => {
 			case 'PLAYER':  return <Player/>
 			case 'TRACKLIST': return <TrackList/>;
 			case 'TRACK': return <Track/>;
-			case 'ABOUT': return <About/> 
+			case 'ABOUT': return <About/>;
+			case 'CHANGELOG': return <Changelog/>;
 			case 'RANKING': default: return <Ranking/>;
 		}
 	})(section)
