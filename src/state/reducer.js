@@ -121,7 +121,7 @@ export default (state = initialState, action) => {
 				p.fields[`time${t.cat}`] = FormatTime(t.time);
 				p.fields[`pts${t.cat}`] = FormatPoints(t.points);
 			});
-			const levels = Object.keys(VAL.Id.Level);
+			const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);
 			tracks.sort((a,b) => levels.indexOf(a.id) - levels.indexOf(b.id));
 			output.table = tracks;
 		}
