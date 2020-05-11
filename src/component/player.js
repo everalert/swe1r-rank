@@ -32,7 +32,7 @@ class PlayerPage extends React.Component {
 
 	render() {
 		if (!this.props.players[this.playerId])
-			return <main><p>Player {this.playerId} not found.</p></main>
+			return <main className='error-message'><p>Player {this.playerId} not found.</p></main>
 		return <main>
 			<h1>Player</h1>
 			<h2>{this.props.players[this.playerId].name}</h2>

@@ -37,7 +37,7 @@ class TrackPage extends React.Component {
 
 	render() {
 		if (!this.props.tracks[this.trackId])
-			return <main><p>Track {this.trackId} not found.</p></main>
+			return <main className='error-message'><p>Track {this.trackId} not found.</p></main>
 		return <main>
 			<h1>Track</h1>
 			<h2>{this.props.tracks[this.trackId].name}</h2>

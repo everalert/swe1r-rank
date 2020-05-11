@@ -135,7 +135,7 @@ main {
 	--panel-text-shadow: 1px 1px 4px #FFF;
 }
 
-main.about, main.changelog {
+main.about, main.changelog, main.error-message {
 	display: block;
 	font-size: 1.5rem;
 }
