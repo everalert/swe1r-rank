@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Loader from './loader';
-import About from '../static/about';
+import About from './about';
 import Ranking from './ranking'
 import PlayerList from './playerlist'
 import Player from './player'

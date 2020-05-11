@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald|Roboto|Roboto+Condensed|Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Roboto+Mono|Teko:300|Teko:400&display=swap');
 
 :root {
 	font-size: 12px;
@@ -21,24 +21,28 @@
 
 h1 {
 	margin: 1rem 0 0 !important;
-	font-size: 2rem;
+	font-size: 2.25rem;
 	text-transform: uppercase;
 	color: #888;
 	grid-area: h1;
+	font-family: 'Teko', 'Roboto', sans-serif;
 }
 h2 {
-	margin: -0.1em 0 1rem !important;
-	font-size: 3.5rem;
+	margin: -0.2em 0 1rem !important;
+	font-size: 3.75rem;
 	line-height: 0.85em;
 	text-transform: uppercase;
 	grid-area: h2;
+	font-family: 'Teko', 'Roboto', sans-serif;
 }
 h3 {
-	margin: -0.1em 0 0.5rem !important;
-	font-size: 1.65rem;
+	margin: -0.9em 0 0.5em !important;
+	font-size: 1.9rem;
 	grid-area: h3;
 	border-bottom: 1px solid #888;
-	padding-bottom: 0.5rem !important;
+	padding-bottom: -0.25em !important;
+	font-family: 'Teko', 'Roboto', sans-serif;
+	letter-spacing: 0.04em;
 }
 
 
@@ -112,7 +116,7 @@ header button {
 main {
 	max-width: min(100vw,720px);
 	margin: 0 auto !important;
-	padding: 0 1rem !important;
+	padding: 0 1rem 4rem !important;
 	display: grid;
 	grid-template-columns: repeat(9,1fr);
 	grid-template-rows: auto auto 1fr;
@@ -121,12 +125,32 @@ main {
 		'h1 h1 h1 h1 h1 h1 h1 page page'
 		'h2 h2 h2 h2 h2 h2 h2 page page'
 		'table table table table table table panel panel panel';
+	--panel-text-shadow: 1px 1px 4px #FFF;
+}
+
+main.about {
+	display: block;
+	font-size: 1.5rem;
+}
+
+p {
+	margin-bottom: 1em !important;
+	line-height: 1.35em;
+	text-align: justify;
+}
+
+a {
+	color: #8080FF;
+	text-decoration: none;
+}
+a:hover {
+	color: #A0A0FF;
 }
 
 
 
 footer {
-	position: sticky;
+	position: fixed;
 	bottom: 0;
 	font-size: 1rem;
 	padding: 0.5em 1rem !important;
@@ -134,7 +158,8 @@ footer {
 	color: #888;
 	background: inherit;
 	z-index: 100;
-	/*min-width: calc(100vw - 2rem);*/
+	width: 100%;
+	box-sizing: border-box;
 }
 
 footer button {
@@ -159,13 +184,14 @@ footer button {
 }
 .side-panel {
 	position: sticky;
-	top: 3.8rem;
+	top: 4rem;
 	padding: 1rem;
 	min-height: 12rem;
 	background-image: url("../img/ctxpan-tl.png"), url("../img/ctxpan-br.png"), url("../img/ctxpan-base-tl.png"), url("../img/ctxpan-base-br.png"), url("../img/ctxpan-base.png");
 	background-position: top left, bottom right, top left, bottom right, center;
 	background-size: contain, contain, contain, contain, cover;
 	background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+	text-shadow: var(--panel-text-shadow);
 }
 .side-panel.hide {
 	display: none;
@@ -175,9 +201,12 @@ footer button {
 	font-size: 1.25rem;
 }
 .panel-heading {
-	font-size: 1.4rem;
-	margin: 0.75rem 0 0.35rem;
-	font-style: italic;
+	font-size: 2rem;
+	margin: 0.25em 0 0;
+	/*font-style: italic;*/
+	font-weight: 300;
+	font-family: 'Teko', 'Roboto', sans-serif;
+	letter-spacing: 0.02em;
 }
 .panel-item {
 	display: grid;
@@ -199,7 +228,7 @@ footer button {
 }
 .side-bar .Tilt {
 	position: sticky;
-	top: 3.8rem;
+	top: 4rem;
 }
 
 
@@ -231,6 +260,7 @@ footer button {
 	background-size: cover, cover, auto;
 	background-repeat: no-repeat, no-repeat, no-repeat;
 	transition: background-position 0.25s ease;
+	text-shadow: var(--panel-text-shadow);
 }
 .table .item:hover {
 	cursor: pointer;
@@ -367,6 +397,10 @@ footer button {
 	color: #FFF;
 }
 
+#container.dark-theme main {
+	--panel-text-shadow: 1px 1px 4px #000;
+}
+
 #container.dark-theme nav button.icon:hover {
 	background-color: transparent;
 }
@@ -427,6 +461,7 @@ footer button {
 			'h2 h2 h2 h2 h2 h2 page page page'
 			'table table table table table table table table table'
 			'panel panel panel panel panel panel panel panel panel';
+		padding-bottom: 0 !important;
 	}
 
 	footer {
@@ -438,11 +473,19 @@ footer button {
 
 
 	h1 {
-		font-size: 1.5rem;
+		font-size: 1.75rem;
 	}
 	h2 {
-		font-size: 2.75rem;
+		font-size: 3rem;
 	}
+	h3 {
+		font-size: 1.5rem;
+	}
+
+	p {
+		font-size: 1.25rem;
+	}
+
 	nav button {
 		margin: 0 !important;
 	}
@@ -454,7 +497,7 @@ footer button {
 		padding: 0.75rem;
 	}
 	.panel-heading {
-		font-size: 1.25rem;
+		font-size: 1.5rem;
 	}
 	.panel-item, .panel-text {
 		font-size: 1rem;
