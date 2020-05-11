@@ -44,6 +44,13 @@ h3 {
 	font-family: 'Teko', 'Roboto', sans-serif;
 	letter-spacing: 0.04em;
 }
+h4 {
+	font-size: 1.9rem;
+	grid-area: h4;
+	padding-bottom: -0.25em !important;
+	font-family: 'Teko', 'Roboto', sans-serif;
+	letter-spacing: 0.04em;
+}
 
 
 button {
@@ -128,15 +135,20 @@ main {
 	--panel-text-shadow: 1px 1px 4px #FFF;
 }
 
-main.about {
+main.about, main.changelog {
 	display: block;
 	font-size: 1.5rem;
 }
 
-p {
+p, ul {
 	margin-bottom: 1em !important;
 	line-height: 1.35em;
 	text-align: justify;
+	list-style-type: square;
+}
+
+li {
+	margin-left: 1em !important;
 }
 
 a {
@@ -478,11 +490,11 @@ footer button {
 	h2 {
 		font-size: 3rem;
 	}
-	h3 {
+	h3, h4 {
 		font-size: 1.5rem;
 	}
 
-	p {
+	p, ul {
 		font-size: 1.25rem;
 	}
 

@@ -3,6 +3,7 @@ export default {
 
 	gotoRanking: () => ({type:'GOTO_RANKING'}),
 	gotoAbout: () => ({type:'GOTO_ABOUT'}),
+	gotoChangelog: () => ({type:'GOTO_CHANGELOG'}),
 	gotoTrack: (id) => ({type:'GOTO_TRACK',level:id}),
 	gotoTrackList: () => ({type:'GOTO_TRACKLIST'}),
 	gotoPlayer: (id) => ({type:'GOTO_PLAYER',player:id}),

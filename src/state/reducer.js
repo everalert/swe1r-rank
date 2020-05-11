@@ -192,6 +192,10 @@ export default (state = initialState, action) => {
 			output.section = 'ABOUT';
 		}
 
+		if (action.type === 'GOTO_CHANGELOG') {
+			output.section = 'CHANGELOG';
+		}
+
 		if (action.type === 'SET_MENU' || action.type === 'GOTO_RANKING' || action.type === 'GOTO_TRACK') {
 			const section = VAL.Sections.filter(s => s.id === output.section)[0];
 			if (section) 
