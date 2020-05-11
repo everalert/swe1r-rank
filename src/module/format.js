@@ -39,3 +39,7 @@ export const FormatTotalPoints = (points) => {
 export const FormatRunsPosted = (runs, max) => {
 	return <span className='runs-format'><span className='runs-done'>{runs}</span><span className='runs-max'>/{max}</span></span>;
 }
+
+export const FormatIdFromPlayer = (name) => {
+	return name.toLowerCase().replace(' ','_');
+}

@@ -1,6 +1,6 @@
 import VAL from './const';
 import { NewCtxItem, NewCtxHeading, NewCtxText } from '../module/ctxpan';
-import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints, FormatRunsPosted } from '../module/format';
+import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints, FormatRunsPosted, FormatIdFromPlayer } from '../module/format';
 import { CalculatePoints, TimeNeededForPoints } from '../module/points';
 //import { merge } from 'lodash';
 
@@ -206,35 +206,37 @@ export default (state = initialState, action) => {
 		if (action.type === 'ADD_RUN') {
 			//{ level:'kjhgfsd', cat:'3L', player:'sdlkjgfh', time:236.987, pts:100, platform:'Nintendo 64', character:'Ben' }
 			let cat = VAL.Id.Category[action.cat];
+			let playerId = FormatIdFromPlayer(action.player.name);
+			console.log(playerId);
 
-				if (!state.levels[action.level])
-					output.levels[action.level] = { name:VAL.Id.Level[action.level].name, abbr:VAL.Id.Level[action.level].abbr, best3L:3599.99, best1L:3599.99 };
-				if (output.levels[action.level][`best${cat}`] > action.time)
-					output.levels[action.level][`best${cat}`] = action.time;
+			if (!state.levels[action.level])
+				output.levels[action.level] = { name:VAL.Id.Level[action.level].name, abbr:VAL.Id.Level[action.level].abbr, best3L:3599.99, best1L:3599.99 };
+			if (output.levels[action.level][`best${cat}`] > action.time)
+				output.levels[action.level][`best${cat}`] = action.time;
 
-				if (!state.players[action.player.id])
-					output.players[action.player.id] = { name:action.player.name, ptsALL:0, pts3L:0, pts1L:0, timeALL:0, time3L:0, time1L:0 };
+			if (!state.players[playerId])
+				output.players[playerId] = { name:action.player.name, ptsALL:0, pts3L:0, pts1L:0, timeALL:0, time3L:0, time1L:0 };
 
-				//todo: add in calculation
-				let run = {
-					level: action.level,
-					cat: cat,
-					player: action.player.id,
-					time: action.time,
-					points: action.calculate ? 100 : 0,
-					platform: action.platform,
-					character: action.character
-				}
-				let test = state.runs.filter(r => action.level===r.level && cat===r.cat && action.player.id===r.player);
-				if (test.length && action.time<test[0].time) {
-					let all = state.runs.filter(r => !(action.level===r.level && cat===r.cat && action.player.id===r.player));
-					all.push(run);
-					output.runs = all;
-				}
-				else if (test.length)
-					return state;
-				else
-					output.runs.push(run);
+			//todo: add in calculation
+			let run = {
+				level: action.level,
+				cat: cat,
+				player: playerId,
+				time: action.time,
+				points: action.calculate ? 100 : 0,
+				platform: action.platform,
+				character: action.character
+			}
+			let test = state.runs.filter(r => action.level===r.level && cat===r.cat && playerId===r.player);
+			if (test.length && action.time<test[0].time) {
+				let all = state.runs.filter(r => !(action.level===r.level && cat===r.cat && playerId===r.player));
+				all.push(run);
+				output.runs = all;
+			}
+			else if (test.length)
+				return state;
+			else
+				output.runs.push(run);
 		}
 
 		if (action.type === 'SET_CTXPAN') {
