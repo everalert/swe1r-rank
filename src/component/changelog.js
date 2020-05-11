@@ -1,5 +1,4 @@
 import React from 'react';
-import VAL from '../state/const';
 import Changelog from '../state/changelog';
 
 export default () => {
@@ -8,7 +7,7 @@ export default () => {
 		<h2>ChangeLog</h2>
 		{ Object.keys(Changelog).sort().reverse().map(major => {
 			const output = [];
-			Object.keys(Changelog[major]).sort().reverse().map(minor => {
+			Object.keys(Changelog[major]).sort().reverse().forEach(minor => {
 				output.push(<h4>v{major}.{minor} &ndash; {Changelog[major][minor].Release.toLocaleDateString()}</h4>);
 				output.push(<ul>{Changelog[major][minor].Notes.map(n => <li>{n}</li>)}</ul>);
 			})

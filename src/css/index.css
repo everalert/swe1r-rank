@@ -490,11 +490,11 @@ footer button {
 	h2 {
 		font-size: 3rem;
 	}
-	h3 {
+	h3, h4 {
 		font-size: 1.5rem;
 	}
 
-	p {
+	p, ul {
 		font-size: 1.25rem;
 	}
 
