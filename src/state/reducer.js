@@ -208,7 +208,7 @@ export default (state = initialState, action) => {
 			let cat = VAL.Id.Category[action.cat];
 
 				if (!state.levels[action.level])
-					output.levels[action.level] = { name:VAL.Id.Level[action.level], best3L:3599.99, best1L:3599.99 };
+					output.levels[action.level] = { name:VAL.Id.Level[action.level].name, abbr:VAL.Id.Level[action.level].abbr, best3L:3599.99, best1L:3599.99 };
 				if (output.levels[action.level][`best${cat}`] > action.time)
 					output.levels[action.level][`best${cat}`] = action.time;
 

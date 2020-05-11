@@ -1,20 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import VAL from '../state/const';
 import { useDispatch } from 'react-redux';
 import { MdLightbulbOutline } from 'react-icons/md';
 import Actions from '../state/action';
 
 export default () => {
 	const dispatch = useDispatch();
-	const gotoAbout = ()=>dispatch(Actions.gotoAbout());
-	const gotoChangelog = ()=>dispatch(Actions.gotoChangelog());
 	const toggleTheme = ()=>dispatch(Actions.toggleTheme());
 	return (
-		<footer>
-			<nav>
-				<button onClick={gotoAbout}>About</button>
-				<button onClick={gotoChangelog}>Changelog</button>
-				<button onClick={toggleTheme} className='icon'><MdLightbulbOutline/></button>
-			</nav>
-		</footer>
+			<footer>
+				<nav>
+					<Link to={VAL.Routes.ABOUT}><button>About</button></Link>
+					<Link to={VAL.Routes.CHANGELOG}><button>Changelog</button></Link>
+					<button onClick={toggleTheme} className='icon'><MdLightbulbOutline/></button>
+				</nav>
+			</footer>
 	);
 }

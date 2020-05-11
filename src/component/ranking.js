@@ -1,27 +1,49 @@
+import VAL from '../state/const';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import PageSelector from '../element/page-selector';
 import Ranking from '../element/table-ranking';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
 
-export default () => {
-	const dispatch = useDispatch();
-	const sort = (sorting) => dispatch(Actions.sortRanking(sorting.value));
-	const menu = useSelector(state => state.menu);
-	const sorting = useSelector(state => state.rankingTab);
-	const data = useSelector(state => state.table);
-	const pageName = menu.filter(item => item.value===sorting)[0].label;
 
-	dispatch(Actions.setCtxPanToRanking());
-
-	return (
-		<main>
-			<h1>Ranking</h1>
-			<h2>{pageName}</h2>
-			<PageSelector onChangeHandler={sort} menu={menu} initial={sorting} />
-			<ContextPanel/>
-			<Ranking data={data}/>
-		</main>
-	);
+const mapStateToProps = state => {
+	return {
+		data: state.table,
+		sorting: state.rankingTab,
+		menu: state.menu
+	};
 }
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setCtxPanToRanking: () => dispatch(Actions.setCtxPanToRanking()),
+		gotoRanking: () => dispatch(Actions.gotoRanking()),
+		sort: (sorting) => dispatch(Actions.sortRanking(sorting.value))
+	};
+}
+
+
+class RankingPage extends React.Component {
+	constructor(props) {
+		super(props);
+		this.props.gotoRanking();
+		this.props.setCtxPanToRanking();
+	}
+
+	render() {
+		return (
+			<main>
+				<h1>Ranking</h1>
+				<h2>{VAL.Sections.filter(sec => sec.id==='RANKING')[0]
+					.pages.filter(item => item.id===this.props.sorting)[0].name}</h2>
+				<PageSelector onChangeHandler={this.props.sort} menu={this.props.menu} initial={this.props.sorting} />
+				<ContextPanel/>
+				<Ranking data={this.props.data}/>
+			</main>
+		);
+	}
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(RankingPage);

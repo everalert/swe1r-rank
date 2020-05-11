@@ -282,6 +282,7 @@ footer button {
 	background-repeat: no-repeat, no-repeat, no-repeat;
 	transition: background-position 0.25s ease;
 	text-shadow: var(--panel-text-shadow);
+	color: inherit;
 }
 .table .item:hover {
 	cursor: pointer;

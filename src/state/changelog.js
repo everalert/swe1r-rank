@@ -20,6 +20,7 @@ export default {
 				"Website moved to podracing.gg",
 				"Added About page.",
 				"Added Changelog.",
+				"Added linkable pages.",
 			]
 		}
 	},
