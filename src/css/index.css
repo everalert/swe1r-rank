@@ -185,6 +185,15 @@ footer button {
 
 
 
+.Tilt {
+	transform-style: preserve-3d;
+}
+.Tilt-inner *, .Tilt-item * {
+	transform: translateZ(1.25rem);
+	transform-origin: top;
+}
+
+
 .page-selector {
 	grid-area: page;
 	margin-top: 1rem;
