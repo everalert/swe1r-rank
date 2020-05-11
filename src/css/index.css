@@ -128,6 +128,25 @@ main {
 	--panel-text-shadow: 1px 1px 4px #FFF;
 }
 
+main.about {
+	display: block;
+	font-size: 1.5rem;
+}
+
+p {
+	margin-bottom: 1em !important;
+	line-height: 1.35em;
+	text-align: justify;
+}
+
+a {
+	color: #8080FF;
+	text-decoration: none;
+}
+a:hover {
+	color: #A0A0FF;
+}
+
 
 
 footer {
