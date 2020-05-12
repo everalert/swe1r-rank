@@ -17,7 +17,7 @@ export default () => {
 				<button onClick={cycleLap}><LapIcon/></button>
 				<Link to={VAL.Routes.RANKING}><button>Ranking</button></Link>
 				<Link to={VAL.Routes.TRACKLIST}><button>Tracks</button></Link>
-				<Link to={VAL.Routes.PLAYERLIST}><button>Players</button></Link>
+				<Link to={VAL.Routes.PLAYERLIST}><button>Racers</button></Link>
 			</nav>
 		</header>
 	);

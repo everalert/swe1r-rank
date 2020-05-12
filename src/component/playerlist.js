@@ -28,7 +28,7 @@ class Players extends React.Component {
 		return (
 			<main>
 				<h1>All</h1>
-				<h2>Players</h2>
+				<h2>Racers</h2>
 				<ContextPanel/>
 				<PlayerList data={this.props.data}/>
 			</main>
