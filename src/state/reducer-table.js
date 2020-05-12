@@ -1,6 +1,7 @@
 import VAL from './const';
 import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints, FormatRunsPosted, FormatIdFromPlayer } from '../module/format';
 
+
 export const RankingTableFromState = (state) => {
 	let table = Object.keys(state.players).map(k => {
 		let p = state.players[k];
@@ -43,6 +44,7 @@ export const RankingTableFromState = (state) => {
 	return table;
 }
 
+
 export const TrackListTableFromState = (state) => {
 	let table = Object.keys(state.levels).map(k => {
 		let t = state.levels[k];
@@ -56,9 +58,59 @@ export const TrackListTableFromState = (state) => {
 	return table;
 }
 
+
 export const TrackTableFromState = (state) => {
-	return [];
+	const times = state.runs.filter(t => t.level === state.page);
+	let table = [];
+	times.forEach(t => {
+		table = table.filter(p => p.id!==t.player);
+		table.push({
+			id:t.player,
+			name:state.players[t.player].name,
+			sort1L:0,
+			sort3L:0,
+			sortALL:0,
+			time1L:0,
+			time3L:0,
+			timeALL:0,
+			fields:{},
+			data:{}
+		})
+	});
+	times.forEach(t => {
+		let p = table.filter(p => p.id===t.player)[0];
+		p[`sort${t.cat}`] = t.points;
+		p[`time${t.cat}`] = t.time;
+		p.data[`time${t.cat}`] = FormatTime(t.time,'seconds');
+		p.data[`pts${t.cat}`] = FormatPoints(t.points);
+	});
+	table.forEach(t => {
+		t.sortALL = t.sort3L+t.sort1L;
+		t.timeALL = t.time3L+t.time1L;
+		t.data.timeALL = FormatTime(t.time3L+t.time1L);
+		t.data.ptsALL = FormatPoints(t.sort3L+t.sort1L);
+	});
+
+	let sort = VAL.Setting.Lap[state.settings.lap].key;
+	table = table.filter(t => t[`time${sort}`] > 0);
+	table.sort((a,b) => b[`sort${sort}`] - a[`sort${sort}`]);
+	let rank = 0, rankStreak = 0;
+	let last = null;
+	table.forEach(item => {
+		rankStreak++;
+		if (item[`sort${sort}`] !== last) {
+			rank += rankStreak;
+			rankStreak = 0;
+		}
+		item.fields = {}
+		item.fields[`time${sort}`] = item.data[`time${sort}`];
+		item.fields[`pts${sort}`] = item.data[`pts${sort}`];
+		item.rank = rank;
+		last = item[`sort${sort}`];
+	});
+	return table;
 }
+
 
 export const PlayerListTableFromState = (state) => {
 	let sort = VAL.Setting.Lap[state.settings.lap].key;
@@ -72,6 +124,7 @@ export const PlayerListTableFromState = (state) => {
 	table.sort((a,b) => a.name.localeCompare(b.name));
 	return table;
 }
+
 
 export const PlayerTableFromState = (state) => {
 	const times = state.runs.filter(t => t.player === state.page);

@@ -17,11 +17,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setCtxPanToTrack: (id) => dispatch(Actions.setCtxPanToTrack(id)),
-		gotoTrack: (id) => dispatch(Actions.gotoTrack(id)),
-		sort: (sorting,track) => {
-			dispatch(Actions.sortTrack(sorting.value));
-			dispatch(Actions.setCtxPanToTrack(track));
+		initialize: (trackId) => {
+			dispatch(Actions.changeSection('TRACK',trackId));
+			dispatch(Actions.updateTable());
+			dispatch(Actions.updateCtxPan());
 		}
 	};
 }
@@ -31,8 +30,7 @@ class TrackPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.trackId = this.props.match.params.id;
-		this.props.gotoTrack(this.trackId);
-		this.props.setCtxPanToTrack(this.trackId);
+		this.props.initialize(this.trackId);
 	}
 
 	render() {
@@ -41,7 +39,7 @@ class TrackPage extends React.Component {
 		return <main>
 			<h1>Track</h1>
 			<h2>{this.props.tracks[this.trackId].name}</h2>
-			<PageSelector onChangeHandler={(sort) => this.props.sort(sort,this.trackId)} menu={this.props.menu} initial={this.props.sorting} />
+			{/*<PageSelector onChangeHandler={(sort) => this.props.sort(sort,this.trackId)} menu={this.props.menu} initial={this.props.sorting} />*/}
 			<ContextPanel/>
 			<Track track={this.trackId} data={this.props.data}/>
 		</main>
