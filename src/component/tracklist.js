@@ -11,8 +11,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setCtxPanToTrackList: () => dispatch(Actions.setCtxPanToTrackList()),
-		gotoTrackList: () => dispatch(Actions.gotoTrackList())
+		initialize: () => {
+			dispatch(Actions.changeSection('TRACKLIST'));
+			dispatch(Actions.updateTable());
+			dispatch(Actions.updateCtxPan());
+		}
 	};
 }
 
@@ -20,8 +23,7 @@ const mapDispatchToProps = dispatch => {
 class Tracks extends React.Component {
 	constructor(props) {
 		super(props);
-		this.props.gotoTrackList();
-		this.props.setCtxPanToTrackList();
+		this.props.initialize();
 	}
 
 	render() {

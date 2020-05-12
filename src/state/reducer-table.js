@@ -42,3 +42,28 @@ export const RankingTableFromState = (state) => {
 
 	return table;
 }
+
+export const TrackListTableFromState = (state) => {
+	let table = Object.keys(state.levels).map(k => {
+		let t = state.levels[k];
+		let track = { id:k, name:t.name, fields:{} };
+		track.fields.best3L = FormatTime(t.best3L);
+		track.fields.best1L = FormatTime(t.best1L);
+		return track;
+	});
+	const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);
+	table.sort((a,b) => levels.indexOf(a.id) - levels.indexOf(b.id));
+	return table;
+}
+
+export const TrackTableFromState = (state) => {
+	return [];
+}
+
+export const PlayerListTableFromState = (state) => {
+	return [];
+}
+
+export const PlayerTableFromState = (state) => {
+	return [];
+}

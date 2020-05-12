@@ -2,7 +2,11 @@ import VAL from './const';
 import { NewCtxItem, NewCtxHeading, /*NewCtxText*/ } from '../module/ctxpan';
 import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints, FormatRunsPosted, FormatIdFromPlayer } from '../module/format';
 import { CalculatePoints, TimeNeededForPoints } from '../module/points';
-import { RankingTableFromState } from './reducer-table';
+import { RankingTableFromState,
+         TrackListTableFromState,
+         TrackTableFromState,
+         PlayerListTableFromState,
+         PlayerTableFromState } from './reducer-table';
 //import { merge } from 'lodash';
 
 const initialState = {
@@ -63,10 +67,18 @@ export default (state = initialState, action) => {
 				case 'RANKING':
 					output.table = RankingTableFromState(state);
 					break;
-				case 'TRACKLIST': break;
-				case 'TRACK': break;
-				case 'PLAYERLIST': break;
-				case 'PLAYER': break;
+				case 'TRACKLIST': 
+					output.table = TrackListTableFromState(state);
+					break;
+				case 'TRACK': 
+					output.table = TrackTableFromState(state);
+					break;
+				case 'PLAYERLIST': 
+					output.table = PlayerListTableFromState(state);
+					break;
+				case 'PLAYER': 
+					output.table = PlayerTableFromState(state);
+					break;
 				default: break;
 			}
 		}
