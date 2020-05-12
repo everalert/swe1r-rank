@@ -8,15 +8,20 @@ export default {
 	gotoTrackList: () => ({type:'GOTO_TRACKLIST'}),
 	gotoPlayer: (id) => ({type:'GOTO_PLAYER',player:id}),
 	gotoPlayerList: () => ({type:'GOTO_PLAYERLIST'}),
+	changeSection: (section,page) => ({ type:'CHANGE_SECTION', section:section, page:page }),
+	changePage: (page) => ({ type:'CHANGE_PAGE', page:page }),
 
 	sortRanking: (sorting) => ({type:'SORT_RANKING',sort:sorting}),
 	sortTrack: (sorting) => ({type:'SORT_TRACK',sort:sorting}),
 
+	markLoaded: () => ({type:'MARK_LOADED'}),
+	markLoading: (isLoading) => ({ type:'MARK_LOADING', loading:isLoading }),
+
+	updateTable: () => ({ type:'UPDATE_TABLE' }),
+	updateCtxPan: () => ({ type:'UPDATE_CTXPAN' }),
+
 	calcTime: () => ({type:'CALCULATE_TIME'}),
 	calcPoints: () => ({type:'CALCULATE_POINTS'}),
-
-	markLoaded: () => ({type:'MARK_LOADED'}),
-	markLoading: () => ({type:'MARK_LOADING'}),
 
 	toggleTheme: () => ({type:'TOGGLE_THEME'}),
 

@@ -2,6 +2,7 @@ import VAL from './const';
 import { NewCtxItem, NewCtxHeading, /*NewCtxText*/ } from '../module/ctxpan';
 import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints, FormatRunsPosted, FormatIdFromPlayer } from '../module/format';
 import { CalculatePoints, TimeNeededForPoints } from '../module/points';
+import { RankingTableFromState } from './reducer-table';
 //import { merge } from 'lodash';
 
 const initialState = {
@@ -48,7 +49,20 @@ export default (state = initialState, action) => {
 		}
 
 		if (action.type === 'CYCLE_LAP_SETTING') {
-			output.settings.lap = (state.settings.lap+1)%3;
+			output.settings.lap = (state.settings.lap+1)%VAL.Setting.Lap.length;
+		}
+
+		if (action.type === 'UPDATE_TABLE') {
+			switch (state.section) {
+				case 'RANKING':
+					output.table = RankingTableFromState(state);
+					break;
+				case 'TRACKLIST': break;
+				case 'TRACK': break;
+				case 'PLAYERLIST': break;
+				case 'PLAYER': break;
+				default: break;
+			}
 		}
 
 
