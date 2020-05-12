@@ -54,7 +54,7 @@ export default {
 	Score : {
 		Max : 100,
 		Scale : 1.5,
-		Precision: 3
+		Precision: 6
 
 	},
 	TableFields : {
