@@ -5,7 +5,7 @@ export default {
 			Notes : [
 				"Initial release.",
 				"Overall, 3-Lap and 1-Lap rankings.",
-				"Points assigned linearly on a 100-point scale for times up to 1.5× WR.",
+				"Points assigned linearly on a 100-point scale for times up to 1.5× WR to 3 decimal places.",
 				"Times ranked without categoric discrimination.",
 				"Added track-level ranking pages.",
 				"Added player profile pages.",
@@ -21,6 +21,12 @@ export default {
 				"Added About page.",
 				"Added Changelog.",
 				"Added linkable pages.",
+			]
+		},
+		1 : {
+			Release : new Date(),
+			Notes : [
+				"Internal point precision changed from 3 to 6 decimal places.",
 			]
 		}
 	},
