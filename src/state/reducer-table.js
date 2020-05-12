@@ -61,7 +61,16 @@ export const TrackTableFromState = (state) => {
 }
 
 export const PlayerListTableFromState = (state) => {
-	return [];
+	let sort = VAL.Setting.Lap[state.settings.lap].key;
+	let table = Object.keys(state.players).map(k => {
+		let p = state.players[k];
+		let player = { id:k, name:p.name, fields:{} };
+		player.fields[`pts${sort}`] = FormatTotalPoints(p[`pts${sort}`]);
+		player.fields[`time${sort}`] = FormatTotalTime(Math.floor(p[`time${sort}`]));
+		return player;
+	});
+	table.sort((a,b) => a.name.localeCompare(b.name));
+	return table;
 }
 
 export const PlayerTableFromState = (state) => {

@@ -11,8 +11,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setCtxPanToPlayerList: () => dispatch(Actions.setCtxPanToPlayerList()),
-		gotoPlayerList: () => dispatch(Actions.gotoPlayerList())
+		initialize: () => {
+			dispatch(Actions.changeSection('PLAYERLIST'));
+			dispatch(Actions.updateTable());
+			dispatch(Actions.updateCtxPan());
+		}
 	};
 }
 
@@ -20,8 +23,7 @@ const mapDispatchToProps = dispatch => {
 class Players extends React.Component {
 	constructor(props) {
 		super(props);
-		this.props.gotoPlayerList();
-		this.props.setCtxPanToPlayerList();
+		this.props.initialize();
 	}
 
 	render() {
