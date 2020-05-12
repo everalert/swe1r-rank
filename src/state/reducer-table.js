@@ -1,5 +1,5 @@
 import VAL from './const';
-import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints, FormatRunsPosted, FormatIdFromPlayer } from '../module/format';
+import { FormatTime, FormatTotalTime, FormatPoints, FormatTotalPoints } from '../module/format';
 
 
 export const RankingTableFromState = (state) => {

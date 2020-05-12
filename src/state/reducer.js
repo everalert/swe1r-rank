@@ -1,6 +1,6 @@
 import VAL from './const';
 import { NewCtxItem, NewCtxHeading, /*NewCtxText*/ } from '../module/ctxpan';
-import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints, FormatRunsPosted, FormatIdFromPlayer } from '../module/format';
+import { FormatTime, FormatFullTotalTime, FormatRunsPosted, FormatIdFromPlayer } from '../module/format';
 import { CalculatePoints, TimeNeededForPoints } from '../module/points';
 import { RankingTableFromState,
          TrackListTableFromState,
@@ -12,8 +12,6 @@ import { RankingTableFromState,
 const initialState = {
 	section : 'RANKING',
 	page : 0,
-	rankingTab: 'ALL',
-	trackTab: '3L',
 	loading : true,
 	table : [],
 	menu : [],
@@ -83,199 +81,6 @@ export default (state = initialState, action) => {
 			}
 		}
 
-
-		if (action.type === 'GOTO_RANKING') {
-			output.section = 'RANKING';
-
-			const table = Object.keys(state.players).map(k => {
-				let p = state.players[k];
-				let player = {
-					id:k,
-					name:p.name,
-					sortALL:p.ptsALL,
-					sort1L:p.pts1L,
-					sort3L:p.pts3L,
-					fields:{},
-					data:{
-						ptsALL: FormatTotalPoints(p.ptsALL),
-						timeALL: FormatTotalTime(Math.floor(p.timeALL)),
-						pts1L: FormatTotalPoints(p.pts1L),
-						time1L: FormatTotalTime(Math.floor(p.time1L)),
-						pts3L: FormatTotalPoints(p.pts3L),
-						time3L: FormatTotalTime(Math.floor(p.time3L)),
-					}
-				};
-				return player;
-			});
-			output.table = table;
-		}
-
-		if (action.type === 'SORT_RANKING' || action.type === 'GOTO_RANKING') {
-			if (action.type==='SORT_RANKING') output.rankingTab = action.sort
-			let sort = action.type==='SORT_RANKING' ? action.sort : output.rankingTab;
-			let table = [...output.table];
-			table.sort((a,b) => b[`sort${sort}`] - a[`sort${sort}`]);
-			let rank = 0, rankStreak = 0;
-			let last = null;
-			table.forEach(item => {
-				rankStreak++;
-				if (item[`sort${sort}`] !== last) {
-					rank += rankStreak;
-					rankStreak = 0;
-				}
-				item.fields = {}
-				item.fields[`time${sort}`] = item.data[`time${sort}`];
-				item.fields[`pts${sort}`] = item.data[`pts${sort}`];
-				item.rank = rank;
-				last = item[`sort${sort}`];
-			});
-			output.table = table;
-		}
-
-
-		if (action.type === 'GOTO_PLAYERLIST') {
-			const table = Object.keys(state.players).map(k => {
-				let p = state.players[k];
-				let player = { id:k, name:p.name, fields:{} };
-				player.fields.ptsALL = FormatTotalPoints(p.ptsALL);
-				player.fields.timeALL = FormatTotalTime(Math.floor(p.timeALL));
-				return player;
-			});
-			table.sort((a,b) => a.name.localeCompare(b.name));
-			output.table = table;
-			output.section = 'PLAYERLIST';
-		}
-
-		if (action.type === 'GOTO_PLAYER') {
-			output.section = 'PLAYER';
-			output.page = action.player;
-
-			const times = state.runs.filter(t => t.player === action.player);
-			
-			let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, fields:{} }) );
-			times.forEach(t => {
-				let p = tracks.filter(p => p.id===t.level)[0];
-				p.fields[`time${t.cat}`] = FormatTime(t.time);
-				p.fields[`pts${t.cat}`] = FormatPoints(t.points);
-			});
-			const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);
-			tracks.sort((a,b) => levels.indexOf(a.id) - levels.indexOf(b.id));
-			output.table = tracks;
-		}
-
-		if (action.type === 'GOTO_TRACKLIST') {
-			let table = Object.keys(state.levels).map(k => {
-				let t = state.levels[k];
-				let track = { id:k, name:t.name, fields:{} };
-				track.fields.best3L = FormatTime(t.best3L);
-				track.fields.best1L = FormatTime(t.best1L);
-				return track;
-			});
-			const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);
-			table.sort((a,b) => levels.indexOf(a.id) - levels.indexOf(b.id));
-			output.table = table;
-			output.section = 'TRACKLIST';
-		}
-
-		if (action.type === 'GOTO_TRACK') {
-			output.section = 'TRACK';
-			output.page = action.level;
-
-			const times = state.runs.filter(t => t.level === action.level);
-			let players = [];
-			times.forEach(t => {
-				players = players.filter(p => p.id!==t.player);
-				players.push({
-					id:t.player,
-					name:state.players[t.player].name,
-					sort1L:3599.99,
-					sort3L:3599.99,
-					fields:{},
-					data:{}
-				})
-			});
-			times.forEach(t => {
-				let p = players.filter(p => p.id===t.player)[0];
-				p[`sort${t.cat}`] = t.time;
-				p.data[`time${t.cat}`] = FormatTime(t.time,'seconds');
-				p.data[`pts${t.cat}`] = FormatPoints(t.points);
-			});
-			output.table = players;
-		}
-
-		if (action.type === 'SORT_TRACK' || action.type === 'GOTO_TRACK') {
-			if (action.type==='SORT_TRACK') output.trackTab = action.sort
-			let sort = action.type==='SORT_TRACK' ? action.sort : output.trackTab;
-			let table = [...output.table];
-			table.sort((a,b) => a[`sort${sort}`] - b[`sort${sort}`]);
-			let rank = 0, rankStreak = 0;
-			let last = null;
-			table.forEach(item => {
-				rankStreak++;
-				if (item[`sort${sort}`] !== last) {
-					rank += rankStreak;
-					rankStreak = 0;
-				}
-				item.fields = {}
-				item.fields[`time${sort}`] = item.data[`time${sort}`];
-				item.fields[`pts${sort}`] = item.data[`pts${sort}`];
-				item.rank = rank;
-				last = item[`sort${sort}`];
-			});
-			output.table = table;
-		}
-
-		if (action.type === 'GOTO_ABOUT') {
-			output.section = 'ABOUT';
-		}
-
-		if (action.type === 'GOTO_CHANGELOG') {
-			output.section = 'CHANGELOG';
-		}
-
-		if (action.type === 'SET_MENU' || action.type === 'GOTO_RANKING' || action.type === 'GOTO_TRACK') {
-			const section = VAL.Sections.filter(s => s.id === output.section)[0];
-			if (section) 
-				output.menu = section.pages.map((p,i) => { return { value:p.id, label:p.name } });
-		}
-
-
-		if (action.type === 'ADD_RUN') {
-			//{ level:'kjhgfsd', cat:'3L', player:'sdlkjgfh', time:236.987, pts:100, platform:'Nintendo 64', character:'Ben' }
-			let cat = VAL.Id.Category[action.cat];
-			let playerId = FormatIdFromPlayer(action.player.name);
-			let levelId = VAL.Id.Level[action.level].abbr;
-
-			if (!state.levels[levelId])
-				output.levels[levelId] = { name:VAL.Id.Level[action.level].name, abbr:VAL.Id.Level[action.level].abbr, best3L:3599.99, best1L:3599.99 };
-			if (output.levels[levelId][`best${cat}`] > action.time)
-				output.levels[levelId][`best${cat}`] = action.time;
-
-			if (!state.players[playerId])
-				output.players[playerId] = { name:action.player.name, ptsALL:0, pts3L:0, pts1L:0, timeALL:0, time3L:0, time1L:0 };
-
-			//todo: add in calculation
-			let run = {
-				level: levelId,
-				cat: cat,
-				player: playerId,
-				time: action.time,
-				points: action.calculate ? 100 : 0,
-				platform: action.platform,
-				character: action.character
-			}
-			let test = state.runs.filter(r => levelId===r.level && cat===r.cat && playerId===r.player);
-			if (test.length && action.time<test[0].time) {
-				let all = state.runs.filter(r => !(levelId===r.level && cat===r.cat && playerId===r.player));
-				all.push(run);
-				output.runs = all;
-			}
-			else if (test.length)
-				return state;
-			else
-				output.runs.push(run);
-		}
-
 		if (action.type === 'SET_CTXPAN') {
 			output.panel.title = action.title || null;
 			let totals;
@@ -322,7 +127,7 @@ export default (state = initialState, action) => {
 					break;
 				case 'TRACK':
 					if (Object.keys(state.levels).indexOf(action.level)>=0) {
-						const time = state.levels[action.level][`best${state.trackTab}`];
+						const time = state.levels[action.level].best3L;
 						items.push(NewCtxHeading('Milestones'));
 						items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
 						items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
@@ -342,6 +147,43 @@ export default (state = initialState, action) => {
 		if (action.type === 'RESET_CTXPAN') {
 			output.panel.title = action.title || null;
 			output.panel.items = [];
+		}
+
+
+		if (action.type === 'ADD_RUN') {
+			//{ level:'kjhgfsd', cat:'3L', player:'sdlkjgfh', time:236.987, pts:100, platform:'Nintendo 64', character:'Ben' }
+			let cat = VAL.Id.Category[action.cat];
+			let playerId = FormatIdFromPlayer(action.player.name);
+			let levelId = VAL.Id.Level[action.level].abbr;
+
+			if (!state.levels[levelId])
+				output.levels[levelId] = { name:VAL.Id.Level[action.level].name, abbr:VAL.Id.Level[action.level].abbr, best3L:3599.99, best1L:3599.99 };
+			if (output.levels[levelId][`best${cat}`] > action.time)
+				output.levels[levelId][`best${cat}`] = action.time;
+
+			if (!state.players[playerId])
+				output.players[playerId] = { name:action.player.name, ptsALL:0, pts3L:0, pts1L:0, timeALL:0, time3L:0, time1L:0 };
+
+			//todo: add in calculation
+			let run = {
+				level: levelId,
+				cat: cat,
+				player: playerId,
+				time: action.time,
+				points: action.calculate ? 100 : 0,
+				platform: action.platform,
+				character: action.character
+			}
+			let test = state.runs.filter(r => levelId===r.level && cat===r.cat && playerId===r.player);
+			if (test.length && action.time<test[0].time) {
+				let all = state.runs.filter(r => !(levelId===r.level && cat===r.cat && playerId===r.player));
+				all.push(run);
+				output.runs = all;
+			}
+			else if (test.length)
+				return state;
+			else
+				output.runs.push(run);
 		}
 
 		if (action.type === 'CALCULATE_POINTS') {

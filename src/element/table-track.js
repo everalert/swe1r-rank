@@ -1,13 +1,12 @@
 import VAL from '../state/const'
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Numeral from 'numeral';
 import Tilt from 'react-tilt';
 import Actions from '../state/action';
 
 export default (props) => {
-	const sort = useSelector(state => state.page);
 	const dispatch = useDispatch();
 	const showDetail = (id,title) => dispatch(Actions.setCtxPanToPlayer(id,title));
 	const closeDetail = (id) => dispatch(Actions.setCtxPanToTrack(id));
