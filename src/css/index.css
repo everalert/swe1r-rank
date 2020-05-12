@@ -265,7 +265,7 @@ footer button {
 .table .header, .table .item {
 	display: grid;
 	grid-gap: 0 1rem;
-	padding: 0.22em 0.75rem;
+	padding: 0.22em 1rem;
 	margin: 0 0 0.2em;
 	box-sizing: border-box;
 }
