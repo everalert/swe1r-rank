@@ -74,5 +74,15 @@ export const PlayerListTableFromState = (state) => {
 }
 
 export const PlayerTableFromState = (state) => {
-	return [];
+	const times = state.runs.filter(t => t.player === state.page);
+	
+	let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, fields:{} }) );
+	times.forEach(t => {
+		let p = tracks.filter(p => p.id===t.level)[0];
+		p.fields[`time${t.cat}`] = FormatTime(t.time);
+		p.fields[`pts${t.cat}`] = FormatPoints(t.points);
+	});
+	const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);
+	tracks.sort((a,b) => levels.indexOf(a.id) - levels.indexOf(b.id));
+	return tracks;
 }

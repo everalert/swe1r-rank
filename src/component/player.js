@@ -14,9 +14,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setCtxPanToPlayer: (id) => dispatch(Actions.setCtxPanToPlayer(id)),
-		gotoPlayer: (id) => dispatch(Actions.gotoPlayer(id)),
-		sort: (sorting) => dispatch(Actions.sortRanking(sorting.value))
+		initialize: (playerId) => {
+			dispatch(Actions.changeSection('PLAYER',playerId));
+			dispatch(Actions.updateTable());
+			dispatch(Actions.updateCtxPan());
+		}
 	};
 }
 
@@ -25,8 +27,7 @@ class PlayerPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.playerId = this.props.match.params.id;
-		this.props.gotoPlayer(this.playerId);
-		this.props.setCtxPanToPlayer(this.playerId);
+		this.props.initialize(this.playerId);
 	}
 
 	render() {
