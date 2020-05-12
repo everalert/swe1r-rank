@@ -48,6 +48,12 @@ export default (state = initialState, action) => {
 			output.players = {};
 		}
 
+		if (action.type === 'CHANGE_SECTION') {
+			output.section = action.section;
+			if (action.page)
+				output.page = action.page;
+		}
+
 		if (action.type === 'CYCLE_LAP_SETTING') {
 			output.settings.lap = (state.settings.lap+1)%VAL.Setting.Lap.length;
 		}

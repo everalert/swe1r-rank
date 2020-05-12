@@ -17,8 +17,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setCtxPanToRanking: () => dispatch(Actions.setCtxPanToRanking()),
-		gotoRanking: () => dispatch(Actions.gotoRanking()),
+		initialize: () => {
+			dispatch(Actions.changeSection('RANKING'));
+			dispatch(Actions.updateTable());
+			dispatch(Actions.updateCtxPan());
+		},
 		sort: (sorting) => dispatch(Actions.sortRanking(sorting.value))
 	};
 }
@@ -27,8 +30,7 @@ const mapDispatchToProps = dispatch => {
 class RankingPage extends React.Component {
 	constructor(props) {
 		super(props);
-		this.props.gotoRanking();
-		this.props.setCtxPanToRanking();
+		this.props.initialize();
 	}
 
 	render() {
@@ -37,7 +39,7 @@ class RankingPage extends React.Component {
 				<h1>Ranking</h1>
 				<h2>{VAL.Sections.filter(sec => sec.id==='RANKING')[0]
 					.pages.filter(item => item.id===this.props.sorting)[0].name}</h2>
-				<PageSelector onChangeHandler={this.props.sort} menu={this.props.menu} initial={this.props.sorting} />
+				{/*<PageSelector onChangeHandler={this.props.sort} menu={this.props.menu} initial={this.props.sorting} />*/}
 				<ContextPanel/>
 				<Ranking data={this.props.data}/>
 			</main>
