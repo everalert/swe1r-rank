@@ -47,6 +47,10 @@ export default (state = initialState, action) => {
 			output.players = {};
 		}
 
+		if (action.type === 'CYCLE_LAP_SETTING') {
+			output.settings.lap = (state.settings.lap+1)%3;
+		}
+
 
 		if (action.type === 'GOTO_RANKING') {
 			output.section = 'RANKING';

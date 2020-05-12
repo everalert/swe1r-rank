@@ -47,4 +47,6 @@ export default {
 	setCtxPanToTrackList: (title) => ({type:'SET_CTXPAN',mode:'TRACKLIST',title:title}),
 	setCtxPanToTrack: (id,title) => ({type:'SET_CTXPAN',mode:'TRACK',level:id,title:title}),
 	resetCtxPan: () => ({type:'RESET_CTXPAN'}),
+
+	cycleLapSetting: () => ({type:'CYCLE_LAP_SETTING'})
 };
