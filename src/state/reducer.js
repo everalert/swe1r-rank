@@ -22,6 +22,7 @@ const initialState = {
 	settings : {
 		dark: true,
 		refreshable: false,
+		lap: 0 //0=overall,1=3lap,2=1lap
 	}
 };
 
