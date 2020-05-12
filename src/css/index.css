@@ -48,7 +48,7 @@ h3 {
 h4 {
 	font-size: 1.9rem;
 	grid-area: h4;
-	padding-bottom: -0.25em !important;
+	padding-bottom: 0.35em !important;
 	font-family: 'Teko', 'Roboto', sans-serif;
 	letter-spacing: 0.04em;
 	line-height: 1.1em;
