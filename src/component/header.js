@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import VAL from '../state/const';
 import { useDispatch } from 'react-redux';
 import { MdLoop } from 'react-icons/md';
+import LapIcon from '../element/lap-icon';
 import Actions from '../state/action';
 
 export default () => {
@@ -14,6 +15,7 @@ export default () => {
 		<header>
 			<Link to='/' className='logo'>RacerRank</Link>
 			<nav>
+				<LapIcon/>
 				<Link to={VAL.Routes.RANKING}><button>Ranking</button></Link>
 				<Link to={VAL.Routes.TRACKLIST}><button>Tracks</button></Link>
 				<Link to={VAL.Routes.PLAYERLIST}><button>Players</button></Link>
