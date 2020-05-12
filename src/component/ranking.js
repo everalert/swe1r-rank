@@ -10,6 +10,7 @@ import Actions from '../state/action';
 const mapStateToProps = state => {
 	return {
 		data: state.table,
+		lap: state.settings.lap,
 		sorting: state.rankingTab,
 		menu: state.menu
 	};
@@ -37,8 +38,7 @@ class RankingPage extends React.Component {
 		return (
 			<main>
 				<h1>Ranking</h1>
-				<h2>{VAL.Sections.filter(sec => sec.id==='RANKING')[0]
-					.pages.filter(item => item.id===this.props.sorting)[0].name}</h2>
+				<h2>{VAL.Setting.Lap[this.props.lap].name}</h2>
 				{/*<PageSelector onChangeHandler={this.props.sort} menu={this.props.menu} initial={this.props.sorting} />*/}
 				<ContextPanel/>
 				<Ranking data={this.props.data}/>
