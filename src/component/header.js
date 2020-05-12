@@ -8,7 +8,11 @@ import Actions from '../state/action';
 export default () => {
 	//const refreshable = useSelector(state => state.settings.refreshable);
 	const dispatch = useDispatch();
-	const cycleLap = () => dispatch(Actions.cycleLapSetting());
+	const cycleLap = () => {
+		dispatch(Actions.cycleLapSetting());
+		dispatch(Actions.updateTable());
+		dispatch(Actions.updateCtxPan());
+	};
 
 	return (
 		<header>
