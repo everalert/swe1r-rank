@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import VAL from '../state/const';
 import Track from '../element/table-track';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
@@ -8,7 +9,8 @@ import Actions from '../state/action';
 const mapStateToProps = state => {
 	return {
 		data: state.table,
-		tracks: state.levels
+		tracks: state.levels,
+		lap: state.settings.lap
 	};
 }
 
@@ -34,7 +36,7 @@ class TrackPage extends React.Component {
 		if (!this.props.tracks[this.trackId])
 			return <main className='error-message'><p>Track {this.trackId} not found.</p></main>
 		return <main>
-			<h1>Track</h1>
+			<h1>{VAL.Setting.Lap[this.props.lap].name}</h1>
 			<h2>{this.props.tracks[this.trackId].name}</h2>
 			<ContextPanel/>
 			<Track track={this.trackId} data={this.props.data}/>
