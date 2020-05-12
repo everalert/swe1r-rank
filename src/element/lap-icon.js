@@ -7,9 +7,5 @@ import VAL from '../state/const';
 
 export default () => {
 	const lap = useSelector(state => state.settings.lap);
-	switch (lap) {
-		case 2: return <span>1L</span>;
-		case 1: return <span>3L</span>;
-		default: return <span>Ov</span>;
-	}
+	return <span>{VAL.Setting.Lap[lap].name}</span>
 }
