@@ -116,11 +116,13 @@ export const PlayerListTableFromState = (state) => {
 	let sort = VAL.Setting.Lap[state.settings.lap].key;
 	let table = Object.keys(state.players).map(k => {
 		let p = state.players[k];
-		let player = { id:k, name:p.name, fields:{} };
+		let player = { id:k, name:p.name, time:0, fields:{} };
 		player.fields[`pts${sort}`] = FormatTotalPoints(p[`pts${sort}`]);
 		player.fields[`time${sort}`] = FormatTotalTime(Math.floor(p[`time${sort}`]));
+		player.time = p[`time${sort}`];
 		return player;
 	});
+	table = table.filter(t => t.time > 0);
 	table.sort((a,b) => a.name.localeCompare(b.name));
 	return table;
 }

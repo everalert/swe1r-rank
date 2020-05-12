@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import VAL from '../state/const';
 import PlayerList from '../element/table-playerlist';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
 
 
 const mapStateToProps = state => {
-	return { data: state.table	};
+	return {
+		data: state.table,
+		lap: state.settings.lap
+	};
 }
 
 const mapDispatchToProps = dispatch => {
@@ -29,7 +33,7 @@ class Players extends React.Component {
 	render() {
 		return (
 			<main>
-				<h1>All</h1>
+				<h1>{VAL.Setting.Lap[this.props.lap].name}</h1>
 				<h2>Racers</h2>
 				<ContextPanel/>
 				<PlayerList data={this.props.data}/>
