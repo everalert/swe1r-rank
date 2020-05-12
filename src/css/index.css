@@ -189,6 +189,7 @@ footer button {
 
 .Tilt {
 	transform-style: preserve-3d;
+	transform: perspective(1000px);
 }
 .Tilt-inner *, .Tilt-item * {
 	transform: translateZ(1.25rem);
