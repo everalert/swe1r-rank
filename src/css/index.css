@@ -183,6 +183,9 @@ footer {
 	box-sizing: border-box;
 }
 
+footer nav {
+	padding: 0 !important;
+}
 footer nav a {
 	font-size: 1rem;
 }
