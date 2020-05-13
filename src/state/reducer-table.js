@@ -11,6 +11,9 @@ export const RankingTableFromState = (state) => {
 			sortALL:p.ptsALL,
 			sort1L:p.pts1L,
 			sort3L:p.pts3L,
+			timeALL:p.timeALL,
+			time1L:p.time1L,
+			time3L:p.time3L,
 			fields:{},
 			data:{
 				ptsALL: FormatTotalPoints(p.ptsALL),
@@ -25,9 +28,11 @@ export const RankingTableFromState = (state) => {
 	});
 
 	let sort = VAL.Setting.Lap[state.settings.lap].key;
+	table.sort((a,b) => a[`time${sort}`] - b[`time${sort}`]);
 	table.sort((a,b) => b[`sort${sort}`] - a[`sort${sort}`]);
 	let rank = 0, rankStreak = 0;
 	let last = null;
+	table = table.filter(t => t[`time${sort}`] > 0);
 	table.forEach(item => {
 		rankStreak++;
 		if (item[`sort${sort}`] !== last) {
