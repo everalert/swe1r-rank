@@ -30,6 +30,12 @@ export default {
 				"Changed internal point precision from 3 to 6 decimal places.",
 				"Cosmetic changes to improve visibility.",
 			]
+		},
+		2 : {
+			Release : new Date(),
+			Notes : [
+				
+			]
 		}
 	},
 };
