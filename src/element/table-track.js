@@ -8,8 +8,14 @@ import Actions from '../state/action';
 
 export default (props) => {
 	const dispatch = useDispatch();
-	const showDetail = (id,title) => dispatch(Actions.setCtxPanToPlayer(id,title));
-	const closeDetail = (id) => dispatch(Actions.setCtxPanToTrack(id));
+	const showDetail = (section,page,title) => {
+		dispatch(Actions.changeCtxPan(section,page));
+		dispatch(Actions.updateCtxPan(title));
+	};
+	const closeDetail = () => {
+		dispatch(Actions.changeCtxPan());
+		dispatch(Actions.updateCtxPan());
+	};
 	return (
 		<section className='table track-ranking' onMouseLeave={()=>closeDetail(props.track)}>
 			<div className='header'>
@@ -19,7 +25,7 @@ export default (props) => {
 			</div>
 			{ props.data.map((item,i) => {
 				return <Tilt className='Tilt' options={VAL.Setting.Tilt.TableItem}>
-					<Link to={VAL.Routes.PLAYER.replace(':id',item.id)} onMouseEnter={()=>showDetail(item.id,item.name)} className={`Tilt-item item rank${item.rank}`} key={i}>
+					<Link to={VAL.Routes.PLAYER.replace(':id',item.id)} onMouseEnter={()=>showDetail('PLAYER',item.id,item.name)} className={`Tilt-item item rank${item.rank}`} key={i}>
 						<div className='rank'>{Numeral(item.rank).format('0o')}</div>
 						<div className='player'>{item.name}</div>
 						{ Object.entries(item.fields).map((f,i) =>

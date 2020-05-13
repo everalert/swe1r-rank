@@ -3,12 +3,13 @@ export default {
 
 	changeSection: (section,page) => ({ type:'CHANGE_SECTION', section:section, page:page }),
 	changePage: (page) => ({ type:'CHANGE_PAGE', page:page }),
+	changeCtxPan: (section,page) => ({ type:'CHANGE_CTXPAN', section:section, page:page }),
 
 	markLoaded: () => ({type:'MARK_LOADED'}),
 	markLoading: (isLoading) => ({ type:'MARK_LOADING', loading:isLoading }),
 
 	updateTable: () => ({ type:'UPDATE_TABLE' }),
-	updateCtxPan: () => ({ type:'UPDATE_CTXPAN' }),
+	updateCtxPan: (title) => ({ type:'UPDATE_CTXPAN', title:title }),
 
 	calcTime: () => ({type:'CALCULATE_TIME'}),
 	calcPoints: () => ({type:'CALCULATE_POINTS'}),
@@ -35,13 +36,6 @@ export default {
 			character: run.run.values[chars.id] ? chars.values.values[run.run.values[chars.id]].label : ''
 		}
 	},
-
-	setCtxPanToRanking: (title) => ({type:'SET_CTXPAN',mode:'RANKING',title:title}),
-	setCtxPanToPlayerList: (title) => ({type:'SET_CTXPAN',mode:'PLAYERLIST',title:title}),
-	setCtxPanToPlayer: (id,title) => ({type:'SET_CTXPAN',mode:'PLAYER',player:id,title:title}),
-	setCtxPanToTrackList: (title) => ({type:'SET_CTXPAN',mode:'TRACKLIST',title:title}),
-	setCtxPanToTrack: (id,title) => ({type:'SET_CTXPAN',mode:'TRACK',level:id,title:title}),
-	resetCtxPan: () => ({type:'RESET_CTXPAN'}),
 
 	cycleLapSetting: () => ({type:'CYCLE_LAP_SETTING'})
 };

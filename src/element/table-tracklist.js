@@ -7,8 +7,14 @@ import Actions from '../state/action';
 
 export default (props) => {
 	const dispatch = useDispatch();
-	const showDetail = (id,title) => dispatch(Actions.setCtxPanToTrack(id,title));
-	const closeDetail = () => dispatch(Actions.setCtxPanToTrackList());
+	const showDetail = (section,page,title) => {
+		dispatch(Actions.changeCtxPan(section,page));
+		dispatch(Actions.updateCtxPan(title));
+	};
+	const closeDetail = () => {
+		dispatch(Actions.changeCtxPan());
+		dispatch(Actions.updateCtxPan());
+	};
 	return (
 		<section className='table track-list' onMouseLeave={()=>closeDetail()}>
 			<div className='header'>
@@ -18,7 +24,7 @@ export default (props) => {
 			</div>
 			{ props.data.map((item,i) => {
 				return (<Tilt className='Tilt' options={VAL.Setting.Tilt.TableItem}>
-					<Link to={VAL.Routes.TRACK.replace(':id',item.id)} onMouseEnter={()=>showDetail(item.id,item.name)} className='Tilt-inner item' key={i}>
+					<Link to={VAL.Routes.TRACK.replace(':id',item.id)} onMouseEnter={()=>showDetail('TRACK',item.id,item.name)} className='Tilt-inner item' key={i}>
 						<div className='track'>{item.name}</div>
 						{ Object.entries(item.fields).map((f,i) =>
 							<div key={i} className={VAL.TableFields[f[0]]}>{f[1]}</div>) }

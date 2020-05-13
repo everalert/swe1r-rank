@@ -1,12 +1,16 @@
 import VAL from './const';
-import { NewCtxItem, NewCtxHeading, /*NewCtxText*/ } from '../module/ctxpan';
-import { FormatTime, FormatFullTotalTime, FormatRunsPosted, FormatIdFromPlayer } from '../module/format';
-import { CalculatePoints, TimeNeededForPoints } from '../module/points';
+import { FormatIdFromPlayer } from '../module/format';
+import { CalculatePoints } from '../module/points';
 import { RankingTableFromState,
          TrackListTableFromState,
          TrackTableFromState,
          PlayerListTableFromState,
          PlayerTableFromState } from './reducer-table';
+import { RankingCtxPanFromState,
+         TrackListCtxPanFromState,
+         TrackCtxPanFromState,
+         PlayerListCtxPanFromState,
+         PlayerCtxPanFromState } from './reducer-ctxpan';
 //import { merge } from 'lodash';
 
 const initialState = {
@@ -16,6 +20,8 @@ const initialState = {
 	table : [],
 	menu : [],
 	panel : {
+		section : null,
+		page : null,
 		title : null,
 		items : []
 	},
@@ -56,6 +62,12 @@ export default (state = initialState, action) => {
 				output.page = action.page;
 		}
 
+		if (action.type === 'CHANGE_CTXPAN') {
+			output.panel.section = action.section || null;
+			if (action.page)
+				output.panel.page = action.page || null;
+		}
+
 		if (action.type === 'CYCLE_LAP_SETTING') {
 			output.settings.lap = (state.settings.lap+1)%VAL.Setting.Lap.length;
 		}
@@ -81,72 +93,27 @@ export default (state = initialState, action) => {
 			}
 		}
 
-		if (action.type === 'SET_CTXPAN') {
+		if (action.type === 'UPDATE_CTXPAN') {
 			output.panel.title = action.title || null;
-			let totals;
-			let items = []
-			switch (action.mode) {
-				case 'PLAYERLIST':
-					items.push(NewCtxHeading('Stats'));
-					items.push(NewCtxItem('Players',Object.keys(state.players).length));
-					items.push(NewCtxItem('Runs',state.runs.length));
-					break;
-				case 'PLAYER':
-					totals = state.runs.reduce((v,t) => {
-						if (t.player === action.player) {
-							v[`time${t.cat}`] += t.time;
-							v.timeT += t.time;
-							if (t.points >= 50 && t.points < 90) v.pt50++;
-							if (t.points >= 90 && t.points < 100) v.pt90++;
-							if (t.points === 100) v.pt100++;
-							v.runT++;
-						}
-						return v;
-					}, {timeT:0, time3L:0, time1L:0, runT:0, pt50:0, pt90:0, pt100:0});
-					items.push(NewCtxItem('Runs Posted',FormatRunsPosted(totals.runT,50)));
-					items.push(NewCtxHeading('Run Summary'));
-					items.push(NewCtxItem('100 Points',totals.pt100));
-					items.push(NewCtxItem('90+ Points',totals.pt90));
-					items.push(NewCtxItem('50+ Points',totals.pt50));
-					items.push(NewCtxHeading('Time Totals'));
-					items.push(NewCtxItem('Overall',FormatFullTotalTime(totals.timeT)));
-					items.push(NewCtxItem('1-Lap',FormatFullTotalTime(totals.time1L)));
-					items.push(NewCtxItem('3-Lap',FormatFullTotalTime(totals.time3L)));
-					break;
-				case 'TRACKLIST':
-					totals = Object.keys(state.levels).reduce((v,t) => {
-						v.time1L += state.levels[t].best1L;
-						v.time3L += state.levels[t].best3L;
-						v.timeT += state.levels[t].best1L + state.levels[t].best3L;
-						return v;
-					}, {timeT:0, time3L:0, time1L:0});
-					items.push(NewCtxHeading('Record Totals'));
-					items.push(NewCtxItem('Overall',FormatFullTotalTime(totals.timeT)));
-					items.push(NewCtxItem('1-Lap',FormatFullTotalTime(totals.time1L)));
-					items.push(NewCtxItem('3-Lap',FormatFullTotalTime(totals.time3L)));
-					break;
-				case 'TRACK':
-					if (Object.keys(state.levels).indexOf(action.level)>=0) {
-						const time = state.levels[action.level].best3L;
-						items.push(NewCtxHeading('Milestones'));
-						items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
-						items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
-						items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time))));
-					}
-					break;
+			const section = state.panel.section || state.section;
+			switch (section) {
 				case 'RANKING':
-					items.push(NewCtxHeading('Stats'));
-					items.push(NewCtxItem('Players',Object.keys(state.players).length));
-					items.push(NewCtxItem('Runs',state.runs.length));
+					output.panel.items = RankingCtxPanFromState(state);
 					break;
-				default:
+				case 'TRACKLIST': 
+					output.panel.items = TrackListCtxPanFromState(state);
 					break;
+				case 'TRACK': 
+					output.panel.items = TrackCtxPanFromState(state);
+					break;
+				case 'PLAYERLIST': 
+					output.panel.items = PlayerListCtxPanFromState(state);
+					break;
+				case 'PLAYER': 
+					output.panel.items = PlayerCtxPanFromState(state);
+					break;
+				default: break;
 			}
-			output.panel.items = items;
-		}
-		if (action.type === 'RESET_CTXPAN') {
-			output.panel.title = action.title || null;
-			output.panel.items = [];
 		}
 
 
