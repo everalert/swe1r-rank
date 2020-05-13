@@ -6,9 +6,12 @@ import { NewCtxItem, NewCtxHeading, /*NewCtxText*/ } from '../module/ctxpan';
 
 export const RankingCtxPanFromState = (state) => {
 	let items = [];
+	const lap = VAL.Setting.Lap[state.settings.lap].key;
+	let playerCount = lap === 'ALL' ? Object.keys(state.players).length : Object.keys(state.players).filter(k => state.players[k][`time${lap}`] > 0).length;
+	let runCount = lap === 'ALL' ? state.runs.length : state.runs.filter(r => r.cat === lap).length;
 	items.push(NewCtxHeading('Stats'));
-	items.push(NewCtxItem('Players',Object.keys(state.players).length));
-	items.push(NewCtxItem('Runs',state.runs.length));
+	items.push(NewCtxItem('Players',playerCount));
+	items.push(NewCtxItem('Runs',runCount));
 	return items;
 }
 
@@ -31,13 +34,23 @@ export const TrackListCtxPanFromState = (state) => {
 
 export const TrackCtxPanFromState = (state) => {
 	const page = state.panel.section ? state.panel.page : state.page;
+	const lap = VAL.Setting.Lap[state.settings.lap].key;
 	let items = [];
 	if (Object.keys(state.levels).indexOf(page)>=0) {
-		const time = state.levels[page].best3L;
-		items.push(NewCtxHeading('Milestones'));
-		items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
-		items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
-		items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time))));
+		if (lap === 'ALL' || lap === '3L') {
+			const time = state.levels[page].best3L;
+			items.push(NewCtxHeading('3-Lap Milestones'));
+			items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
+			items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
+			items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time))));
+		}
+		if (lap === 'ALL' || lap === '1L') {
+			const time = state.levels[page].best1L;
+			items.push(NewCtxHeading('1-Lap Milestones'));
+			items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
+			items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
+			items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time))));
+		}
 	}
 	return items;
 }
@@ -45,9 +58,12 @@ export const TrackCtxPanFromState = (state) => {
 
 export const PlayerListCtxPanFromState = (state) => {
 	let items = [];
+	const lap = VAL.Setting.Lap[state.settings.lap].key;
+	let playerCount = lap === 'ALL' ? Object.keys(state.players).length : Object.keys(state.players).filter(k => state.players[k][`time${lap}`] > 0).length;
+	let runCount = lap === 'ALL' ? state.runs.length : state.runs.filter(r => r.cat === lap).length;
 	items.push(NewCtxHeading('Stats'));
-	items.push(NewCtxItem('Players',Object.keys(state.players).length));
-	items.push(NewCtxItem('Runs',state.runs.length));
+	items.push(NewCtxItem('Players',playerCount));
+	items.push(NewCtxItem('Runs',runCount));
 	return items;
 }
 
