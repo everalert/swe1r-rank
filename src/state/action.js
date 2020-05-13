@@ -37,5 +37,6 @@ export default {
 		}
 	},
 
-	cycleLapSetting: () => ({type:'CYCLE_LAP_SETTING'})
+	cycleLapSetting: () => ({type:'CYCLE_LAP_SETTING'}),
+	toggleSkipsSetting: () => ({type:'TOGGLE_SKIPS_SETTING'}),
 };

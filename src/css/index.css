@@ -94,6 +94,12 @@ nav svg {
 nav svg:hover {
 	fill: #A0A0FF;
 }
+nav svg.disabled {
+	fill: #808080;
+}
+nav svg.disabled:hover {
+	fill: #404040;
+}
 
 
 header {
@@ -393,6 +399,9 @@ footer nav a {
 
 #container.dark-theme header .logo {
 	background-position: bottom center;
+}
+#container.dark-theme nav svg.disabled:hover {
+	fill: #A0A0A0;
 }
 
 #container.dark-theme main {

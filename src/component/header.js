@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import VAL from '../state/const';
 import { useDispatch } from 'react-redux';
 import LapIcon from '../element/lap-icon';
+import SkipsIcon from '../element/skips-icon';
 import Actions from '../state/action';
 
 export default () => {
@@ -13,11 +14,17 @@ export default () => {
 		dispatch(Actions.updateTable());
 		dispatch(Actions.updateCtxPan());
 	};
+	const toggleSkips = () => {
+		dispatch(Actions.toggleSkipsSetting());
+		dispatch(Actions.updateTable());
+		dispatch(Actions.updateCtxPan());
+	};
 
 	return (
 		<header>
 			<Link to='/' className='logo'>RacerRank</Link>
 			<nav>
+				<a className="icon" onClick={toggleSkips}><SkipsIcon/></a>
 				<a className="icon" onClick={cycleLap}><LapIcon/></a>
 				<Link to={VAL.Routes.RANKING}>Ranking</Link>
 				<Link to={VAL.Routes.TRACKLIST}>Tracks</Link>
