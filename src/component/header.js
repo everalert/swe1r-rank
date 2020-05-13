@@ -4,6 +4,7 @@ import VAL from '../state/const';
 import { useDispatch } from 'react-redux';
 import LapIcon from '../element/lap-icon';
 import SkipsIcon from '../element/skips-icon';
+import UpgradesIcon from '../element/upgrades-icon';
 import Actions from '../state/action';
 
 export default () => {
@@ -19,11 +20,17 @@ export default () => {
 		dispatch(Actions.updateTable());
 		dispatch(Actions.updateCtxPan());
 	};
+	const toggleUpgrades = () => {
+		dispatch(Actions.toggleUpgradesSetting());
+		dispatch(Actions.updateTable());
+		dispatch(Actions.updateCtxPan());
+	};
 
 	return (
 		<header>
 			<Link to='/' className='logo'>RacerRank</Link>
 			<nav>
+				<a className="icon" onClick={toggleUpgrades}><UpgradesIcon/></a>
 				<a className="icon" onClick={toggleSkips}><SkipsIcon/></a>
 				<a className="icon" onClick={cycleLap}><LapIcon/></a>
 				<Link to={VAL.Routes.RANKING}>Ranking</Link>
