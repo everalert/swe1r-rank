@@ -59,6 +59,7 @@ nav {
 	flex-grow: 1;
 	grid-area: nav;
 	padding: 0.65em !important;
+	user-select: none;
 }
 nav a {
 	margin-left: 0.25em !important;
