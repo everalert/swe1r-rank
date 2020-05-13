@@ -55,38 +55,31 @@ h4 {
 }
 
 
-button {
-	padding: 0.5em 0.75em !important;
+nav {
+	flex-grow: 1;
+	grid-area: nav;
+	padding: 0.65em !important;
+}
+nav a {
+	margin-left: 0.25em !important;
+	text-transform: uppercase;
+	padding: 0.35em 0.5em !important;
 	font-family: 'Roboto', sans-serif;
 	border: none;
 	background: transparent;
 }
-button:hover {
+nav a:hover {
+	background: rgba(127,127,255,0.1);
+	font-weight: bold;
 	cursor: pointer;
 }
-button.icon {
+a.icon {
 	position: relative;
 	top: 0.1em;
 }
-
-nav {
-	flex-grow: 1;
-	grid-area: nav;
-}
-nav button {
-	margin-left: 0.5em !important;
-	text-transform: uppercase;
-	color: #888;
-}
-nav button:hover {
-	background-color: #EEE;
-	font-weight: bold;
-	color: #000;
-}
-nav button.icon:hover {
+nav a.icon:hover {
 	background-color: transparent;
 }
-
 
 
 header {
@@ -116,7 +109,7 @@ header .logo {
 	cursor: pointer;
 }
 
-header button {
+header nav a {
 	font-size: 1.25rem;
 }
 
@@ -176,7 +169,7 @@ footer {
 	box-sizing: border-box;
 }
 
-footer button {
+footer nav a {
 	font-size: 1rem;
 }
 
@@ -384,18 +377,11 @@ footer button {
 #container.dark-theme header .logo {
 	background-position: bottom center;
 }
-#container.dark-theme nav button:hover {
-	background-color: #111;
-	color: #FFF;
-}
 
 #container.dark-theme main {
 	--panel-text-shadow: 1px 1px 4px #000;
 }
 
-#container.dark-theme nav button.icon:hover {
-	background-color: transparent;
-}
 #container.dark-theme .table .header {
 	background: #000;
 }
@@ -416,7 +402,7 @@ footer button {
 		grid-template-areas: 'nav nav' 'logo logo';
 		text-align: center;
 	}
-	header button {
+	header nav a {
 		font-size: 1rem;
 	}
 	header .logo {
@@ -436,7 +422,7 @@ footer button {
 	footer {
 		position: inherit;
 	}
-	footer button {
+	footer nav a {
 		font-size: 0.85rem;
 	}
 
@@ -455,7 +441,7 @@ footer button {
 		font-size: 1.1rem;
 	}
 
-	nav button {
+	nav a {
 		margin: 0 !important;
 	}
 

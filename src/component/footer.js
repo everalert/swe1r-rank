@@ -12,10 +12,10 @@ export default () => {
 	return (
 			<footer>
 				<nav>
-					<Link to={VAL.Routes.ABOUT}><button>About</button></Link>
-					<Link to={VAL.Routes.CHANGELOG}><button>Changelog</button></Link>
-					<button onClick={reload} className='icon'><MdLoop/></button>
-					<button onClick={toggleTheme} className='icon'><MdLightbulbOutline/></button>
+					<Link to={VAL.Routes.ABOUT}>About</Link>
+					<Link to={VAL.Routes.CHANGELOG}>Changelog</Link>
+					<a onClick={reload} className='icon'><MdLoop/></a>
+					<a onClick={toggleTheme} className='icon'><MdLightbulbOutline/></a>
 				</nav>
 			</footer>
 	);

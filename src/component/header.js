@@ -18,10 +18,10 @@ export default () => {
 		<header>
 			<Link to='/' className='logo'>RacerRank</Link>
 			<nav>
-				<button onClick={cycleLap}><LapIcon/></button>
-				<Link to={VAL.Routes.RANKING}><button>Ranking</button></Link>
-				<Link to={VAL.Routes.TRACKLIST}><button>Tracks</button></Link>
-				<Link to={VAL.Routes.PLAYERLIST}><button>Racers</button></Link>
+				<a onClick={cycleLap}><LapIcon/></a>
+				<Link to={VAL.Routes.RANKING}>Ranking</Link>
+				<Link to={VAL.Routes.TRACKLIST}>Tracks</Link>
+				<Link to={VAL.Routes.PLAYERLIST}>Racers</Link>
 			</nav>
 		</header>
 	);
