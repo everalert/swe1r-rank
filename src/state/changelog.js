@@ -24,9 +24,11 @@ export default {
 			]
 		},
 		1 : {
-			Release : new Date(),
+			Release : new Date('2020-05-13'),
 			Notes : [
-				"Internal point precision changed from 3 to 6 decimal places.",
+				"Changed lap setting to apply globally.",
+				"Changed internal point precision from 3 to 6 decimal places.",
+				"Cosmetic changes to improve visibility.",
 			]
 		}
 	},
