@@ -7,8 +7,14 @@ import Actions from '../state/action';
 
 export default (props) => {
 	const dispatch = useDispatch();
-	const showDetail = (id,title) => dispatch(Actions.setCtxPanToTrack(id,title));
-	const closeDetail = (id) => dispatch(Actions.setCtxPanToPlayer(id));
+	const showDetail = (section,page,title) => {
+		dispatch(Actions.changeCtxPan(section,page));
+		dispatch(Actions.updateCtxPan(title));
+	};
+	const closeDetail = () => {
+		dispatch(Actions.changeCtxPan());
+		dispatch(Actions.updateCtxPan());
+	};
 	return (
 		<section className='table player-times' onMouseLeave={()=>closeDetail(props.player)}>
 			<div className='header'>
@@ -18,7 +24,7 @@ export default (props) => {
 			</div>
 			{ props.data.map((item,i) => {
 				return <Tilt className='Tilt' options={VAL.Setting.Tilt.TableItem}>
-					<Link to={VAL.Routes.TRACK.replace(':id',item.id)} className='Tilt-inner item' onMouseEnter={()=>showDetail(item.id,item.name)} key={i}>
+					<Link to={VAL.Routes.TRACK.replace(':id',item.id)} className='Tilt-inner item' onMouseEnter={()=>showDetail('TRACK',item.id,item.name)} key={i}>
 						<div className='track'>{item.name}</div>
 						<div className='time-3lap'>{item.fields.time3L || VAL.Setting.Fallback.Time}</div>
 						<div className='points-3lap'>{item.fields.pts3L || VAL.Setting.Fallback.Points}</div>

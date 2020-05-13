@@ -54,7 +54,7 @@ export default {
 	Score : {
 		Max : 100,
 		Scale : 1.5,
-		Precision: 3
+		Precision: 6
 
 	},
 	TableFields : {
@@ -83,17 +83,24 @@ export default {
 		},
 		Tilt : {
 			CtxPan : {
+				perspective:1000,
 				reverse:true,
 				max:17.5,
 				scale:1.025
 			},
 			TableItem : {
+				perspective:1000,
 				reverse:true,
 				max:15,
 				scale:1.015,
 				axis:'x'
 			}
-		}
+		},
+		Lap : [
+			{ name:'Overall', key:'ALL' },
+			{ name:'3-Lap', key:'3L' },
+			{ name:'1-Lap', key:'1L' },
+		]
 	},
 	Routes : {
 		'PLAYERLIST':'/racers',

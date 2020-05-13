@@ -14,9 +14,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setCtxPanToPlayer: (id) => dispatch(Actions.setCtxPanToPlayer(id)),
-		gotoPlayer: (id) => dispatch(Actions.gotoPlayer(id)),
-		sort: (sorting) => dispatch(Actions.sortRanking(sorting.value))
+		initialize: (playerId) => {
+			dispatch(Actions.changeSection('PLAYER',playerId));
+			dispatch(Actions.updateTable());
+			dispatch(Actions.updateCtxPan());
+		}
 	};
 }
 
@@ -25,15 +27,14 @@ class PlayerPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.playerId = this.props.match.params.id;
-		this.props.gotoPlayer(this.playerId);
-		this.props.setCtxPanToPlayer(this.playerId);
+		this.props.initialize(this.playerId);
 	}
 
 	render() {
 		if (!this.props.players[this.playerId])
-			return <main className='error-message'><p>Player {this.playerId} not found.</p></main>
+			return <main className='error-message'><p>Racer {this.playerId} not found.</p></main>
 		return <main>
-			<h1>Player</h1>
+			<h1>Racer</h1>
 			<h2>{this.props.players[this.playerId].name}</h2>
 			<ContextPanel/>
 			<Player player={this.playerId} data={this.props.data}/>

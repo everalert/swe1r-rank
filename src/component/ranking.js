@@ -1,7 +1,6 @@
 import VAL from '../state/const';
 import React from 'react';
 import { connect } from 'react-redux';
-import PageSelector from '../element/page-selector';
 import Ranking from '../element/table-ranking';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
@@ -10,15 +9,17 @@ import Actions from '../state/action';
 const mapStateToProps = state => {
 	return {
 		data: state.table,
-		sorting: state.rankingTab,
-		menu: state.menu
+		lap: state.settings.lap
 	};
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setCtxPanToRanking: () => dispatch(Actions.setCtxPanToRanking()),
-		gotoRanking: () => dispatch(Actions.gotoRanking()),
+		initialize: () => {
+			dispatch(Actions.changeSection('RANKING'));
+			dispatch(Actions.updateTable());
+			dispatch(Actions.updateCtxPan());
+		},
 		sort: (sorting) => dispatch(Actions.sortRanking(sorting.value))
 	};
 }
@@ -27,17 +28,14 @@ const mapDispatchToProps = dispatch => {
 class RankingPage extends React.Component {
 	constructor(props) {
 		super(props);
-		this.props.gotoRanking();
-		this.props.setCtxPanToRanking();
+		this.props.initialize();
 	}
 
 	render() {
 		return (
 			<main>
 				<h1>Ranking</h1>
-				<h2>{VAL.Sections.filter(sec => sec.id==='RANKING')[0]
-					.pages.filter(item => item.id===this.props.sorting)[0].name}</h2>
-				<PageSelector onChangeHandler={this.props.sort} menu={this.props.menu} initial={this.props.sorting} />
+				<h2>{VAL.Setting.Lap[this.props.lap].name}</h2>
 				<ContextPanel/>
 				<Ranking data={this.props.data}/>
 			</main>

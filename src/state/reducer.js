@@ -1,18 +1,27 @@
 import VAL from './const';
-import { NewCtxItem, NewCtxHeading, /*NewCtxText*/ } from '../module/ctxpan';
-import { FormatTime, FormatTotalTime, FormatFullTotalTime, FormatPoints, FormatTotalPoints, FormatRunsPosted, FormatIdFromPlayer } from '../module/format';
-import { CalculatePoints, TimeNeededForPoints } from '../module/points';
+import { FormatIdFromPlayer } from '../module/format';
+import { CalculatePoints } from '../module/points';
+import { RankingTableFromState,
+         TrackListTableFromState,
+         TrackTableFromState,
+         PlayerListTableFromState,
+         PlayerTableFromState } from './reducer-table';
+import { RankingCtxPanFromState,
+         TrackListCtxPanFromState,
+         TrackCtxPanFromState,
+         PlayerListCtxPanFromState,
+         PlayerCtxPanFromState } from './reducer-ctxpan';
 //import { merge } from 'lodash';
 
 const initialState = {
 	section : 'RANKING',
 	page : 0,
-	rankingTab: 'ALL',
-	trackTab: '3L',
 	loading : true,
 	table : [],
 	menu : [],
 	panel : {
+		section : null,
+		page : null,
 		title : null,
 		items : []
 	},
@@ -22,6 +31,7 @@ const initialState = {
 	settings : {
 		dark: true,
 		refreshable: false,
+		lap: 0 //0=overall,1=3lap,2=1lap
 	}
 };
 
@@ -46,160 +56,64 @@ export default (state = initialState, action) => {
 			output.players = {};
 		}
 
-
-		if (action.type === 'GOTO_RANKING') {
-			output.section = 'RANKING';
-
-			const table = Object.keys(state.players).map(k => {
-				let p = state.players[k];
-				let player = {
-					id:k,
-					name:p.name,
-					sortALL:p.ptsALL,
-					sort1L:p.pts1L,
-					sort3L:p.pts3L,
-					fields:{},
-					data:{
-						ptsALL: FormatTotalPoints(p.ptsALL),
-						timeALL: FormatTotalTime(Math.floor(p.timeALL)),
-						pts1L: FormatTotalPoints(p.pts1L),
-						time1L: FormatTotalTime(Math.floor(p.time1L)),
-						pts3L: FormatTotalPoints(p.pts3L),
-						time3L: FormatTotalTime(Math.floor(p.time3L)),
-					}
-				};
-				return player;
-			});
-			output.table = table;
+		if (action.type === 'CHANGE_SECTION') {
+			output.section = action.section;
+			if (action.page)
+				output.page = action.page;
 		}
 
-		if (action.type === 'SORT_RANKING' || action.type === 'GOTO_RANKING') {
-			if (action.type==='SORT_RANKING') output.rankingTab = action.sort
-			let sort = action.type==='SORT_RANKING' ? action.sort : output.rankingTab;
-			let table = [...output.table];
-			table.sort((a,b) => b[`sort${sort}`] - a[`sort${sort}`]);
-			let rank = 0, rankStreak = 0;
-			let last = null;
-			table.forEach(item => {
-				rankStreak++;
-				if (item[`sort${sort}`] !== last) {
-					rank += rankStreak;
-					rankStreak = 0;
-				}
-				item.fields = {}
-				item.fields[`time${sort}`] = item.data[`time${sort}`];
-				item.fields[`pts${sort}`] = item.data[`pts${sort}`];
-				item.rank = rank;
-				last = item[`sort${sort}`];
-			});
-			output.table = table;
+		if (action.type === 'CHANGE_CTXPAN') {
+			output.panel.section = action.section || null;
+			if (action.page)
+				output.panel.page = action.page || null;
 		}
 
-
-		if (action.type === 'GOTO_PLAYERLIST') {
-			const table = Object.keys(state.players).map(k => {
-				let p = state.players[k];
-				let player = { id:k, name:p.name, fields:{} };
-				player.fields.ptsALL = FormatTotalPoints(p.ptsALL);
-				player.fields.timeALL = FormatTotalTime(Math.floor(p.timeALL));
-				return player;
-			});
-			table.sort((a,b) => a.name.localeCompare(b.name));
-			output.table = table;
-			output.section = 'PLAYERLIST';
+		if (action.type === 'CYCLE_LAP_SETTING') {
+			output.settings.lap = (state.settings.lap+1)%VAL.Setting.Lap.length;
 		}
 
-		if (action.type === 'GOTO_PLAYER') {
-			output.section = 'PLAYER';
-			output.page = action.player;
-
-			const times = state.runs.filter(t => t.player === action.player);
-			
-			let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, fields:{} }) );
-			times.forEach(t => {
-				let p = tracks.filter(p => p.id===t.level)[0];
-				p.fields[`time${t.cat}`] = FormatTime(t.time);
-				p.fields[`pts${t.cat}`] = FormatPoints(t.points);
-			});
-			const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);
-			tracks.sort((a,b) => levels.indexOf(a.id) - levels.indexOf(b.id));
-			output.table = tracks;
+		if (action.type === 'UPDATE_TABLE') {
+			switch (state.section) {
+				case 'RANKING':
+					output.table = RankingTableFromState(state);
+					break;
+				case 'TRACKLIST': 
+					output.table = TrackListTableFromState(state);
+					break;
+				case 'TRACK': 
+					output.table = TrackTableFromState(state);
+					break;
+				case 'PLAYERLIST': 
+					output.table = PlayerListTableFromState(state);
+					break;
+				case 'PLAYER': 
+					output.table = PlayerTableFromState(state);
+					break;
+				default: break;
+			}
 		}
 
-		if (action.type === 'GOTO_TRACKLIST') {
-			let table = Object.keys(state.levels).map(k => {
-				let t = state.levels[k];
-				let track = { id:k, name:t.name, fields:{} };
-				track.fields.best3L = FormatTime(t.best3L);
-				track.fields.best1L = FormatTime(t.best1L);
-				return track;
-			});
-			const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);
-			table.sort((a,b) => levels.indexOf(a.id) - levels.indexOf(b.id));
-			output.table = table;
-			output.section = 'TRACKLIST';
-		}
-
-		if (action.type === 'GOTO_TRACK') {
-			output.section = 'TRACK';
-			output.page = action.level;
-
-			const times = state.runs.filter(t => t.level === action.level);
-			let players = [];
-			times.forEach(t => {
-				players = players.filter(p => p.id!==t.player);
-				players.push({
-					id:t.player,
-					name:state.players[t.player].name,
-					sort1L:3599.99,
-					sort3L:3599.99,
-					fields:{},
-					data:{}
-				})
-			});
-			times.forEach(t => {
-				let p = players.filter(p => p.id===t.player)[0];
-				p[`sort${t.cat}`] = t.time;
-				p.data[`time${t.cat}`] = FormatTime(t.time,'seconds');
-				p.data[`pts${t.cat}`] = FormatPoints(t.points);
-			});
-			output.table = players;
-		}
-
-		if (action.type === 'SORT_TRACK' || action.type === 'GOTO_TRACK') {
-			if (action.type==='SORT_TRACK') output.trackTab = action.sort
-			let sort = action.type==='SORT_TRACK' ? action.sort : output.trackTab;
-			let table = [...output.table];
-			table.sort((a,b) => a[`sort${sort}`] - b[`sort${sort}`]);
-			let rank = 0, rankStreak = 0;
-			let last = null;
-			table.forEach(item => {
-				rankStreak++;
-				if (item[`sort${sort}`] !== last) {
-					rank += rankStreak;
-					rankStreak = 0;
-				}
-				item.fields = {}
-				item.fields[`time${sort}`] = item.data[`time${sort}`];
-				item.fields[`pts${sort}`] = item.data[`pts${sort}`];
-				item.rank = rank;
-				last = item[`sort${sort}`];
-			});
-			output.table = table;
-		}
-
-		if (action.type === 'GOTO_ABOUT') {
-			output.section = 'ABOUT';
-		}
-
-		if (action.type === 'GOTO_CHANGELOG') {
-			output.section = 'CHANGELOG';
-		}
-
-		if (action.type === 'SET_MENU' || action.type === 'GOTO_RANKING' || action.type === 'GOTO_TRACK') {
-			const section = VAL.Sections.filter(s => s.id === output.section)[0];
-			if (section) 
-				output.menu = section.pages.map((p,i) => { return { value:p.id, label:p.name } });
+		if (action.type === 'UPDATE_CTXPAN') {
+			output.panel.title = action.title || null;
+			const section = state.panel.section || state.section;
+			switch (section) {
+				case 'RANKING':
+					output.panel.items = RankingCtxPanFromState(state);
+					break;
+				case 'TRACKLIST': 
+					output.panel.items = TrackListCtxPanFromState(state);
+					break;
+				case 'TRACK': 
+					output.panel.items = TrackCtxPanFromState(state);
+					break;
+				case 'PLAYERLIST': 
+					output.panel.items = PlayerListCtxPanFromState(state);
+					break;
+				case 'PLAYER': 
+					output.panel.items = PlayerCtxPanFromState(state);
+					break;
+				default: break;
+			}
 		}
 
 
@@ -237,74 +151,6 @@ export default (state = initialState, action) => {
 				return state;
 			else
 				output.runs.push(run);
-		}
-
-		if (action.type === 'SET_CTXPAN') {
-			output.panel.title = action.title || null;
-			let totals;
-			let items = []
-			switch (action.mode) {
-				case 'PLAYERLIST':
-					items.push(NewCtxHeading('Stats'));
-					items.push(NewCtxItem('Players',Object.keys(state.players).length));
-					items.push(NewCtxItem('Runs',state.runs.length));
-					break;
-				case 'PLAYER':
-					totals = state.runs.reduce((v,t) => {
-						if (t.player === action.player) {
-							v[`time${t.cat}`] += t.time;
-							v.timeT += t.time;
-							if (t.points >= 50 && t.points < 90) v.pt50++;
-							if (t.points >= 90 && t.points < 100) v.pt90++;
-							if (t.points === 100) v.pt100++;
-							v.runT++;
-						}
-						return v;
-					}, {timeT:0, time3L:0, time1L:0, runT:0, pt50:0, pt90:0, pt100:0});
-					items.push(NewCtxItem('Runs Posted',FormatRunsPosted(totals.runT,50)));
-					items.push(NewCtxHeading('Run Summary'));
-					items.push(NewCtxItem('100 Points',totals.pt100));
-					items.push(NewCtxItem('90+ Points',totals.pt90));
-					items.push(NewCtxItem('50+ Points',totals.pt50));
-					items.push(NewCtxHeading('Time Totals'));
-					items.push(NewCtxItem('Overall',FormatFullTotalTime(totals.timeT)));
-					items.push(NewCtxItem('1-Lap',FormatFullTotalTime(totals.time1L)));
-					items.push(NewCtxItem('3-Lap',FormatFullTotalTime(totals.time3L)));
-					break;
-				case 'TRACKLIST':
-					totals = Object.keys(state.levels).reduce((v,t) => {
-						v.time1L += state.levels[t].best1L;
-						v.time3L += state.levels[t].best3L;
-						v.timeT += state.levels[t].best1L + state.levels[t].best3L;
-						return v;
-					}, {timeT:0, time3L:0, time1L:0});
-					items.push(NewCtxHeading('Record Totals'));
-					items.push(NewCtxItem('Overall',FormatFullTotalTime(totals.timeT)));
-					items.push(NewCtxItem('1-Lap',FormatFullTotalTime(totals.time1L)));
-					items.push(NewCtxItem('3-Lap',FormatFullTotalTime(totals.time3L)));
-					break;
-				case 'TRACK':
-					if (Object.keys(state.levels).indexOf(action.level)>=0) {
-						const time = state.levels[action.level][`best${state.trackTab}`];
-						items.push(NewCtxHeading('Milestones'));
-						items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
-						items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
-						items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time))));
-					}
-					break;
-				case 'RANKING':
-					items.push(NewCtxHeading('Stats'));
-					items.push(NewCtxItem('Players',Object.keys(state.players).length));
-					items.push(NewCtxItem('Runs',state.runs.length));
-					break;
-				default:
-					break;
-			}
-			output.panel.items = items;
-		}
-		if (action.type === 'RESET_CTXPAN') {
-			output.panel.title = action.title || null;
-			output.panel.items = [];
 		}
 
 		if (action.type === 'CALCULATE_POINTS') {
