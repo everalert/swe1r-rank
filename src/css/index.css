@@ -416,12 +416,9 @@ footer nav a {
 			'h2 h2 h2 h2 h2 h2 page page page'
 			'table table table table table table table table table'
 			'panel panel panel panel panel panel panel panel panel';
-		padding-bottom: 0 !important;
 	}
 
-	footer {
-		position: inherit;
-	}
+
 	footer nav a {
 		font-size: 0.85rem;
 	}
