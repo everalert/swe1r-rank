@@ -18,7 +18,7 @@ export default () => {
 		<header>
 			<Link to='/' className='logo'>RacerRank</Link>
 			<nav>
-				<a onClick={cycleLap}><LapIcon/></a>
+				<a className="icon" onClick={cycleLap}><LapIcon/></a>
 				<Link to={VAL.Routes.RANKING}>Ranking</Link>
 				<Link to={VAL.Routes.TRACKLIST}>Tracks</Link>
 				<Link to={VAL.Routes.PLAYERLIST}>Racers</Link>

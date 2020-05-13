@@ -58,10 +58,11 @@ h4 {
 nav {
 	flex-grow: 1;
 	grid-area: nav;
-	padding: 0.65em !important;
+	padding: 0 0.25em !important;
 	user-select: none;
 }
 nav a {
+	display: inline-block;
 	margin-left: 0.25em !important;
 	text-transform: uppercase;
 	padding: 0.35em 0.5em !important;
@@ -76,10 +77,22 @@ nav a:hover {
 }
 a.icon {
 	position: relative;
+	padding: 0 0.5em !important;
 	top: 0.1em;
 }
 nav a.icon:hover {
 	background-color: transparent;
+}
+nav svg {
+	position: relative;
+	top: 0.1em;
+	display: inline-block;
+	height: 1.15em;
+	width: 1.15em;
+	fill: #8080FF;
+}
+nav svg:hover {
+	fill: #A0A0FF;
 }
 
 
