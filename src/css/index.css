@@ -92,6 +92,7 @@ nav a.icon svg {
 	height: 1.15em;
 	width: 1.15em;
 	fill: #8080FF;
+	transition: opacity ease 0.1s;
 }
 nav a.icon:hover svg {
 	fill: #A0A0FF;
@@ -101,6 +102,9 @@ nav a.icon svg.disabled {
 }
 nav a.icon:hover svg.disabled {
 	fill: #404040;
+}
+nav a.icon svg.overall-disabled {
+	opacity: 0.5;
 }
 
 

@@ -33,7 +33,8 @@ const initialState = {
 		refreshable: false,
 		lap: 0, //0=overall,1=3lap,2=1lap
 		skips: true,
-		upgrades: true
+		upgrades: true,
+		overall: true
 	}
 };
 
@@ -80,6 +81,10 @@ export default (state = initialState, action) => {
 
 		if (action.type === 'TOGGLE_UPGRADES_SETTING') {
 			output.settings.upgrades = !state.settings.upgrades;
+		}
+
+		if (action.type === 'TOGGLE_OVERALL_SETTING') {
+			output.settings.overall = !state.settings.overall;
 		}
 
 		if (action.type === 'UPDATE_TABLE') {

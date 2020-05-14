@@ -5,5 +5,6 @@ import VAL from '../state/const';
 
 export default () => {
 	const skips = useSelector(state => state.settings.skips);
-	return (()=><SVG className={!skips?'disabled':''} src={require(`../img/icon-cat-SK.svg`)} />)();
+	const overall = useSelector(state => state.settings.overall);
+	return (()=><SVG className={`${overall?'overall-disabled':''} ${!skips?'disabled':''}`} src={require(`../img/icon-cat-SK.svg`)} />)();
 }
