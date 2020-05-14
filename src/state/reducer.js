@@ -134,14 +134,16 @@ export default (state = initialState, action) => {
 
 		if (action.type === 'ADD_RUN') {
 			//{ level:'kjhgfsd', cat:'3L', player:'sdlkjgfh', time:236.987, pts:100, platform:'Nintendo 64', character:'Ben' }
-			let cat = VAL.Id.Category[action.cat];
+			let laps = VAL.Id.Category[action.laps];
+			let skips = VAL.Id.Skips.Value[action.skips];
+			let upgrades = VAL.Id.Upgrades.Value[action.upgrades];
 			let playerId = FormatIdFromPlayer(action.player.name);
 			let levelId = VAL.Id.Level[action.level].abbr;
 
 			if (!state.levels[levelId])
 				output.levels[levelId] = { name:VAL.Id.Level[action.level].name, abbr:VAL.Id.Level[action.level].abbr, best3L:3599.99, best1L:3599.99 };
-			if (output.levels[levelId][`best${cat}`] > action.time)
-				output.levels[levelId][`best${cat}`] = action.time;
+			if (output.levels[levelId][`best${laps}`] > action.time)
+				output.levels[levelId][`best${laps}`] = action.time;
 
 			if (!state.players[playerId])
 				output.players[playerId] = { name:action.player.name, ptsALL:0, pts3L:0, pts1L:0, timeALL:0, time3L:0, time1L:0 };
@@ -149,16 +151,21 @@ export default (state = initialState, action) => {
 			//todo: add in calculation
 			let run = {
 				level: levelId,
-				cat: cat,
+				laps: laps,
+				skips: skips,
+				upgrades: upgrades,
 				player: playerId,
 				time: action.time,
-				points: action.calculate ? 100 : 0,
+				points: 0,
 				platform: action.platform,
-				character: action.character
+				character: action.character,
+				date: action.date,
+				comment: action.comment,
+				video: action.video
 			}
-			let test = state.runs.filter(r => levelId===r.level && cat===r.cat && playerId===r.player);
+			let test = state.runs.filter(r => levelId===r.level && laps===r.laps && playerId===r.player);
 			if (test.length && action.time<test[0].time) {
-				let all = state.runs.filter(r => !(levelId===r.level && cat===r.cat && playerId===r.player));
+				let all = state.runs.filter(r => !(levelId===r.level && laps===r.laps && playerId===r.player));
 				all.push(run);
 				output.runs = all;
 			}
@@ -172,10 +179,10 @@ export default (state = initialState, action) => {
 			Object.keys(state.players).forEach(p => {
 				let times = state.runs.filter(r => r.player===p);
 				let totals = times.reduce((v,t) => {
-					let WR = state.levels[t.level][`best${t.cat}`];
+					let WR = state.levels[t.level][`best${t.laps}`];
 					let pts = CalculatePoints(WR, t.time);
 					v['ALL'] += pts;
-					v[t.cat] += pts;
+					v[t.laps] += pts;
 					t.points = pts;
 					return v;
 				}, {'ALL':0, '3L':0, '1L':0});
@@ -190,7 +197,7 @@ export default (state = initialState, action) => {
 				let times = state.runs.filter(r => r.player===p);
 				let totals = times.reduce((v,t) => {
 					v['ALL'] += t.time;
-					v[t.cat] += t.time;
+					v[t.laps] += t.time;
 					return v;
 				}, {'ALL':0, '3L':0, '1L':0});
 				output.players[p].timeALL = totals['ALL'];
