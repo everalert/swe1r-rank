@@ -1,3 +1,5 @@
+import VAL from './const.js';
+
 export default {
 	clearData: () => ({type:'CLEAR_DATA'}),
 
@@ -11,8 +13,7 @@ export default {
 	updateTable: () => ({ type:'UPDATE_TABLE' }),
 	updateCtxPan: (title) => ({ type:'UPDATE_CTXPAN', title:title }),
 
-	calcTime: () => ({type:'CALCULATE_TIME'}),
-	calcPoints: () => ({type:'CALCULATE_POINTS'}),
+	calcTotals: () => ({type:'CALCULATE_TOTALS'}),
 
 	toggleTheme: () => ({type:'TOGGLE_THEME'}),
 
@@ -21,7 +22,7 @@ export default {
 		return {
 			type: 'ADD_RUN',
 			level: run.run.level,
-			cat: run.run.category,
+			laps: run.run.category,
 			player: run.run.players.map(p => {
 				return p.rel === 'guest' ? {
 					id: p.name,
@@ -33,9 +34,17 @@ export default {
 			})[0],
 			time: run.run.times.primary_t,
 			platform: platforms.data.filter(p => p.id===run.run.system.platform)[0].name,
-			character: run.run.values[chars.id] ? chars.values.values[run.run.values[chars.id]].label : ''
+			character: run.run.values[chars.id] ? chars.values.values[run.run.values[chars.id]].label : '',
+			skips: run.run.values[VAL.Id.Skips.Id] ? run.run.values[VAL.Id.Skips.Id] : '',
+			upgrades: run.run.values[VAL.Id.Upgrades.Id] ? run.run.values[VAL.Id.Upgrades.Id] : '',
+			date: new Date(run.run.date),
+			comment: run.run.comment,
+			video: run.run.videos.links[0].uri
 		}
 	},
 
-	cycleLapSetting: () => ({type:'CYCLE_LAP_SETTING'})
+	cycleLapSetting: () => ({type:'CYCLE_LAP_SETTING'}),
+	toggleSkipsSetting: () => ({type:'TOGGLE_SKIPS_SETTING'}),
+	toggleUpgradesSetting: () => ({type:'TOGGLE_UPGRADES_SETTING'}),
+	toggleOverallSetting: () => ({type:'TOGGLE_OVERALL_SETTING'}),
 };

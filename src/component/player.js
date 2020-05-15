@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import Player from '../element/table-player';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
+import { FormatCategoryTitleFromSettings } from '../module/format';
 
 
 const mapStateToProps = state => {
 	return {
 		data: state.table,
-		players: state.players
+		players: state.players,
+		settings: state.settings
 	};
 }
 
@@ -34,7 +36,7 @@ class PlayerPage extends React.Component {
 		if (!this.props.players[this.playerId])
 			return <main className='error-message'><p>Racer {this.playerId} not found.</p></main>
 		return <main>
-			<h1>Racer</h1>
+			<h1>{FormatCategoryTitleFromSettings(this.props.settings)}</h1>
 			<h2>{this.props.players[this.playerId].name}</h2>
 			<ContextPanel/>
 			<Player player={this.playerId} data={this.props.data}/>

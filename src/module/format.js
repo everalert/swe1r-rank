@@ -17,23 +17,23 @@ const SplitPointsDecimal = (input) => {
 }
 
 export const FormatTime = (time) => {
-	return SplitTimeDecimal(Moment.duration(time,'seconds').format(VAL.Setting.Format.Time,{trim:false}));
+	return time > 0 ? SplitTimeDecimal(Moment.duration(time,'seconds').format(VAL.Setting.Format.Time,{trim:false})) : VAL.Setting.Fallback.Time;
 }
 
 export const FormatTotalTime = (time) => {
-	return Moment.duration(time,'seconds').format(VAL.Setting.Format.TotalTime,{trim:false})
+	return time > 0 ? Moment.duration(time,'seconds').format(VAL.Setting.Format.TotalTime,{trim:false}) : VAL.Setting.Fallback.TotalTime;
 }
 
 export const FormatFullTotalTime = (time) => {
-	return SplitTimeDecimal(Moment.duration(time,'seconds').format(VAL.Setting.Format.TotalTimeFull,{trim:false}))
+	return time > 0 ? SplitTimeDecimal(Moment.duration(time,'seconds').format(VAL.Setting.Format.TotalTimeFull,{trim:false})) : VAL.Setting.Fallback.TotalTime;
 }
 
 export const FormatPoints = (points) => {
-	return SplitPointsDecimal(Numeral(points).format(VAL.Setting.Format.Points));
+	return points > 0 ? SplitPointsDecimal(Numeral(points).format(VAL.Setting.Format.Points)) : VAL.Setting.Fallback.Points;
 }
 
 export const FormatTotalPoints = (points) => {
-	return SplitPointsDecimal(Numeral(points).format(VAL.Setting.Format.TotalPoints));
+	return points > 0 ? SplitPointsDecimal(Numeral(points).format(VAL.Setting.Format.TotalPoints)) : VAL.Setting.Fallback.TotalPoints;
 }
 
 export const FormatRunsPosted = (runs, max) => {
@@ -42,4 +42,17 @@ export const FormatRunsPosted = (runs, max) => {
 
 export const FormatIdFromPlayer = (name) => {
 	return name.toLowerCase().replace(' ','_');
+}
+
+export const FormatCategoryTitleFromSettings = (settings) => {
+	const strings = [];
+	if (settings.overall)
+		strings.push('Overall');
+	else {
+		strings.push(`${!settings.skips?'No ':''}Skips`);
+		strings.push(`${!settings.upgrades?'No ':''}Upgrades`);
+	}
+	if (VAL.Setting.Lap[settings.lap].key!=='ALL')
+		strings.push(VAL.Setting.Lap[settings.lap].name);
+	return strings.join(', ');
 }

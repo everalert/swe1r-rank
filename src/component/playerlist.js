@@ -4,12 +4,13 @@ import VAL from '../state/const';
 import PlayerList from '../element/table-playerlist';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
+import { FormatCategoryTitleFromSettings } from '../module/format';
 
 
 const mapStateToProps = state => {
 	return {
 		data: state.table,
-		lap: state.settings.lap
+		settings: state.settings
 	};
 }
 
@@ -33,7 +34,7 @@ class Players extends React.Component {
 	render() {
 		return (
 			<main>
-				<h1>{VAL.Setting.Lap[this.props.lap].name}</h1>
+				<h1>{FormatCategoryTitleFromSettings(this.props.settings)}</h1>
 				<h2>Racers</h2>
 				<ContextPanel/>
 				<PlayerList data={this.props.data}/>

@@ -30,6 +30,13 @@ export default {
 				"Changed internal point precision from 3 to 6 decimal places.",
 				"Cosmetic changes to improve visibility.",
 			]
+		},
+		2 : {
+			Release : new Date('2020-05-16'),
+			Notes : [
+				"Added overall rankings.",
+				"Added individual rankings for skips and upgrades combinations.",
+			]
 		}
 	},
 };

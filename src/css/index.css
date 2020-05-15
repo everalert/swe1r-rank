@@ -58,9 +58,14 @@ h4 {
 nav {
 	flex-grow: 1;
 	grid-area: nav;
-	padding: 0.65em !important;
+	padding: 0 0.25em !important;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 }
 nav a {
+	display: inline-block;
 	margin-left: 0.25em !important;
 	text-transform: uppercase;
 	padding: 0.35em 0.5em !important;
@@ -75,10 +80,31 @@ nav a:hover {
 }
 a.icon {
 	position: relative;
+	padding: 0 !important;
 	top: 0.1em;
+	margin-left: 0.5em !important;
 }
 nav a.icon:hover {
 	background-color: transparent;
+}
+nav a.icon svg {
+	display: inline-block;
+	height: 1.15em;
+	width: 1.15em;
+	fill: #8080FF;
+	transition: opacity ease 0.1s;
+}
+nav a.icon:hover svg {
+	fill: #A0A0FF;
+}
+nav a.icon svg.disabled {
+	fill: #808080;
+}
+nav a.icon:hover svg.disabled {
+	fill: #404040;
+}
+nav a.icon svg.overall-disabled {
+	opacity: 0.5;
 }
 
 
@@ -112,6 +138,10 @@ header .logo {
 header nav a {
 	font-size: 1.25rem;
 }
+header nav a.icon svg {
+	width: 1.65em;
+	height: 1.65em;
+}
 
 
 
@@ -124,8 +154,8 @@ main {
 	grid-template-rows: auto auto 1fr;
 	grid-gap: 0 1.5rem;
 	grid-template-areas:
-		'h1 h1 h1 h1 h1 h1 h1 page page'
-		'h2 h2 h2 h2 h2 h2 h2 page page'
+		'h1 h1 h1 h1 h1 h1 h1 h1 h1'
+		'h2 h2 h2 h2 h2 h2 h2 h2 h2'
 		'table table table table table table panel panel panel';
 	--panel-text-shadow: 1px 1px 4px #FFF;
 }
@@ -169,6 +199,9 @@ footer {
 	box-sizing: border-box;
 }
 
+footer nav {
+	padding: 0 !important;
+}
 footer nav a {
 	font-size: 1rem;
 }
@@ -377,6 +410,9 @@ footer nav a {
 #container.dark-theme header .logo {
 	background-position: bottom center;
 }
+#container.dark-theme nav a.icon:hover svg.disabled {
+	fill: #A0A0A0;
+}
 
 #container.dark-theme main {
 	--panel-text-shadow: 1px 1px 4px #000;
@@ -396,14 +432,22 @@ footer nav a {
 
 
 @media all and (max-width: 480px) {
+	nav {
+		justify-content: center;
+	}
+
 	header {
-		position: initial;
+		/*position: initial;*/
 		padding: 0.25rem !important;
 		grid-template-areas: 'nav nav' 'logo logo';
 		text-align: center;
 	}
 	header nav a {
 		font-size: 1rem;
+	}
+	header nav a.icon svg {
+		width: 1.25em;
+		height: 1.25em;
 	}
 	header .logo {
 		--height: 1.6rem;
@@ -412,8 +456,8 @@ footer nav a {
 	main {
 		grid-gap: 0 1rem;
 		grid-template-areas:
-			'h1 h1 h1 h1 h1 h1 page page page'
-			'h2 h2 h2 h2 h2 h2 page page page'
+			'h1 h1 h1 h1 h1 h1 h1 h1 h1'
+			'h2 h2 h2 h2 h2 h2 h2 h2 h2'
 			'table table table table table table table table table'
 			'panel panel panel panel panel panel panel panel panel';
 	}

@@ -35,15 +35,15 @@ export default {
 		Skips : {
 			Id : '2lgz978p',
 			Value : {
-				'81p7we17':'No',
-				'p125ev1x':'Yes'
+				'81p7we17':false,
+				'p125ev1x':true
 			}
 		},
 		Upgrades : {
 			Id : '789k49lw',
 			Value : {
-				'z194gjl4':'No',
-				'xqkrk919':'Yes'
+				'z194gjl4':false,
+				'xqkrk919':true
 			}
 		}
 	},
@@ -58,6 +58,8 @@ export default {
 
 	},
 	TableFields : {
+		pts: 'points',
+		time: 'time',
 		ptsALL: 'points-total',
 		pts3L: 'points-3lap',
 		pts1L: 'points-1lap',
