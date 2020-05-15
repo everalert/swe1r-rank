@@ -32,9 +32,10 @@ export default {
 			]
 		},
 		2 : {
-			Release : new Date(),
+			Release : new Date('2020-05-16'),
 			Notes : [
-				
+				"Added overall rankings.",
+				"Added individual rankings for skips and upgrades combinations.",
 			]
 		}
 	},
