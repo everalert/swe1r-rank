@@ -14,8 +14,8 @@ export default () => {
 				<nav>
 					<Link to={VAL.Routes.ABOUT}>About</Link>
 					<Link to={VAL.Routes.CHANGELOG}>Changelog</Link>
-					<a onClick={reload} className='icon'><MdLoop/></a>
-					<a onClick={toggleTheme} className='icon'><MdLightbulbOutline/></a>
+					<button onClick={reload} className='icon'><MdLoop/></button>
+					<button onClick={toggleTheme} className='icon'><MdLightbulbOutline/></button>
 				</nav>
 			</footer>
 	);

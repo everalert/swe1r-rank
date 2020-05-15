@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import VAL from '../state/const';
 import Track from '../element/table-track';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
