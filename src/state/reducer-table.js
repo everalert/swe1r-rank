@@ -5,45 +5,37 @@ import { FormatTime, FormatTotalTime, FormatPoints, FormatTotalPoints } from '..
 export const RankingTableFromState = (state) => {
 	let table = Object.keys(state.players).map(k => {
 		let p = state.players[k];
+		let totals = state.settings.overall ?
+			p.overallTotals :
+			VAL.Setting.Lap[state.settings.lap].key==='ALL' ?
+				p.combinedTotals.filter(c => c.skips===state.settings.skips && c.upgrades===state.settings.upgrades)[0] :
+				p.totals.filter(c => c.laps===VAL.Setting.Lap[state.settings.lap].key && c.skips===state.settings.skips && c.upgrades===state.settings.upgrades)[0];
 		let player = {
 			id:k,
 			name:p.name,
-			sortALL:p.ptsALL,
-			sort1L:p.pts1L,
-			sort3L:p.pts3L,
-			timeALL:p.timeALL,
-			time1L:p.time1L,
-			time3L:p.time3L,
-			fields:{},
-			data:{
-				ptsALL: FormatTotalPoints(p.ptsALL),
-				timeALL: FormatTotalTime(Math.floor(p.timeALL)),
-				pts1L: FormatTotalPoints(p.pts1L),
-				time1L: FormatTotalTime(Math.floor(p.time1L)),
-				pts3L: FormatTotalPoints(p.pts3L),
-				time3L: FormatTotalTime(Math.floor(p.time3L)),
+			sort:totals.pts,
+			time:totals.time,
+			fields:{
+				pts:FormatTotalPoints(totals.pts),
+				time:FormatTotalTime(totals.time)
 			}
 		};
 		return player;
 	});
 
-	let sort = VAL.Setting.Lap[state.settings.lap].key;
-	table.sort((a,b) => a[`time${sort}`] - b[`time${sort}`]);
-	table.sort((a,b) => b[`sort${sort}`] - a[`sort${sort}`]);
+	table.sort((a,b) => a.time - b.time);
+	table.sort((a,b) => b.sort - a.sort);
 	let rank = 0, rankStreak = 0;
 	let last = null;
-	table = table.filter(t => t[`time${sort}`] > 0);
+	table = table.filter(t => t.time > 0);
 	table.forEach(item => {
 		rankStreak++;
-		if (item[`sort${sort}`] !== last) {
+		if (item.sort !== last) {
 			rank += rankStreak;
 			rankStreak = 0;
 		}
-		item.fields = {}
-		item.fields[`time${sort}`] = item.data[`time${sort}`];
-		item.fields[`pts${sort}`] = item.data[`pts${sort}`];
 		item.rank = rank;
-		last = item[`sort${sort}`];
+		last = item.sort;
 	});
 
 	return table;
@@ -53,9 +45,12 @@ export const RankingTableFromState = (state) => {
 export const TrackListTableFromState = (state) => {
 	let table = Object.keys(state.levels).map(k => {
 		let t = state.levels[k];
-		let track = { id:k, name:t.name, fields:{} };
-		track.fields.best3L = FormatTime(t.best3L);
-		track.fields.best1L = FormatTime(t.best1L);
+		const bests = state.settings.overall ?
+			t.bests :
+			t.bests.filter(t => t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
+		let track = { id:k, name:t.name, best3L:0, best1L:0 };
+		bests.forEach(b => { track[`best${b.laps}`] += b.time });
+		track.fields = { best3L:FormatTime(track.best3L), best1L:FormatTime(track.best1L) };
 		return track;
 	});
 	const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);
@@ -65,53 +60,43 @@ export const TrackListTableFromState = (state) => {
 
 
 export const TrackTableFromState = (state) => {
-	const times = state.runs.filter(t => t.level === state.page);
+	const times = state.settings.overall ?
+		state.runs.filter(t => t.level === state.page) :
+		VAL.Setting.Lap[state.settings.lap].key==='ALL' ?
+			state.runs.filter(t => t.level===state.page && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades) :
+			state.runs.filter(t => t.level===state.page && t.laps===VAL.Setting.Lap[state.settings.lap].key && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
 	let table = [];
 	times.forEach(t => {
-		table = table.filter(p => p.id!==t.player);
-		table.push({
-			id:t.player,
-			name:state.players[t.player].name,
-			sort1L:0,
-			sort3L:0,
-			sortALL:0,
-			time1L:0,
-			time3L:0,
-			timeALL:0,
-			fields:{},
-			data:{}
-		})
-	});
-	times.forEach(t => {
-		let p = table.filter(p => p.id===t.player)[0];
-		p[`sort${t.cat}`] = t.points;
-		p[`time${t.cat}`] = t.time;
-		p.data[`time${t.cat}`] = FormatTime(t.time,'seconds');
-		p.data[`pts${t.cat}`] = FormatPoints(t.points);
-	});
-	table.forEach(t => {
-		t.sortALL = t.sort3L+t.sort1L;
-		t.timeALL = t.time3L+t.time1L;
-		t.data.timeALL = FormatTime(t.time3L+t.time1L);
-		t.data.ptsALL = FormatPoints(t.sort3L+t.sort1L);
+		let player = table.filter(p => p.id===t.player);
+		if (player.length) {
+			player[0].sort += t.points;
+			player[0].time += t.time;
+			player[0].fields = { pts:FormatPoints(player[0].sort), time:FormatTime(player[0].time) };
+		} else {
+			table.push({
+				id:t.player,
+				name:state.players[t.player].name,
+				sort:t.points,
+				time:t.time,
+				fields:{ pts:FormatPoints(t.points), time:FormatTime(t.time) }
+			});
+		}
 	});
 
 	let sort = VAL.Setting.Lap[state.settings.lap].key;
-	table = table.filter(t => t[`time${sort}`] > 0);
-	table.sort((a,b) => b[`sort${sort}`] - a[`sort${sort}`]);
+	table = table.filter(t => t.time > 0);
+	table.sort((a,b) => a.time - b.time);
+	table.sort((a,b) => b.sort - a.sort);
 	let rank = 0, rankStreak = 0;
 	let last = null;
 	table.forEach(item => {
 		rankStreak++;
-		if (item[`sort${sort}`] !== last) {
+		if (item.sort !== last) {
 			rank += rankStreak;
 			rankStreak = 0;
 		}
-		item.fields = {}
-		item.fields[`time${sort}`] = item.data[`time${sort}`];
-		item.fields[`pts${sort}`] = item.data[`pts${sort}`];
 		item.rank = rank;
-		last = item[`sort${sort}`];
+		last = item.sort;
 	});
 	return table;
 }
@@ -121,10 +106,14 @@ export const PlayerListTableFromState = (state) => {
 	let sort = VAL.Setting.Lap[state.settings.lap].key;
 	let table = Object.keys(state.players).map(k => {
 		let p = state.players[k];
+		let totals = state.settings.overall ?
+			p.overallTotals :
+			VAL.Setting.Lap[state.settings.lap].key==='ALL' ?
+				p.combinedTotals.filter(c => c.skips===state.settings.skips && c.upgrades===state.settings.upgrades)[0] :
+				p.totals.filter(c => c.laps===VAL.Setting.Lap[state.settings.lap].key && c.skips===state.settings.skips && c.upgrades===state.settings.upgrades)[0];
 		let player = { id:k, name:p.name, time:0, fields:{} };
-		player.fields[`pts${sort}`] = FormatTotalPoints(p[`pts${sort}`]);
-		player.fields[`time${sort}`] = FormatTotalTime(Math.floor(p[`time${sort}`]));
-		player.time = p[`time${sort}`];
+		player.fields = { pts:FormatTotalPoints(totals.pts), time:FormatTotalTime(Math.floor(totals.time)) };
+		player.time = totals.time;
 		return player;
 	});
 	table = table.filter(t => t.time > 0);
@@ -134,13 +123,24 @@ export const PlayerListTableFromState = (state) => {
 
 
 export const PlayerTableFromState = (state) => {
-	const times = state.runs.filter(t => t.player === state.page);
-	
-	let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, fields:{} }) );
+	const times = state.settings.overall ?
+		state.runs.filter(t => t.player===state.page) :
+		VAL.Setting.Lap[state.settings.lap].key==='ALL' ?
+			state.runs.filter(t => t.player===state.page && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades) :
+			state.runs.filter(t => t.player===state.page && t.laps===VAL.Setting.Lap[state.settings.lap].key && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
+	let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, data:{time1L:0,pts1L:0,time3L:0,pts3L:0}, fields:{} }) );
 	times.forEach(t => {
 		let p = tracks.filter(p => p.id===t.level)[0];
-		p.fields[`time${t.cat}`] = FormatTime(t.time);
-		p.fields[`pts${t.cat}`] = FormatPoints(t.points);
+		p.data[`time${t.laps}`] += t.time;
+		p.data[`pts${t.laps}`] += t.points;
+	});
+	tracks.forEach(t => {
+		t.fields = {
+			time1L:FormatTime(t.data.time1L),
+			pts1L:FormatPoints(t.data.pts1L),
+			time3L:FormatTime(t.data.time3L),
+			pts3L:FormatPoints(t.data.pts3L)
+		}
 	});
 	const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);
 	tracks.sort((a,b) => levels.indexOf(a.id) - levels.indexOf(b.id));
