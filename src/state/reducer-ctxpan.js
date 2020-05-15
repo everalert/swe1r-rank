@@ -50,23 +50,27 @@ export const TrackCtxPanFromState = (state) => {
 	let items = [];
 	if (Object.keys(state.levels).indexOf(page)>=0) {
 		if (lap === 'ALL' || lap === '3L') {
-			const time = bests.filter(t => t.laps==='3L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0].time || 3599.99;
+			const best = bests.filter(t => t.laps==='3L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0];
+			const time = best.time || 3599.99;
+			const scale = best.scale;
 			items.push(NewCtxHeading('3-Lap Milestones'));
 			if (!state.settings.overall) {
-				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
-				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
-				items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time))));
+				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,scale,90))));
+				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,scale,50))));
+				items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time,scale))));
 			} else {
 				items.push(NewCtxText('A long time.'))
 			}
 		}
 		if (lap === 'ALL' || lap === '1L') {
-			const time = bests.filter(t => t.laps==='1L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0].time || 3599.99;
+			const best = bests.filter(t => t.laps==='1L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0];
+			const time = best.time || 3599.99;
+			const scale = best.scale;
 			items.push(NewCtxHeading('1-Lap Milestones'));
 			if (!state.settings.overall) {
-				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
-				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
-				items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time))));
+				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,scale,90))));
+				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,scale,50))));
+				items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time,scale))));
 			} else {
 				items.push(NewCtxText('A long time.'))
 			}

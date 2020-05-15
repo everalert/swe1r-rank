@@ -1,6 +1,6 @@
 import VAL from './const';
 import { FormatIdFromPlayer } from '../module/format';
-import { CalculatePoints } from '../module/points';
+import { CalculatePoints, CalculateLevelScale } from '../module/points';
 import { RankingTableFromState,
          TrackListTableFromState,
          TrackTableFromState,
@@ -14,6 +14,7 @@ import { RankingCtxPanFromState,
 import { CreateBlankPlayerObj,
          CreateBlankLevelObj,
          CreateBlankTotalsObj,
+         CreateBlankRecordScaleArr,
          GenerateRunVariations } from './reducer-runs';
 //import { merge } from 'lodash';
 
@@ -32,6 +33,7 @@ const initialState = {
 	players : {},
 	levels : {},
 	runs : [],
+	recordScale: CreateBlankRecordScaleArr(),
 	settings : {
 		dark: true,
 		refreshable: false,
@@ -154,6 +156,9 @@ export default (state = initialState, action) => {
 				if (b.time > action.time) {
 					b.time = action.time;
 					b.player = playerId;
+					let scale = output.recordScale.filter(r => b.laps===r.laps && b.skips===r.skips && b.upgrades===r.upgrades)[0];
+					if (scale.time_min > b.time) scale.time_min = b.time;
+					if (scale.time_max < b.time) scale.time_max = b.time;
 				}
 			})
 
@@ -186,11 +191,18 @@ export default (state = initialState, action) => {
 		}
 
 		if (action.type === 'CALCULATE_TOTALS') {
+			Object.keys(state.levels).forEach(l => {
+				output.levels[l].bests.forEach(b => {
+					let scale = state.recordScale.filter(r => b.laps===r.laps && b.skips===r.skips && b.upgrades===r.upgrades)[0];
+					b.scale = CalculateLevelScale(scale.time_min, scale.time_max, b.time)
+				});
+			});
 			Object.keys(state.players).forEach(p => {
 				let times = state.runs.filter(r => r.player===p);
 				let totals = times.reduce((v,t) => {
-					let WR = state.levels[t.level].bests.filter(b => b.laps===t.laps && b.skips===t.skips && b.upgrades===t.upgrades)[0].time;
-					let pts = CalculatePoints(WR, t.time);
+					let best = state.levels[t.level].bests.filter(b => b.laps===t.laps && b.skips===t.skips && b.upgrades===t.upgrades)[0];
+					let WR = best.time, scale = best.scale;
+					let pts = CalculatePoints(WR, t.time, scale);
 					let category = v.totals.filter(c => c.laps===t.laps && c.skips===t.skips && c.upgrades===t.upgrades)[0];
 					let combined = v.combinedTotals.filter(c => c.skips===t.skips && c.upgrades===t.upgrades)[0];
 					category.pts += pts;

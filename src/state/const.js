@@ -54,6 +54,8 @@ export default {
 	Score : {
 		Max : 100,
 		Scale : 1.5,
+		ScaleMin : 1.25,
+		ScaleMax : 2,
 		Precision: 6
 
 	},
