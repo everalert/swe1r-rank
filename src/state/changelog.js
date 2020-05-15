@@ -37,6 +37,12 @@ export default {
 				"Added overall rankings.",
 				"Added individual rankings for skips and upgrades combinations.",
 			]
+		},
+		3 : {
+			Release : new Date(),
+			Notes : [
+				
+			]
 		}
 	},
 };
