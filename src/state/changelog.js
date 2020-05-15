@@ -41,7 +41,7 @@ export default {
 		3 : {
 			Release : new Date(),
 			Notes : [
-				
+				"Changed point scale to use sliding multiplier from 1.25× to 2.0× WR."
 			]
 		}
 	},
