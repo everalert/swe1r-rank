@@ -58,6 +58,8 @@ export default {
 
 	},
 	TableFields : {
+		pts: 'points',
+		time: 'time',
 		ptsALL: 'points-total',
 		pts3L: 'points-3lap',
 		pts1L: 'points-1lap',

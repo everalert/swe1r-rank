@@ -13,6 +13,7 @@ export default {
 	updateTable: () => ({ type:'UPDATE_TABLE' }),
 	updateCtxPan: (title) => ({ type:'UPDATE_CTXPAN', title:title }),
 
+	calcTotals: () => ({type:'CALCULATE_TOTALS'}),
 	calcTime: () => ({type:'CALCULATE_TIME'}),
 	calcPoints: () => ({type:'CALCULATE_POINTS'}),
 

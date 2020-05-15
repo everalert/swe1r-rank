@@ -11,6 +11,10 @@ import { RankingCtxPanFromState,
          TrackCtxPanFromState,
          PlayerListCtxPanFromState,
          PlayerCtxPanFromState } from './reducer-ctxpan';
+import { CreateBlankPlayerObj,
+         CreateBlankLevelObj,
+         CreateBlankTotalsObj,
+         GenerateRunVariations } from './reducer-runs';
 //import { merge } from 'lodash';
 
 const initialState = {
@@ -133,23 +137,27 @@ export default (state = initialState, action) => {
 
 
 		if (action.type === 'ADD_RUN') {
-			//{ level:'kjhgfsd', cat:'3L', player:'sdlkjgfh', time:236.987, pts:100, platform:'Nintendo 64', character:'Ben' }
-			let laps = VAL.Id.Category[action.laps];
-			let skips = VAL.Id.Skips.Value[action.skips];
-			let upgrades = VAL.Id.Upgrades.Value[action.upgrades];
+			let laps = VAL.Id.Category[action.laps] || '1L';
+			let skips = Object.keys(VAL.Id.Skips.Value).indexOf(action.skips) >= 0 ? VAL.Id.Skips.Value[action.skips] : true;
+			let upgrades = Object.keys(VAL.Id.Upgrades.Value).indexOf(action.upgrades) >= 0 ? VAL.Id.Upgrades.Value[action.upgrades] : true;
 			let playerId = FormatIdFromPlayer(action.player.name);
 			let levelId = VAL.Id.Level[action.level].abbr;
 
-			if (!state.levels[levelId])
-				output.levels[levelId] = { name:VAL.Id.Level[action.level].name, abbr:VAL.Id.Level[action.level].abbr, best3L:3599.99, best1L:3599.99 };
-			if (output.levels[levelId][`best${laps}`] > action.time)
-				output.levels[levelId][`best${laps}`] = action.time;
-
 			if (!state.players[playerId])
-				output.players[playerId] = { name:action.player.name, ptsALL:0, pts3L:0, pts1L:0, timeALL:0, time3L:0, time1L:0 };
+				output.players[playerId] = CreateBlankPlayerObj(playerId, action.player.name);
 
-			//todo: add in calculation
-			let run = {
+			if (!state.levels[levelId])
+				output.levels[levelId] = CreateBlankLevelObj(levelId, VAL.Id.Level[action.level].name);
+			
+			let bests = output.levels[levelId].bests.filter(b => b.laps===laps && (b.skips===skips||b.skips===true) && (b.upgrades===upgrades||b.upgrades===true));
+			bests.forEach(b => {
+				if (b.time > action.time) {
+					b.time = action.time;
+					b.player = playerId;
+				}
+			})
+
+			let runs = GenerateRunVariations({
 				level: levelId,
 				laps: laps,
 				skips: skips,
@@ -162,33 +170,67 @@ export default (state = initialState, action) => {
 				date: action.date,
 				comment: action.comment,
 				video: action.video
-			}
-			let test = state.runs.filter(r => levelId===r.level && laps===r.laps && playerId===r.player);
-			if (test.length && action.time<test[0].time) {
-				let all = state.runs.filter(r => !(levelId===r.level && laps===r.laps && playerId===r.player));
-				all.push(run);
-				output.runs = all;
-			}
-			else if (test.length)
-				return state;
-			else
-				output.runs.push(run);
+			});
+			runs.forEach(new_r => {
+				let test = state.runs.filter(r => levelId===r.level && playerId===r.player && laps===r.laps && new_r.skips===r.skips && new_r.upgrades===r.upgrades);
+				if (test.length && new_r.time<test[0].time) {
+					let all = state.runs.filter(r => !(levelId===r.level && playerId===r.player && laps===r.laps && new_r.skips===r.skips && new_r.upgrades===r.upgrades));
+					all.push(new_r);
+					output.runs = all;
+				}
+				else if (test.length)
+					return;
+				else
+					output.runs.push(new_r);
+			});
+		}
+
+		if (action.type === 'CALCULATE_TOTALS') {
+			Object.keys(state.players).forEach(p => {
+				let times = state.runs.filter(r => r.player===p);
+				let totals = times.reduce((v,t) => {
+					let WR = state.levels[t.level].bests.filter(b => b.laps===t.laps && b.skips===t.skips && b.upgrades===t.upgrades)[0].time;
+					let pts = CalculatePoints(WR, t.time);
+					let category = v.totals.filter(c => c.laps===t.laps && c.skips===t.skips && c.upgrades===t.upgrades)[0];
+					let combined = v.combinedTotals.filter(c => c.skips===t.skips && c.upgrades===t.upgrades)[0];
+					category.pts += pts;
+					combined.pts += pts;
+					v.overallTotals.pts += pts;
+					category.time += t.time;
+					combined.time += t.time;
+					v.overallTotals.time += t.time;
+					t.points = pts;
+					return v;
+				}, CreateBlankTotalsObj());
+				output.players[p].totals = totals.totals;
+				output.players[p].combinedTotals = totals.combinedTotals;
+				output.players[p].overallTotals = totals.overallTotals;
+				// output.players[p].ptsALL = totals['ALL'];
+				// output.players[p].pts3L = totals['3L'];
+				// output.players[p].pts1L = totals['1L'];
+			})
 		}
 
 		if (action.type === 'CALCULATE_POINTS') {
 			Object.keys(state.players).forEach(p => {
 				let times = state.runs.filter(r => r.player===p);
 				let totals = times.reduce((v,t) => {
-					let WR = state.levels[t.level][`best${t.laps}`];
+					let WR = state.levels[t.level].bests.filter(b => b.laps===t.laps && b.skips===t.skips && b.upgrades===t.upgrades)[0].time;
 					let pts = CalculatePoints(WR, t.time);
-					v['ALL'] += pts;
-					v[t.laps] += pts;
+					let category = v.totals.filter(c => c.laps===t.laps && c.skips===t.skips && c.upgrades===t.upgrades)[0];
+					let combined = v.combinedTotals.filter(c => c.skips===t.skips && c.upgrades===t.upgrades)[0];
+					category.pts += pts;
+					combined.pts += pts;
+					v.overallTotals.pts += pts;
 					t.points = pts;
 					return v;
-				}, {'ALL':0, '3L':0, '1L':0});
-				output.players[p].ptsALL = totals['ALL'];
-				output.players[p].pts3L = totals['3L'];
-				output.players[p].pts1L = totals['1L'];
+				}, CreateBlankTotalsObj());
+				output.players[p].totals = totals.totals;
+				output.players[p].combinedTotals = totals.combinedTotals;
+				output.players[p].overallTotals = totals.overallTotals;
+				// output.players[p].ptsALL = totals['ALL'];
+				// output.players[p].pts3L = totals['3L'];
+				// output.players[p].pts1L = totals['1L'];
 			})
 		}
 

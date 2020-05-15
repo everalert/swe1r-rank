@@ -16,6 +16,7 @@ const mapDispatchToProps = dispatch => {
 		addRun: (run,players,platforms,variables) => dispatch(Actions.addRun(run,players,platforms,variables)),
 		calcTime: () => dispatch(Actions.calcTime()),
 		calcPts: () => dispatch(Actions.calcPoints()),
+		calcTotals: () => dispatch(Actions.calcTotals()),
 		finalize: () => dispatch(Actions.markLoaded())
 	};
 }
@@ -56,8 +57,7 @@ class Api extends React.Component {
 		))
 		.then(()=>{
 			if (!this.state.error) {
-				this.props.calcPts();
-				this.props.calcTime();
+				this.props.calcTotals();
 				this.props.finalize();
 			}
 		})
