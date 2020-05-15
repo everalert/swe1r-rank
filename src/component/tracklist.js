@@ -3,10 +3,14 @@ import { connect } from 'react-redux';
 import TrackList from '../element/table-tracklist';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
+import { FormatCategoryTitleFromSettings } from '../module/format';
 
 
 const mapStateToProps = state => {
-	return { data: state.table	};
+	return {
+		data: state.table,
+		settings: state.settings
+	};
 }
 
 const mapDispatchToProps = dispatch => {
@@ -29,7 +33,7 @@ class Tracks extends React.Component {
 	render() {
 		return (
 			<main>
-				<h1>All</h1>
+				<h1>{FormatCategoryTitleFromSettings(this.props.settings)}</h1>
 				<h2>Tracks</h2>
 				<ContextPanel/>
 				<TrackList data={this.props.data}/>

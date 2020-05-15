@@ -43,3 +43,16 @@ export const FormatRunsPosted = (runs, max) => {
 export const FormatIdFromPlayer = (name) => {
 	return name.toLowerCase().replace(' ','_');
 }
+
+export const FormatCategoryTitleFromSettings = (settings) => {
+	const strings = [];
+	if (settings.overall)
+		strings.push('Overall');
+	else {
+		strings.push(`${!settings.skips?'No ':''}Skips`);
+		strings.push(`${!settings.upgrades?'No ':''}Upgrades`);
+	}
+	if (VAL.Setting.Lap[settings.lap].key!=='ALL')
+		strings.push(VAL.Setting.Lap[settings.lap].name);
+	return strings.join(', ');
+}

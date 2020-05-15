@@ -3,13 +3,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Ranking from '../element/table-ranking';
 import ContextPanel from '../element/ctxpan';
+import { FormatCategoryTitleFromSettings } from '../module/format';
 import Actions from '../state/action';
 
 
 const mapStateToProps = state => {
 	return {
 		data: state.table,
-		lap: state.settings.lap
+		settings: state.settings
 	};
 }
 
@@ -35,7 +36,7 @@ class RankingPage extends React.Component {
 		return (
 			<main>
 				<h1>Ranking</h1>
-				<h2>{VAL.Setting.Lap[this.props.lap].name}</h2>
+				<h2>{FormatCategoryTitleFromSettings(this.props.settings)}</h2>
 				<ContextPanel/>
 				<Ranking data={this.props.data}/>
 			</main>
