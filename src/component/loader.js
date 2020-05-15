@@ -14,8 +14,6 @@ const mapDispatchToProps = dispatch => {
 	return {
 		clearData: () => dispatch(Actions.clearData()),
 		addRun: (run,players,platforms,variables) => dispatch(Actions.addRun(run,players,platforms,variables)),
-		calcTime: () => dispatch(Actions.calcTime()),
-		calcPts: () => dispatch(Actions.calcPoints()),
 		calcTotals: () => dispatch(Actions.calcTotals()),
 		finalize: () => dispatch(Actions.markLoaded())
 	};

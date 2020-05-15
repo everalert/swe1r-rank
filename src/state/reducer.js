@@ -205,46 +205,6 @@ export default (state = initialState, action) => {
 				output.players[p].totals = totals.totals;
 				output.players[p].combinedTotals = totals.combinedTotals;
 				output.players[p].overallTotals = totals.overallTotals;
-				// output.players[p].ptsALL = totals['ALL'];
-				// output.players[p].pts3L = totals['3L'];
-				// output.players[p].pts1L = totals['1L'];
-			})
-		}
-
-		if (action.type === 'CALCULATE_POINTS') {
-			Object.keys(state.players).forEach(p => {
-				let times = state.runs.filter(r => r.player===p);
-				let totals = times.reduce((v,t) => {
-					let WR = state.levels[t.level].bests.filter(b => b.laps===t.laps && b.skips===t.skips && b.upgrades===t.upgrades)[0].time;
-					let pts = CalculatePoints(WR, t.time);
-					let category = v.totals.filter(c => c.laps===t.laps && c.skips===t.skips && c.upgrades===t.upgrades)[0];
-					let combined = v.combinedTotals.filter(c => c.skips===t.skips && c.upgrades===t.upgrades)[0];
-					category.pts += pts;
-					combined.pts += pts;
-					v.overallTotals.pts += pts;
-					t.points = pts;
-					return v;
-				}, CreateBlankTotalsObj());
-				output.players[p].totals = totals.totals;
-				output.players[p].combinedTotals = totals.combinedTotals;
-				output.players[p].overallTotals = totals.overallTotals;
-				// output.players[p].ptsALL = totals['ALL'];
-				// output.players[p].pts3L = totals['3L'];
-				// output.players[p].pts1L = totals['1L'];
-			})
-		}
-
-		if (action.type === 'CALCULATE_TIME') {
-			Object.keys(state.players).forEach(p => {
-				let times = state.runs.filter(r => r.player===p);
-				let totals = times.reduce((v,t) => {
-					v['ALL'] += t.time;
-					v[t.laps] += t.time;
-					return v;
-				}, {'ALL':0, '3L':0, '1L':0});
-				output.players[p].timeALL = totals['ALL'];
-				output.players[p].time3L = totals['3L'];
-				output.players[p].time1L = totals['1L'];
 			})
 		}
 
