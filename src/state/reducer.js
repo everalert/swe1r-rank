@@ -38,7 +38,7 @@ const initialState = {
 		lap: 0, //0=overall,1=3lap,2=1lap
 		skips: true,
 		upgrades: true,
-		overall: true
+		overall: false
 	}
 };
 
