@@ -114,6 +114,7 @@ export default {
 		'ABOUT':'/about',
 		'CHANGELOG':'/changelog',
 		'RANKING':'/',
+		'DEVELOPER':'/dev',
 	},
 	Sections : [
 		{

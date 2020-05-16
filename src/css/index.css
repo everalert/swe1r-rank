@@ -160,9 +160,25 @@ main {
 	--panel-text-shadow: 1px 1px 4px #FFF;
 }
 
-main.about, main.changelog, main.error-message {
+main.about, main.changelog, main.error-message, main.developer {
 	display: block;
 	font-size: 1.25rem;
+}
+main button {
+	display: inline-block;
+	text-transform: uppercase;
+	padding: 0.15em 0.35em !important;
+	margin: 0 0.15em !important;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.15em;
+	border: none;
+	color: #8080FF;
+	background: transparent;
+}
+main button:hover {
+	background: rgba(127,127,255,0.1);
+	font-weight: bold;
+	cursor: pointer;
 }
 
 p, ul {

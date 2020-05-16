@@ -7,6 +7,7 @@ import {
 import VAL from '../state/const';
 import { useSelector } from 'react-redux';
 import Loader from './loader';
+import Dev from './developer';
 import About from './about';
 import Changelog from './changelog';
 import Ranking from './ranking';
@@ -31,6 +32,7 @@ export default () => {
 						<Route path={VAL.Routes.PLAYER} component={Player}/>
 						<Route path={VAL.Routes.TRACKLIST} component={TrackList}/>
 						<Route path={VAL.Routes.TRACK} component={Track}/>
+						<Route path={VAL.Routes.DEVELOPER} component={Dev}/>
 						<Route path={VAL.Routes.ABOUT} component={About}/>
 						<Route path={VAL.Routes.CHANGELOG} component={Changelog}/>
 						<Route path={VAL.Routes.HOME} component={Ranking}/>

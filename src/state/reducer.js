@@ -40,7 +40,9 @@ const initialState = {
 		lap: 0, //0=overall,1=3lap,2=1lap
 		skips: true,
 		upgrades: true,
-		overall: false
+		overall: false,
+		developerMode: true,
+		developerShow: true
 	}
 };
 
@@ -91,6 +93,14 @@ export default (state = initialState, action) => {
 
 		if (action.type === 'TOGGLE_OVERALL_SETTING') {
 			output.settings.overall = !state.settings.overall;
+		}
+
+		if (action.type === 'TOGGLE_DEVELOPER_MODE') {
+			output.settings.developerMode = !state.settings.developerMode;
+		}
+
+		if (action.type === 'TOGGLE_DEVELOPER_SHOW') {
+			output.settings.developerShow = !state.settings.developerShow;
 		}
 
 		if (action.type === 'UPDATE_TABLE') {
