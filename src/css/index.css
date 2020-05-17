@@ -80,8 +80,9 @@ nav a:hover, nav button:hover {
 }
 a.icon, button.icon {
 	padding: 0 !important;
-	margin-left: 0.35em !important;
+	margin-left: 0.5em !important;
 	height: 1.85em;
+	width: 1.65em;
 	box-sizing: border-box !important;
 }
 nav a.icon:hover, nav button.icon:hover {
@@ -222,6 +223,7 @@ footer nav a, footer nav button {
 footer .icon {
 	position: relative;
 	top: 0.05em;
+	width: 1.25em;
 }
 
 
