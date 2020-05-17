@@ -41,8 +41,8 @@ const initialState = {
 		skips: true,
 		upgrades: true,
 		overall: false,
-		developerMode: true,
-		developerShow: true
+		debugMode: true,
+		debugInfo: true
 	}
 };
 
@@ -95,12 +95,12 @@ export default (state = initialState, action) => {
 			output.settings.overall = !state.settings.overall;
 		}
 
-		if (action.type === 'TOGGLE_DEVELOPER_MODE') {
-			output.settings.developerMode = !state.settings.developerMode;
+		if (action.type === 'TOGGLE_DEBUG_MODE') {
+			output.settings.debugMode = !state.settings.debugMode;
 		}
 
-		if (action.type === 'TOGGLE_DEVELOPER_SHOW') {
-			output.settings.developerShow = !state.settings.developerShow;
+		if (action.type === 'TOGGLE_DEBUG_INFO') {
+			output.settings.debugInfo = !state.settings.debugInfo;
 		}
 
 		if (action.type === 'UPDATE_TABLE') {

@@ -2,7 +2,7 @@ import VAL from './const';
 import { FormatTime, FormatFullTotalTime, FormatRunsPosted } from '../module/format';
 import { TimeNeededForPoints } from '../module/points';
 import { NewCtxItem, NewCtxHeading, NewCtxText } from '../module/ctxpan';
-import { DevFormatCategoryMultiplier } from '../module/developer';
+import { DevFormatCategoryMultiplier } from '../module/debug';
 
 
 export const RankingCtxPanFromState = (state) => {
@@ -48,7 +48,7 @@ export const TrackCtxPanFromState = (state) => {
 	const page = state.panel.section ? state.panel.page : state.page;
 	const lap = VAL.Setting.Lap[state.settings.lap].key;
 	const bests = state.levels[page].bests;
-	const devShow = state.settings.developerMode && state.settings.developerShow;
+	const debugInfo = state.settings.debugMode && state.settings.debugInfo;
 	let items = [];
 	if (Object.keys(state.levels).indexOf(page)>=0) {
 		if (lap === 'ALL' || lap === '3L') {
@@ -60,7 +60,7 @@ export const TrackCtxPanFromState = (state) => {
 				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,scale,90))));
 				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,scale,50))));
 				items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time,scale))));
-				if (devShow) {
+				if (debugInfo) {
 					items.push(NewCtxItem('Category Multiplier', DevFormatCategoryMultiplier(best.scale)));
 					items.push(NewCtxItem('90pt Time Window', FormatTime(TimeNeededForPoints(time,scale,90)-time)));
 				}
@@ -77,7 +77,7 @@ export const TrackCtxPanFromState = (state) => {
 				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,scale,90))));
 				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,scale,50))));
 				items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time,scale))));
-				if (devShow) {
+				if (debugInfo) {
 					items.push(NewCtxItem('Category Multiplier', DevFormatCategoryMultiplier(best.scale)));
 					items.push(NewCtxItem('90pt Time Window', FormatTime(TimeNeededForPoints(time,scale,90)-time)));
 				}
