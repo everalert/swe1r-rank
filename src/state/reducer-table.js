@@ -123,9 +123,7 @@ export const PlayerListTableFromState = (state) => {
 export const PlayerTableFromState = (state) => {
 	const times = state.settings.overall ?
 		state.runs.filter(t => t.player===state.page) :
-		VAL.Setting.Lap[state.settings.lap].key==='ALL' ?
-			state.runs.filter(t => t.player===state.page && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades) :
-			state.runs.filter(t => t.player===state.page && t.laps===VAL.Setting.Lap[state.settings.lap].key && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
+		state.runs.filter(t => t.player===state.page && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
 	let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, data:{time1L:0,pts1L:0,time3L:0,pts3L:0}, fields:{} }) );
 	times.forEach(t => {
 		let p = tracks.filter(p => p.id===t.level)[0];
