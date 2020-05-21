@@ -1,5 +1,5 @@
 import React from 'react';
-import VAL from '../state/const';
+//import VAL from '../state/const';
 import { useSelector, useDispatch } from 'react-redux';
 import Actions from '../state/action';
 

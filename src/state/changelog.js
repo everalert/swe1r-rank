@@ -39,9 +39,9 @@ export default {
 			]
 		},
 		3 : {
-			Release : new Date(),
+			Release : new Date('2020-05-19'),
 			Notes : [
-				"Changed point scale to use sliding multiplier from 1.25× to 2.0× WR."
+				"Changed point scale to use sliding multiplier between 1.35× and 2.0× WR."
 			]
 		}
 	},

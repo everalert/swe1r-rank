@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 import VAL from '../state/const';
 import Numeral from 'numeral';
 // import Moment from 'moment';

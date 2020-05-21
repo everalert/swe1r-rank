@@ -41,7 +41,7 @@ const initialState = {
 		skips: true,
 		upgrades: true,
 		overall: false,
-		debugMode: true,
+		debugMode: false,
 		debugInfo: true
 	}
 };
