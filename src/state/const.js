@@ -54,6 +54,8 @@ export default {
 	Score : {
 		Max : 100,
 		Scale : 1.5,
+		ScaleMin : 1.35,
+		ScaleMax : 2,
 		Precision: 6
 
 	},
@@ -102,7 +104,10 @@ export default {
 			{ name:'Overall', key:'ALL' },
 			{ name:'3-Lap', key:'3L' },
 			{ name:'1-Lap', key:'1L' },
-		]
+		],
+		Developer : {
+			CategoryMultiplierFormat : '0.000'
+		}
 	},
 	Routes : {
 		'PLAYERLIST':'/racers',
@@ -112,6 +117,7 @@ export default {
 		'ABOUT':'/about',
 		'CHANGELOG':'/changelog',
 		'RANKING':'/',
+		'DEBUG':'/debug',
 	},
 	Sections : [
 		{

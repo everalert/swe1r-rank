@@ -1,4 +1,3 @@
-import VAL from '../state/const';
 import React from 'react';
 import { connect } from 'react-redux';
 import Ranking from '../element/table-ranking';

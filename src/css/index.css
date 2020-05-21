@@ -64,7 +64,7 @@ nav {
 	align-items: center;
 	justify-content: flex-end;
 }
-nav a {
+nav a, nav button {
 	display: inline-block;
 	margin-left: 0.25em !important;
 	text-transform: uppercase;
@@ -73,37 +73,36 @@ nav a {
 	border: none;
 	background: transparent;
 }
-nav a:hover {
+nav a:hover, nav button:hover {
 	background: rgba(127,127,255,0.1);
 	font-weight: bold;
 	cursor: pointer;
 }
-a.icon {
-	position: relative;
+a.icon, button.icon {
 	padding: 0 !important;
-	top: 0.1em;
 	margin-left: 0.5em !important;
+	height: 1.85em;
+	width: 1.65em;
+	box-sizing: border-box !important;
 }
-nav a.icon:hover {
+nav a.icon:hover, nav button.icon:hover {
 	background-color: transparent;
 }
-nav a.icon svg {
+nav a.icon svg, nav button.icon svg {
 	display: inline-block;
-	height: 1.15em;
-	width: 1.15em;
 	fill: #8080FF;
 	transition: opacity ease 0.1s;
 }
-nav a.icon:hover svg {
+nav a.icon:hover svg, nav button.icon:hover svg {
 	fill: #A0A0FF;
 }
-nav a.icon svg.disabled {
+nav a.icon svg.disabled, nav button.icon svg.disabled {
 	fill: #808080;
 }
-nav a.icon:hover svg.disabled {
+nav a.icon:hover svg.disabled, nav button.icon:hover svg.disabled {
 	fill: #404040;
 }
-nav a.icon svg.overall-disabled {
+nav a.icon svg.overall-disabled, nav button.icon svg.overall-disabled {
 	opacity: 0.5;
 }
 
@@ -135,10 +134,10 @@ header .logo {
 	cursor: pointer;
 }
 
-header nav a {
+header nav a, header nav button {
 	font-size: 1.25rem;
 }
-header nav a.icon svg {
+header nav a.icon svg, header nav button.icon svg {
 	width: 1.65em;
 	height: 1.65em;
 }
@@ -160,9 +159,25 @@ main {
 	--panel-text-shadow: 1px 1px 4px #FFF;
 }
 
-main.about, main.changelog, main.error-message {
+main.about, main.changelog, main.error-message, main.developer {
 	display: block;
 	font-size: 1.25rem;
+}
+main button {
+	display: inline-block;
+	text-transform: uppercase;
+	padding: 0.15em 0.35em !important;
+	margin: 0 0.15em !important;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.15em;
+	border: none;
+	color: #8080FF;
+	background: transparent;
+}
+main button:hover {
+	background: rgba(127,127,255,0.1);
+	font-weight: bold;
+	cursor: pointer;
 }
 
 p, ul {
@@ -202,8 +217,13 @@ footer {
 footer nav {
 	padding: 0 !important;
 }
-footer nav a {
+footer nav a, footer nav button {
 	font-size: 1rem;
+}
+footer .icon {
+	position: relative;
+	top: 0.05em;
+	width: 1.25em;
 }
 
 
@@ -442,12 +462,8 @@ footer nav a {
 		grid-template-areas: 'nav nav' 'logo logo';
 		text-align: center;
 	}
-	header nav a {
+	header nav a, header nav button {
 		font-size: 1rem;
-	}
-	header nav a.icon svg {
-		width: 1.25em;
-		height: 1.25em;
 	}
 	header .logo {
 		--height: 1.6rem;
@@ -463,7 +479,7 @@ footer nav a {
 	}
 
 
-	footer nav a {
+	footer nav a, footer nav button {
 		font-size: 0.85rem;
 	}
 

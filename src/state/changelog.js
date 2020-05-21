@@ -37,6 +37,12 @@ export default {
 				"Added overall rankings.",
 				"Added individual rankings for skips and upgrades combinations.",
 			]
+		},
+		3 : {
+			Release : new Date('2020-05-19'),
+			Notes : [
+				"Changed point scale to use sliding multiplier between 1.35× and 2.0× WR."
+			]
 		}
 	},
 };

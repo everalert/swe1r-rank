@@ -47,4 +47,6 @@ export default {
 	toggleSkipsSetting: () => ({type:'TOGGLE_SKIPS_SETTING'}),
 	toggleUpgradesSetting: () => ({type:'TOGGLE_UPGRADES_SETTING'}),
 	toggleOverallSetting: () => ({type:'TOGGLE_OVERALL_SETTING'}),
+	toggleDebugMode: () => ({type:'TOGGLE_DEBUG_MODE'}),
+	toggleDebugInfo: () => ({type:'TOGGLE_DEBUG_INFO'}),
 };

@@ -44,10 +44,10 @@ export default () => {
 				<Link to={VAL.Routes.RANKING}>Ranking</Link>
 				<Link to={VAL.Routes.TRACKLIST}>Tracks</Link>
 				<Link to={VAL.Routes.PLAYERLIST}>Racers</Link>
-				<a className="icon" onClick={toggleOverall}><OverallIcon/></a>
-				<a className="icon" onClick={toggleSkips}><SkipsIcon/></a>
-				<a className="icon" onClick={toggleUpgrades}><UpgradesIcon/></a>
-				<a className="icon" onClick={cycleLap}><LapIcon/></a>
+				<button className="icon" onClick={toggleOverall}><OverallIcon/></button>
+				<button className="icon" onClick={toggleSkips}><SkipsIcon/></button>
+				<button className="icon" onClick={toggleUpgrades}><UpgradesIcon/></button>
+				<button className="icon" onClick={cycleLap}><LapIcon/></button>
 			</nav>
 		</header>
 	);

@@ -2,6 +2,7 @@ import VAL from './const';
 import { FormatTime, FormatFullTotalTime, FormatRunsPosted } from '../module/format';
 import { TimeNeededForPoints } from '../module/points';
 import { NewCtxItem, NewCtxHeading, NewCtxText } from '../module/ctxpan';
+import { DevFormatCategoryMultiplier } from '../module/debug';
 
 
 export const RankingCtxPanFromState = (state) => {
@@ -47,26 +48,39 @@ export const TrackCtxPanFromState = (state) => {
 	const page = state.panel.section ? state.panel.page : state.page;
 	const lap = VAL.Setting.Lap[state.settings.lap].key;
 	const bests = state.levels[page].bests;
+	const debugInfo = state.settings.debugMode && state.settings.debugInfo;
 	let items = [];
 	if (Object.keys(state.levels).indexOf(page)>=0) {
 		if (lap === 'ALL' || lap === '3L') {
-			const time = bests.filter(t => t.laps==='3L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0].time || 3599.99;
+			const best = bests.filter(t => t.laps==='3L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0];
+			const time = best.time || 3599.99;
+			const scale = best.scale;
 			items.push(NewCtxHeading('3-Lap Milestones'));
 			if (!state.settings.overall) {
-				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
-				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
-				items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time))));
+				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,scale,90))));
+				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,scale,50))));
+				items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time,scale))));
+				if (debugInfo) {
+					items.push(NewCtxItem('Category Multiplier', DevFormatCategoryMultiplier(best.scale)));
+					items.push(NewCtxItem('90pt Time Window', FormatTime(TimeNeededForPoints(time,scale,90)-time)));
+				}
 			} else {
 				items.push(NewCtxText('A long time.'))
 			}
 		}
 		if (lap === 'ALL' || lap === '1L') {
-			const time = bests.filter(t => t.laps==='1L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0].time || 3599.99;
+			const best = bests.filter(t => t.laps==='1L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0];
+			const time = best.time || 3599.99;
+			const scale = best.scale;
 			items.push(NewCtxHeading('1-Lap Milestones'));
 			if (!state.settings.overall) {
-				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,90))));
-				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,50))));
-				items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time))));
+				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,scale,90))));
+				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,scale,50))));
+				items.push(NewCtxItem('Baseline',FormatTime(TimeNeededForPoints(time,scale))));
+				if (debugInfo) {
+					items.push(NewCtxItem('Category Multiplier', DevFormatCategoryMultiplier(best.scale)));
+					items.push(NewCtxItem('90pt Time Window', FormatTime(TimeNeededForPoints(time,scale,90)-time)));
+				}
 			} else {
 				items.push(NewCtxText('A long time.'))
 			}
@@ -99,9 +113,7 @@ export const PlayerCtxPanFromState = (state) => {
 	const maxRuns = Object.keys(VAL.Id.Level).length * (state.settings.overall ? Math.pow(2,3) : Math.pow(2,1));
 	let runs = state.settings.overall ? 
 		state.runs.filter(r => r.player===page) :
-		VAL.Setting.Lap[state.settings.lap].key === 'ALL' ?
-			state.runs.filter(r => r.player===page && r.skips===state.settings.skips && r.upgrades===state.settings.upgrades) :
-			state.runs.filter(r => r.player===page && r.laps===VAL.Setting.Lap[state.settings.lap].key && r.skips===state.settings.skips && r.upgrades===state.settings.upgrades);
+		state.runs.filter(r => r.player===page && r.skips===state.settings.skips && r.upgrades===state.settings.upgrades);
 	let items = [];
 	let totals = runs.reduce((v,t) => {
 		if (t.player === page) {
