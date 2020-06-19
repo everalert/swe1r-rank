@@ -42,7 +42,7 @@ const initialState = {
 		upgrades: true,
 		overall: false,
 		debugMode: true,
-		debugInfo: true
+		debugInfo: false
 	}
 };
 
