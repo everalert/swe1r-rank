@@ -16,8 +16,6 @@ export default () => {
 					<Link to={VAL.Routes.ABOUT}>About</Link>
 					<Link to={VAL.Routes.CHANGELOG}>Changelog</Link>
 					{ debug && <Link to={VAL.Routes.DEBUG}>Debug</Link> }
-					<button onClick={reload} className='icon'><MdLoop/></button>
-					<button onClick={toggleTheme} className='icon'><MdLightbulbOutline/></button>
 				</nav>
 			</footer>
 	);

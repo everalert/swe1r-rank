@@ -47,7 +47,7 @@ export default {
 		4 : {
 			Release : new Date(),
 			Notes : [
-				
+				"Settings moved to dropdown menu and labeled."
 			]
 		}
 	},

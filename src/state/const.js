@@ -101,7 +101,7 @@ export default {
 			}
 		},
 		Lap : [
-			{ name:'Overall', key:'ALL' },
+			{ name:'Combined', key:'ALL' },
 			{ name:'3-Lap', key:'3L' },
 			{ name:'1-Lap', key:'1L' },
 		],
