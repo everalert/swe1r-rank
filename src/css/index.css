@@ -284,6 +284,13 @@ footer nav a, footer nav button {
 	background-color: transparent;
 }
 
+.icon svg.warning {
+	fill: #FF8080;
+}
+.icon:hover svg.warning {
+	fill: #FFA0A0;
+}
+
 
 .load-screen {
 	height: 100vh;
