@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from 'react-router-dom';
 import VAL from '../state/const';
 import { useSelector, useDispatch } from 'react-redux';
 import LapIcon from '../element/icon-lap';
