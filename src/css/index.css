@@ -298,7 +298,7 @@ footer nav a, footer nav button {
 
 .cat-label {
 	display: inline-block;
-	z-index: 100;
+	z-index: 80;
 	position: relative;
 }
 .cat-label:not(:first-child) {
