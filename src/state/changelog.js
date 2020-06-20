@@ -48,7 +48,8 @@ export default {
 			Release : new Date(),
 			Notes : [
 				"Settings moved to dropdown menu.",
-				"Category titles re-styled to improve clarity."
+				"Category titles re-styled to improve clarity.",
+				"Individual track pages now show 3-Lap data when the lap setting is Combined."
 			]
 		}
 	},

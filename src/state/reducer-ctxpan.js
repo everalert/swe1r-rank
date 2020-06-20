@@ -51,11 +51,11 @@ export const TrackCtxPanFromState = (state) => {
 	const debugInfo = state.settings.debugMode && state.settings.debugInfo;
 	let items = [];
 	if (Object.keys(state.levels).indexOf(page)>=0) {
-		if (lap === 'ALL' || lap === '3L') {
-			const best = bests.filter(t => t.laps==='3L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0];
+		if (lap === '1L') {
+			const best = bests.filter(t => t.laps==='1L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0];
 			const time = best.time || 3599.99;
 			const scale = best.scale;
-			items.push(NewCtxHeading('3-Lap Milestones'));
+			items.push(NewCtxHeading('1-Lap Milestones'));
 			if (!state.settings.overall) {
 				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,scale,90))));
 				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,scale,50))));
@@ -67,12 +67,11 @@ export const TrackCtxPanFromState = (state) => {
 			} else {
 				items.push(NewCtxText('A long time.'))
 			}
-		}
-		if (lap === 'ALL' || lap === '1L') {
-			const best = bests.filter(t => t.laps==='1L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0];
+		} else {
+			const best = bests.filter(t => t.laps==='3L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)[0];
 			const time = best.time || 3599.99;
 			const scale = best.scale;
-			items.push(NewCtxHeading('1-Lap Milestones'));
+			items.push(NewCtxHeading('3-Lap Milestones'));
 			if (!state.settings.overall) {
 				items.push(NewCtxItem('90 Points',FormatTime(TimeNeededForPoints(time,scale,90))));
 				items.push(NewCtxItem('50 Points',FormatTime(TimeNeededForPoints(time,scale,50))));

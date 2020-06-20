@@ -62,9 +62,9 @@ export const TrackListTableFromState = (state) => {
 export const TrackTableFromState = (state) => {
 	const times = state.settings.overall ?
 		state.runs.filter(t => t.level === state.page) :
-		VAL.Setting.Lap[state.settings.lap].key==='ALL' ?
-			state.runs.filter(t => t.level===state.page && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades) :
-			state.runs.filter(t => t.level===state.page && t.laps===VAL.Setting.Lap[state.settings.lap].key && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
+		VAL.Setting.Lap[state.settings.lap].key==='1L' ?
+			state.runs.filter(t => t.level===state.page && t.laps==='1L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades) :
+			state.runs.filter(t => t.level===state.page && t.laps==='3L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
 	let table = [];
 	times.forEach(t => {
 		let player = table.filter(p => p.id===t.player);
