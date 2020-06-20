@@ -47,7 +47,8 @@ export default {
 		4 : {
 			Release : new Date(),
 			Notes : [
-				"Settings moved to dropdown menu and labeled."
+				"Settings moved to dropdown menu.",
+				"Category titles re-styled to improve clarity."
 			]
 		}
 	},
