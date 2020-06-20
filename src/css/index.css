@@ -215,7 +215,7 @@ footer nav a, footer nav button {
 	position: absolute;
 	top: calc(100%/* + 1rem*/);
 	right: 1rem;
-	width: 15em;
+	width: 13em;
 	box-sizing: border-box;
 	background-color: #FFF;
 	font-size: 1.25rem;
@@ -224,6 +224,9 @@ footer nav a, footer nav button {
 	visibility: hidden;
 	transition: visibility 0.1s linear, opacity 0.1s linear;
 	border-right: 1px solid #C0C0C0;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+.dropdown-menu button {
 }
 .dropdown-menu.dropdown-show {
 	visibility: visible;
@@ -244,6 +247,7 @@ footer nav a, footer nav button {
 }
 .dropdown-menu li button {
 	margin-left: 0.5em !important;
+	font-family: 'Roboto Condensed', sans-serif !important;
 }
 .dropdown-menu li button:not(.icon) {
 	color: #8080FF;
