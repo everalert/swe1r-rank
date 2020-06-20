@@ -6,7 +6,8 @@ import SkipsIcon from '../element/icon-skips';
 import UpgradesIcon from '../element/icon-upgrades';
 import OverallIcon from '../element/icon-overall';
 import Actions from '../state/action';
-import { MdMenu, MdClose, MdLoop, MdLightbulbOutline } from 'react-icons/md';
+import { MdLoop, MdLightbulbOutline } from 'react-icons/md';
+import { IoIosSettings, IoIosClose } from 'react-icons/io';
 
 export default () => {
 	const node = useRef();
@@ -69,7 +70,7 @@ export default () => {
 
 	return (
 		<div className="settings-menu" ref={node}>
-			<button className="icon dropdown-button" onClick={e => setOpen(!open)}>{open?<MdClose className="warning"/>:<MdMenu/>}</button>
+			<button className="icon dropdown-button" onClick={e => setOpen(!open)}>{open?<IoIosClose className="warning"/>:<IoIosSettings/>}</button>
 			<ul className={"dropdown-menu".concat(open?" dropdown-show":"")}>
 				<li onClick={toggleOverall} className={!overall?'disabled':''}><button className="icon"><OverallIcon/></button> {overall?'Overall':'Category'} Ranking</li>
 				<li onClick={toggleSkips} className={overall?'disabled':''}><button className="icon"><SkipsIcon/></button> {skips?'':'No '}Skips</li>
