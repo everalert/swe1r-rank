@@ -1,5 +1,6 @@
 import React from 'react';
 import VAL from '../state/const';
+import { IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline } from 'react-icons/io';
 import Numeral from 'numeral';
 import Moment from 'moment';
 import MomentDurationFormat from 'moment-duration-format';
@@ -47,12 +48,13 @@ export const FormatIdFromPlayer = (name) => {
 export const FormatCategoryTitleFromSettings = (settings) => {
 	const strings = [];
 	if (settings.overall)
-		strings.push('Overall');
+		strings.push(<span className="cat-label">Overall</span>);
 	else {
-		strings.push(`${!settings.skips?'No ':''}Skips`);
-		strings.push(`${!settings.upgrades?'No ':''}Upgrades`);
+		strings.push(settings.skips?<span className="cat-label">Skips<IoIosCheckmarkCircleOutline className="cat-icon-yes"/></span>:<span className="cat-label">No Skips<IoIosCloseCircleOutline className="cat-icon-no"/></span>);
+		strings.push(settings.upgrades?<span className="cat-label">Upgrades<IoIosCheckmarkCircleOutline className="cat-icon-yes"/></span>:<span className="cat-label">No Upgrades<IoIosCloseCircleOutline className="cat-icon-no"/></span>);
 	}
 	if (VAL.Setting.Lap[settings.lap].key!=='ALL')
-		strings.push(VAL.Setting.Lap[settings.lap].name);
-	return strings.join(', ');
+		strings.push(<span className="cat-label">{VAL.Setting.Lap[settings.lap].name}</span>);
+
+	return <span className="cat-string">{strings.reduce((acc,next) => [acc,'‧',next])}</span>;
 }
