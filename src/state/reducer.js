@@ -81,7 +81,7 @@ export default (state = initialState, action) => {
 
 		if (action.type === 'CYCLE_LAP_SETTING') {
 			if (state.section==='TRACK')
-				output.settings.lap = state.settings.lap==VAL.Setting.Lap.length-1?VAL.Setting.Lap.length-2:VAL.Setting.Lap.length-1;
+				output.settings.lap = state.settings.lap===VAL.Setting.Lap.length-1?VAL.Setting.Lap.length-2:VAL.Setting.Lap.length-1;
 			else
 				output.settings.lap = (state.settings.lap+1)%VAL.Setting.Lap.length;
 		}
