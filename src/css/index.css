@@ -334,6 +334,9 @@ h1 .cat-icon-yes {
 h1 .cat-icon-no {
 	fill: #80C0C0;
 }
+.cat-sep {
+	opacity: 0.5;
+}
 
 
 .load-screen {

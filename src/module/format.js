@@ -56,5 +56,5 @@ export const FormatCategoryTitleFromSettings = (settings) => {
 	if (VAL.Setting.Lap[settings.lap].key!=='ALL')
 		strings.push(<span className="cat-label">{VAL.Setting.Lap[settings.lap].name}</span>);
 
-	return <span className="cat-string">{strings.reduce((acc,next) => [acc,'‧',next])}</span>;
+	return <span className="cat-string">{strings.reduce((acc,next) => [acc,<span className="cat-sep">‧</span>,next])}</span>;
 }
