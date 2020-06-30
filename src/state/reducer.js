@@ -239,7 +239,7 @@ export default (state = initialState, action) => {
 						player_ranks.push({ p:p, s:t.skips, u:t.upgrades, pts:t.pts, rnk:0 })
 				});
 			});
-			// calc ranks
+			// calc category ranks
 			player_ranks.sort((a,b) => b.pts - a.pts);
 			let rank_track = {
 				ALL_rank:0, ALL_streak:0, ALL_last:null,
@@ -262,6 +262,32 @@ export default (state = initialState, action) => {
 				else
 					output.players[i.p].combinedTotals.filter(c => i.s===c.skips && i.u===c.upgrades)[0].rank = i.rnk;
 			});
+			// calc time ranks
+			player_ranks.sort((a,b) => b.pts - a.pts);
+			let rank_time = {};
+			Object.keys(VAL.Id.Level).forEach(k => {
+				rank_time[VAL.Id.Level[k].abbr] = {
+					SU_1L_rank:0, SU_1L_streak:0, SU_1L_last:null,
+					NSU_1L_rank:0, NSU_1L_streak:0, NSU_1L_last:null,
+					SNU_1L_rank:0, SNU_1L_streak:0, SNU_1L_last:null,
+					NSNU_1L_rank:0, NSNU_1L_streak:0, NSNU_1L_last:null,
+					SU_3L_rank:0, SU_3L_streak:0, SU_3L_last:null,
+					NSU_3L_rank:0, NSU_3L_streak:0, NSU_3L_last:null,
+					SNU_3L_rank:0, SNU_3L_streak:0, SNU_3L_last:null,
+					NSNU_3L_rank:0, NSNU_3L_streak:0, NSNU_3L_last:null,
+				}
+			});
+			output.runs.sort((a,b) => b.points - a.points);
+			output.runs.forEach(i =>{
+				const pre = `${i.skips?'S':'NS'}${i.upgrades?'U':'NU'}_${i.laps}`;
+				rank_time[i.level][`${pre}_streak`]++;
+				if (i.points !== rank_time[i.level][`${pre}_last`]) {
+					rank_time[i.level][`${pre}_rank`] += rank_time[i.level][`${pre}_streak`];
+					rank_time[i.level][`${pre}_streak`] = 0;
+				}
+				rank_time[i.level][`${pre}_last`] = i.points;
+				i.rank = rank_time[i.level][`${pre}_rank`];
+			})
 		}
 		return output;
 	}

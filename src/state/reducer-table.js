@@ -65,7 +65,7 @@ export const TrackTableFromState = (state) => {
 			table.push({
 				id:t.player,
 				name:state.players[t.player].name,
-				sort:t.points,
+				rank:t.rank,
 				time:t.time,
 				fields:{ pts:FormatPoints(t.points), time:FormatTime(t.time) }
 			});
@@ -74,18 +74,7 @@ export const TrackTableFromState = (state) => {
 
 	table = table.filter(t => t.time > 0);
 	table.sort((a,b) => a.time - b.time);
-	table.sort((a,b) => b.sort - a.sort);
-	let rank = 0, rankStreak = 0;
-	let last = null;
-	table.forEach(item => {
-		rankStreak++;
-		if (item.sort !== last) {
-			rank += rankStreak;
-			rankStreak = 0;
-		}
-		item.rank = rank;
-		last = item.sort;
-	});
+	table.sort((a,b) => a.rank - b.rank);
 	return table;
 }
 
