@@ -470,27 +470,27 @@ h1 .cat-icon-no {
 }
 
 .ranking-data .header, .ranking-data .item {
-	grid-template-columns: 4rem 1fr 6rem 6rem;
+	grid-template-columns: 4rem 1fr 6rem 7.5rem;
 	grid-template-areas: 'rank name points time';
 }
 .player-list .header, .player-list .item {
-	grid-template-columns: 1fr 6rem 6rem;
+	grid-template-columns: 1fr 6rem 7.5rem;
 	grid-template-areas: 'name points time';
 }
 .player-times .header {
-	grid-template-columns: 1fr 6rem 6rem;
+	grid-template-columns: 1fr 7.5rem 7.5rem;
 	grid-template-areas: 'name time-3lap time-1lap';
 }
 .player-times .item {
-	grid-template-columns: 1fr 6rem 6rem;
+	grid-template-columns: 1fr 7.5rem 7.5rem;
 	grid-template-areas: 'name time-3lap time-1lap' 'name points-3lap points-1lap';
 }
 .track-list .header, .track-list .item {
-	grid-template-columns: 1fr 6rem 6rem;
+	grid-template-columns: 1fr 7.5rem 7.5rem;
 	grid-template-areas: 'name best-3lap best-1lap';
 }
 .track-ranking .header, .track-ranking .item {
-	grid-template-columns: 4rem 1fr 6rem 6rem;
+	grid-template-columns: 4rem 1fr 7rem 7.5rem;
 	grid-template-areas: 'rank name points time';
 }
 
@@ -510,9 +510,17 @@ h1 .cat-icon-no {
 	grid-area: time;
 	text-align: right;
 }
+.time:before, .time-1lap:before, .time-3lap:before, .best-3lap:before, .best-1lap:before {
+	content: '⏱';
+	margin-right: 0.15em;
+}
 .points-3lap, .points-1lap, .points, .points-total {
 	grid-area: points;
 	text-align: right;
+}
+.points:before, .points-1lap:before, .points-3lap:before {
+	content: '✦';
+	margin-right: 0.15em;
 }
 .player-times .points-3lap, .player-times .points-1lap {
 	font-size: 0.85em;
@@ -856,18 +864,18 @@ h1 .cat-icon-no {
 		background-position: top left, bottom right, 65% center;
 	}
 	.ranking-data .header, .ranking-data .item {
-		grid-template-columns: 2rem 1fr 3.7rem 4rem;
+		grid-template-columns: 2rem 1fr 4.5rem 5rem;
 	}
 	.player-list .header, .player-list .item {
-		grid-template-columns: 1fr 3.7rem 4rem;
+		grid-template-columns: 1fr 4.5rem 5rem;
 	}
 	.player-times .header, .player-times .item {
-		grid-template-columns: 1fr 4rem 4rem;
+		grid-template-columns: 1fr 5rem 5rem;
 	}
 	.track-list .header, .track-list .item {
-		grid-template-columns: 1fr 4rem 4rem;
+		grid-template-columns: 1fr 5rem 5rem;
 	}
 	.track-ranking .header, .track-ranking .item {
-		grid-template-columns: 2rem 1fr 3.7rem 4rem;
+		grid-template-columns: 2rem 1fr 4.5rem 5rem;
 	}
 }
