@@ -22,6 +22,7 @@ export const RankingTableFromState = (state) => {
 		};
 		return player;
 	});
+	table = table.filter(t => t.rank > 0);
 	table.sort((a,b) => a.time - b.time);
 	table.sort((a,b) => a.rank - b.rank);
 	return table;
