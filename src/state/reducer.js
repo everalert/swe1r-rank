@@ -183,6 +183,7 @@ export default (state = initialState, action) => {
 				player: playerId,
 				time: action.time,
 				points: 0,
+				rank: 0,
 				platform: action.platform,
 				character: action.character,
 				date: action.date,

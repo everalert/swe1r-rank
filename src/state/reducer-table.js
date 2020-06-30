@@ -14,7 +14,6 @@ export const RankingTableFromState = (state) => {
 			id:k,
 			name:p.name,
 			rank:totals.rank,
-			//sort:totals.pts,
 			time:totals.time,
 			fields:{
 				pts:FormatTotalPoints(totals.pts),
@@ -23,10 +22,8 @@ export const RankingTableFromState = (state) => {
 		};
 		return player;
 	});
-
 	table.sort((a,b) => a.time - b.time);
 	table.sort((a,b) => a.rank - b.rank);
-
 	return table;
 }
 
@@ -71,7 +68,6 @@ export const TrackTableFromState = (state) => {
 			});
 		}
 	});
-
 	table = table.filter(t => t.time > 0);
 	table.sort((a,b) => a.time - b.time);
 	table.sort((a,b) => a.rank - b.rank);
