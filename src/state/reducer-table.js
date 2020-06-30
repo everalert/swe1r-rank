@@ -13,7 +13,8 @@ export const RankingTableFromState = (state) => {
 		let player = {
 			id:k,
 			name:p.name,
-			sort:totals.pts,
+			rank:totals.rank,
+			//sort:totals.pts,
 			time:totals.time,
 			fields:{
 				pts:FormatTotalPoints(totals.pts),
@@ -24,19 +25,7 @@ export const RankingTableFromState = (state) => {
 	});
 
 	table.sort((a,b) => a.time - b.time);
-	table.sort((a,b) => b.sort - a.sort);
-	let rank = 0, rankStreak = 0;
-	let last = null;
-	table = table.filter(t => t.time > 0);
-	table.forEach(item => {
-		rankStreak++;
-		if (item.sort !== last) {
-			rank += rankStreak;
-			rankStreak = 0;
-		}
-		item.rank = rank;
-		last = item.sort;
-	});
+	table.sort((a,b) => a.rank - b.rank);
 
 	return table;
 }
