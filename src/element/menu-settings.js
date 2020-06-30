@@ -76,7 +76,7 @@ export default () => {
 				<li onClick={toggleSkips} className={overall?'disabled':''}><button className="icon"><SkipsIcon/></button> {skips?'':'No '}Skips</li>
 				<li onClick={toggleUpgrades} className={overall?'disabled':''}><button className="icon"><UpgradesIcon/></button> {upgrades?'':'No '}Upgrades</li>
 				<li onClick={cycleLap}><button className="icon"><LapIcon/></button> {lapText[lap]}</li>
-				<li onClick={toggleTheme} className="small"><button className="icon"><MdLightbulbOutline className={!theme?'disabled':''}/></button> {theme?'Dark':'Light'}</li>
+				{ debug && <li onClick={toggleTheme} className="small"><button className="icon"><MdLightbulbOutline className={!theme?'disabled':''}/></button> {theme?'Dark':'Light'}</li> }
 				<li onClick={reload} className="small"><button className="icon"><MdLoop/></button> Reload</li>
 				{ debug && <li onClick={toggleDebugInfo} className="small"><button>{debugInfo ? 'ON' : 'OFF'}</button> Debug Info</li> }
 			</ul>
