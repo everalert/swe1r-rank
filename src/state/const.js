@@ -35,15 +35,15 @@ export default {
 		Skips : {
 			Id : '2lgz978p',
 			Value : {
-				'81p7we17':false,
-				'p125ev1x':true
+				'p125ev1x':true,
+				'81p7we17':false
 			}
 		},
 		Upgrades : {
 			Id : '789k49lw',
 			Value : {
-				'z194gjl4':false,
-				'xqkrk919':true
+				'xqkrk919':true,
+				'z194gjl4':false
 			}
 		}
 	},
@@ -78,6 +78,7 @@ export default {
 			TotalTimeFull: 'h:mm:ss.SSS',
 			Points: '0.000',
 			TotalPoints: '0.0',
+			TrophyPoints: '0,000',
 		},
 		Fallback : {
 			Time: '---',
@@ -97,6 +98,13 @@ export default {
 				reverse:true,
 				max:15,
 				scale:1.015,
+				axis:'x'
+			},
+			Trophy : {
+				perspective:1000,
+				reverse:true,
+				max:25,
+				scale:1.075,
 				axis:'x'
 			}
 		},

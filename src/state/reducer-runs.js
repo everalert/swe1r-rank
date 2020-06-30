@@ -9,6 +9,7 @@ export const CreateBlankTotalsObj = () => {
 			combinedTotals.push({
 				pts:0,
 				time:0,
+				rank:0,
 				skips:VAL.Id.Skips.Value[s],
 				upgrades:VAL.Id.Upgrades.Value[u]
 			});
@@ -16,6 +17,7 @@ export const CreateBlankTotalsObj = () => {
 				totals.push({
 					pts:0,
 					time:0,
+					rank:0,
 					laps:VAL.Id.Category[l],
 					skips:VAL.Id.Skips.Value[s],
 					upgrades:VAL.Id.Upgrades.Value[u]
@@ -26,7 +28,7 @@ export const CreateBlankTotalsObj = () => {
 	return {
 		totals: totals,
 		combinedTotals: combinedTotals,
-		overallTotals: { pts:0, time:0 }
+		overallTotals: { pts:0, time:0, rank:0 }
 	}
 }
 

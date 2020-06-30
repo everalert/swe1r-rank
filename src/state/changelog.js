@@ -50,7 +50,8 @@ export default {
 				"Settings moved to dropdown menu.",
 				"Category titles re-styled to improve clarity.",
 				"Lap setting now skips Combined when on an individual track page.",
-				"Individual track pages now show 3-Lap data when the lap setting is Combined."
+				"Individual track pages now show 3-Lap data when the lap setting is Combined.",
+				"Added category trophies to player profiles."
 			]
 		}
 	},

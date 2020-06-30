@@ -204,12 +204,15 @@ export default (state = initialState, action) => {
 		}
 
 		if (action.type === 'CALCULATE_TOTALS') {
+			const player_ranks = [];
+			// calc level multipliers
 			Object.keys(state.levels).forEach(l => {
 				output.levels[l].bests.forEach(b => {
 					let scale = state.recordScale.filter(r => b.laps===r.laps && b.skips===r.skips && b.upgrades===r.upgrades)[0];
 					b.scale = CalculateLevelScale(scale.time_min, scale.time_max, b.time)
 				});
 			});
+			// calc point/time totals
 			Object.keys(state.players).forEach(p => {
 				let times = state.runs.filter(r => r.player===p);
 				let totals = times.reduce((v,t) => {
@@ -230,10 +233,36 @@ export default (state = initialState, action) => {
 				output.players[p].totals = totals.totals;
 				output.players[p].combinedTotals = totals.combinedTotals;
 				output.players[p].overallTotals = totals.overallTotals;
-			})
+				player_ranks.push({ p:p, o:true, pts:totals.overallTotals.pts, rnk:0 });
+				totals.combinedTotals.forEach(t => {
+					if (t.time>0)
+						player_ranks.push({ p:p, s:t.skips, u:t.upgrades, pts:t.pts, rnk:0 })
+				});
+			});
+			// calc ranks
+			player_ranks.sort((a,b) => b.pts - a.pts);
+			let rank_track = {
+				ALL_rank:0, ALL_streak:0, ALL_last:null,
+				SU_rank:0, SU_streak:0, SU_last:null,
+				NSU_rank:0, NSU_streak:0, NSU_last:null,
+				SNU_rank:0, SNU_streak:0, SNU_last:null,
+				NSNU_rank:0, NSNU_streak:0, NSNU_last:null
+			}
+			player_ranks.forEach(i => {
+				const pre = i.o ? 'ALL' : `${i.s?'S':'NS'}${i.u?'U':'NU'}`;
+				rank_track[`${pre}_streak`]++;
+				if (i.pts !== rank_track[`${pre}_last`]) {
+					rank_track[`${pre}_rank`] += rank_track[`${pre}_streak`];
+					rank_track[`${pre}_streak`] = 0;
+				}
+				rank_track[`${pre}_last`] = i.pts;
+				i.rnk = rank_track[`${pre}_rank`];
+				if (i.o)
+					output.players[i.p].overallTotals.rank = i.rnk;
+				else
+					output.players[i.p].combinedTotals.filter(c => i.s===c.skips && i.u===c.upgrades)[0].rank = i.rnk;
+			});
 		}
-
-
 		return output;
 	}
 	
