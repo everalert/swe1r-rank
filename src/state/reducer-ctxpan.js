@@ -125,11 +125,11 @@ export const PlayerCtxPanFromState = (state) => {
 		}
 		return v;
 	}, {timeT:0, time3L:0, time1L:0, runT:0, pt50:0, pt90:0, pt100:0});
-	items.push(NewCtxItem('Runs Posted',FormatRunsPosted(totals.runT,maxRuns)));
+	items.push(NewCtxItem('Runs',FormatRunsPosted(totals.runT,maxRuns)));
 	items.push(NewCtxHeading('Run Summary'));
-	items.push(NewCtxItem('100 Points',totals.pt100));
-	items.push(NewCtxItem('90+ Points',totals.pt90));
-	items.push(NewCtxItem('50+ Points',totals.pt50));
+	{ totals.pt100 && items.push(NewCtxItem('✦ 100',totals.pt100)); }
+	{ totals.pt90 && items.push(NewCtxItem('✦ 90+',totals.pt90)); }
+	{ totals.pt50 && items.push(NewCtxItem('✦ 50+',totals.pt50)); }
 	items.push(NewCtxHeading('Time Totals'));
 	items.push(NewCtxItem('Overall',FormatFullTotalTime(totals.timeT)));
 	items.push(NewCtxItem('1-Lap',FormatFullTotalTime(totals.time1L)));
