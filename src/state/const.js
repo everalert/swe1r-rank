@@ -68,6 +68,8 @@ export default {
 		timeALL: 'time-total',
 		time3L: 'time-3lap',
 		time1L: 'time-1lap',
+		rank3L: 'rank-3lap',
+		rank1L: 'rank-1lap',
 		best3L: 'best-3lap',
 		best1L: 'best-1lap',
 	},
@@ -81,10 +83,11 @@ export default {
 			TrophyPoints: '0,000',
 		},
 		Fallback : {
-			Time: '---',
-			TotalTime: '---',
+			Time: '—',
+			TotalTime: '—',
 			Points: 0,
 			TotalPoints: 0,
+			Rank: '—',
 		},
 		Tilt : {
 			CtxPan : {

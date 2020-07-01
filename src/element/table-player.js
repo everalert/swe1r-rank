@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Tilt from 'react-tilt';
 import Actions from '../state/action';
+import Numeral from 'numeral';
 
 export default (props) => {
 	const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export default (props) => {
 		dispatch(Actions.updateCtxPan());
 	};
 	return (
-		<section className='table player-times' onMouseLeave={()=>closeDetail(props.player)}>
+		<section className='table table-wide player-times' onMouseLeave={()=>closeDetail(props.player)}>
 			<div className='header'>
 				<div className='track'>TRACK</div>
 				<div className='best-3lap'>3-LAP</div>
@@ -26,10 +27,12 @@ export default (props) => {
 				return <Tilt className='Tilt' options={VAL.Setting.Tilt.TableItem}>
 					<Link to={VAL.Routes.TRACK.replace(':id',item.id)} className='Tilt-inner item' onMouseEnter={()=>showDetail('TRACK',item.id,item.name)} key={i}>
 						<div className='track'>{item.name}</div>
-						<div className='time-3lap'>{item.fields.time3L || VAL.Setting.Fallback.Time}</div>
-						<div className='points-3lap'>{item.fields.pts3L || VAL.Setting.Fallback.Points}</div>
-						<div className='time-1lap'>{item.fields.time1L || VAL.Setting.Fallback.Time}</div>
-						<div className='points-1lap'>{item.fields.pts1L || VAL.Setting.Fallback.Points}</div>
+						<div className={`time-3lap rank-${item.fields.rank3L}`}>{item.fields.time3L || VAL.Setting.Fallback.Time}</div>
+						<div className={`points-3lap rank-${item.fields.rank3L}`}>{item.fields.pts3L || VAL.Setting.Fallback.Points}</div>
+						<div className={`rank-3lap rank-${item.fields.rank3L}`}>{(item.fields.rank3L && Numeral(item.fields.rank3L).format('0o')) || VAL.Setting.Fallback.Rank}</div>
+						<div className={`time-1lap rank-${item.fields.rank1L}`}>{item.fields.time1L || VAL.Setting.Fallback.Time}</div>
+						<div className={`points-1lap rank-${item.fields.rank1L}`}>{item.fields.pts1L || VAL.Setting.Fallback.Points}</div>
+						<div className={`rank-1lap rank-${item.fields.rank1L}`}>{(item.fields.rank1L && Numeral(item.fields.rank1L).format('0o')) || VAL.Setting.Fallback.Rank}</div>
 					</Link>
 				</Tilt>;
 			}) }

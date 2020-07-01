@@ -99,18 +99,21 @@ export const PlayerTableFromState = (state) => {
 	const times = state.settings.overall ?
 		state.runs.filter(t => t.player===state.page) :
 		state.runs.filter(t => t.player===state.page && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
-	let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, data:{time1L:0,pts1L:0,time3L:0,pts3L:0}, fields:{} }) );
+	let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, data:{time1L:0,pts1L:0,rank1L:0,time3L:0,pts3L:0,rank3L:0}, fields:{} }) );
 	times.forEach(t => {
 		let p = tracks.filter(p => p.id===t.level)[0];
 		p.data[`time${t.laps}`] += t.time;
 		p.data[`pts${t.laps}`] += t.points;
+		p.data[`rank${t.laps}`] += t.rank;
 	});
 	tracks.forEach(t => {
 		t.fields = {
 			time1L:FormatTime(t.data.time1L),
 			pts1L:FormatPoints(t.data.pts1L),
+			rank1L:t.data.rank1L,
 			time3L:FormatTime(t.data.time3L),
-			pts3L:FormatPoints(t.data.pts3L)
+			pts3L:FormatPoints(t.data.pts3L),
+			rank3L:t.data.rank3L
 		}
 	});
 	const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);

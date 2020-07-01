@@ -151,7 +151,8 @@ main.player {
 		'h2 h2 h2 h2 h2 h2 h2 h2 h2'
 		'trophy-panel trophy-panel trophy-panel trophy-panel trophy-panel trophy-panel trophy-panel trophy-panel trophy-panel'
 		'h1 h1 h1 h1 h1 h1 h1 h1 h1'
-		'table table table table table table panel panel panel';
+		'table table table table table table table table table'
+		'panel panel panel panel panel panel panel panel panel';
 }
 main.player h1 { margin: 2.5rem 0 0.5rem !important; color: #FFF; }
 main.player h2 { margin-top: 0.1em !important; }
@@ -441,6 +442,7 @@ h1 .cat-icon-no {
 	padding: 0.22em 1rem;
 	margin: 0 0 0.2em;
 	box-sizing: border-box;
+	align-items: center;
 }
 .table .item *, .table .header * {
 	transform: translateZ(1.25rem);
@@ -478,12 +480,12 @@ h1 .cat-icon-no {
 	grid-template-areas: 'name points time';
 }
 .player-times .header {
-	grid-template-columns: 1fr 7.5rem 7.5rem;
-	grid-template-areas: 'name time-3lap time-1lap';
+	grid-template-columns: 1fr 7.5rem 4rem 7.5rem 4rem;
+	grid-template-areas: 'name time-3lap time-3lap time-1lap time-1lap';
 }
 .player-times .item {
-	grid-template-columns: 1fr 7.5rem 7.5rem;
-	grid-template-areas: 'name time-3lap time-1lap' 'name points-3lap points-1lap';
+	grid-template-columns: 1fr 7.5rem 4rem 7.5rem 4rem;
+	grid-template-areas: 'name time-3lap rank-3lap time-1lap rank-1lap' 'name points-3lap rank-3lap points-1lap rank-1lap';
 }
 .track-list .header, .track-list .item {
 	grid-template-columns: 1fr 7.5rem 7.5rem;
@@ -497,7 +499,7 @@ h1 .cat-icon-no {
 .rank {
 	grid-area: rank;
 	font-style: italic;
-	color: #888;
+	/*color: #888;*/
 }
 .player, .track {
 	grid-area: name;
@@ -510,6 +512,51 @@ h1 .cat-icon-no {
 	grid-area: time;
 	text-align: right;
 }
+.rank-3lap, .rank-1lap, .rank {
+	text-align: center;
+	font-family: 'Anton', 'Impact', sans-serif;
+	font-style: italic;
+	text-indent: -0.6em;
+	text-shadow: none;
+	/*font-size: 1.1em;*/
+}
+.rank:not(.rank-1):not(.rank-2):not(.rank-3),
+.rank-1lap:not(.rank-1):not(.rank-2):not(.rank-3),
+.rank-3lap:not(.rank-1):not(.rank-2):not(.rank-3) {
+	background: -webkit-linear-gradient(#FFF, #8080FF);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	filter: drop-shadow(0 0 8px #8080FF);
+}
+.rank.rank-1, .rank-1lap.rank-1, .rank-3lap.rank-1 {
+	background: -webkit-linear-gradient(#FF0, #FF8000);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	filter: drop-shadow(0 0 6px #00F);
+}
+.rank.rank-2, .rank-1lap.rank-2, .rank-3lap.rank-2 {
+	background: -webkit-linear-gradient(#E0E0E0, #808080);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	filter: drop-shadow(0 0 6px #F00);
+}
+.rank.rank-3, .rank-1lap.rank-3, .rank-3lap.rank-3 {
+	background: -webkit-linear-gradient(#FFE0E0, #FF2020);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	filter: drop-shadow(0 0 6px #E6CBCB);
+}
+/*.rank-1lap:after, .rank-3lap:after, .rank:after {
+	content: '';
+	transform: translateZ(-1.25rem);
+	transform-style: preserve-3d;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #F00;
+}*/
 .time:before, .time-1lap:before, .time-3lap:before, .best-3lap:before, .best-1lap:before {
 	content: '⏱';
 	margin-right: 0.15em;
@@ -533,6 +580,7 @@ h1 .cat-icon-no {
 	grid-area: best-1lap;
 	text-align: right;
 }
+.table .item .rank-0 { opacity: 0.25; }
 
 
 .player-times .best-3lap, .player-times .time-3lap {
@@ -540,6 +588,12 @@ h1 .cat-icon-no {
 }
 .player-times .best-1lap, .player-times .time-1lap {
 	grid-area: time-1lap;
+}
+.player-times .rank-3lap {
+	grid-area: rank-3lap;
+}
+.player-times .rank-1lap {
+	grid-area: rank-1lap;
 }
 .player-times .points-3lap {
 	grid-area: points-3lap;
@@ -864,18 +918,18 @@ h1 .cat-icon-no {
 		background-position: top left, bottom right, 65% center;
 	}
 	.ranking-data .header, .ranking-data .item {
-		grid-template-columns: 2rem 1fr 4.5rem 5rem;
+		grid-template-columns: 2.35rem 1fr 4.5rem 5rem;
 	}
 	.player-list .header, .player-list .item {
 		grid-template-columns: 1fr 4.5rem 5rem;
 	}
 	.player-times .header, .player-times .item {
-		grid-template-columns: 1fr 5rem 5rem;
+		grid-template-columns: 1fr 5rem 2.2rem 5rem 2.2rem;
 	}
 	.track-list .header, .track-list .item {
 		grid-template-columns: 1fr 5rem 5rem;
 	}
 	.track-ranking .header, .track-ranking .item {
-		grid-template-columns: 2rem 1fr 4.5rem 5rem;
+		grid-template-columns: 2.35rem 1fr 4.5rem 5rem;
 	}
 }
