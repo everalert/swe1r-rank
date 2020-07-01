@@ -637,7 +637,7 @@ h1 .cat-icon-no {
 	height: 100%;
 	background-color: #F00;
 }*/
-.time:before, .time-1lap:before, .time-3lap:before {
+.time:before, .time-1lap:before, .time-3lap:before, .item .best-1lap:before, .item .best-3lap:before {
 	content: '⏱';
 	margin-right: 0.15em;
 }
