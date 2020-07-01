@@ -465,9 +465,13 @@ h1 .cat-icon-no {
 	text-shadow: var(--panel-text-shadow);
 	color: inherit;
 }
+.table-wide .item {
+	background-image: url("../img/tableitemwide-tl.png"), url("../img/tableitemwide-br.png"), url("../img/tableitemwide-base.png") !important;
+	background-position: top left, bottom right, 95% center !important;
+}
 .table .item:hover {
 	cursor: pointer;
-	background-position: top left, bottom right, 75% center;
+	background-position: top left, bottom right, 75% center !important;
 	/*background-color: #00F;*/
 }
 
@@ -557,7 +561,7 @@ h1 .cat-icon-no {
 	height: 100%;
 	background-color: #F00;
 }*/
-.time:before, .time-1lap:before, .time-3lap:before, .best-3lap:before, .best-1lap:before {
+.time:before, .time-1lap:before, .time-3lap:before {
 	content: '⏱';
 	margin-right: 0.15em;
 }
@@ -581,6 +585,8 @@ h1 .cat-icon-no {
 	text-align: right;
 }
 .table .item .rank-0 { opacity: 0.25; }
+.table-wide .item .track { margin-left: 0.25em; }
+.table-wide .header .best-3lap, .table-wide .header .best-1lap { text-align: center; }
 
 
 .player-times .best-3lap, .player-times .time-3lap {
