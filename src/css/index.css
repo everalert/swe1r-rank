@@ -151,8 +151,8 @@ main.player {
 		'h2 h2 h2 h2 h2 h2 h2 h2 h2'
 		'trophy-panel trophy-panel trophy-panel trophy-panel trophy-panel trophy-panel trophy-panel trophy-panel trophy-panel'
 		'h1 h1 h1 h1 h1 h1 h1 h1 h1'
-		'table table table table table table table table table'
-		'panel panel panel panel panel panel panel panel panel';
+		'hl-panel hl-panel hl-panel hl-panel hl-panel hl-panel hl-panel hl-panel hl-panel'
+		'table table table table table table table table table';
 }
 main.player h1 { margin: 2.5rem 0 0.5rem !important; color: #FFF; }
 main.player h2 { margin-top: 0.1em !important; }
@@ -427,6 +427,82 @@ h1 .cat-icon-no {
 .side-bar .Tilt {
 	position: sticky;
 	top: 4rem;
+}
+
+.highlight-panel {
+	grid-area: hl-panel;
+	text-align: center;
+}
+.highlight-item {
+	width: 8rem;
+	height: 6rem;
+	position: relative;
+	margin: 0 0 0.75em;
+	display: inline-block;
+}
+.highlight-item .value {
+	font-family: 'Anton', 'Impact', sans-serif;
+	width: 4rem;
+	height: 4rem;
+	position: absolute;
+	top: 0;
+	left: 2rem;
+	font-size: 1.5rem;
+}
+.highlight-item .value:before {
+	content: '';
+	background-image: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,0.35));
+	position: absolute;
+	top: 7.5%;
+	left: 7.5%;
+	width: 85%;
+	height: 85%;
+	border-radius: 50%;
+	border: 1px solid #FFF;
+	box-sizing: border-box;
+	opacity: 0.5;
+	transition: opacity ease 0.35s;
+}
+.highlight-item:hover .value:before { opacity: 1; }
+.highlight-item .value:after {
+	content: '';
+	background-image: radial-gradient(rgba(0,0,255,0), rgba(0,0,255,0.35));
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	border: 2px solid #8080FF;
+	box-sizing: border-box;
+	transform: translateZ(-1rem);
+	filter: drop-shadow(0 0 16px #00F);
+}
+.highlight-item .value .Tilt-inner {
+	position: absolute;
+	top: calc(50% - 0.65em);
+	left: -2rem;
+	width: 8rem;
+	text-align: center;
+	transform: translateZ(1rem);
+	pointer-events: none;
+	background: -webkit-linear-gradient(#FFF, #C0C0FF);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	filter: drop-shadow(0 0 16px #00F);
+}
+.highlight-item .name {
+	font-family: 'Roboto Condensed', sans-serif;
+	position: absolute;
+	top: 4.25rem;
+	left: 0rem;
+	width: 8rem;
+	text-align: center;
+	font-size: 1.15rem;
+	color: #C0C0FF;
+	text-shadow: 0 0 16px #00F;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 

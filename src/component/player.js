@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Player from '../element/table-player';
-import ContextPanel from '../element/ctxpan';
+import HighlightPanel from '../element/hlpan';
 import Actions from '../state/action';
 import { FormatCategoryTitleFromSettings } from '../module/format';
 import TrophyPanel from '../element/trophy-panel';
@@ -39,7 +39,7 @@ class PlayerPage extends React.Component {
 		return <main className='player'>
 			<h1>{FormatCategoryTitleFromSettings(this.props.settings)}</h1>
 			<h2>{this.props.players[this.playerId].name}</h2>
-			<ContextPanel/>
+			<HighlightPanel/>
 			<Player player={this.playerId} data={this.props.data}/>
 			<TrophyPanel c={this.props.players[this.playerId].combinedTotals} o={this.props.players[this.playerId].overallTotals}/>
 		</main>
