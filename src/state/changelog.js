@@ -51,7 +51,8 @@ export default {
 				"Category titles re-styled to improve clarity.",
 				"Lap setting now skips Combined when on an individual track page.",
 				"Individual track pages now show 3-Lap data when the lap setting is Combined.",
-				"Added category trophies to player profiles."
+				"Added category trophies to player profiles.",
+				"Added ranking information to player timesheets."
 			]
 		}
 	},
