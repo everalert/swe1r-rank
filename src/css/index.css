@@ -476,27 +476,27 @@ h1 .cat-icon-no {
 }
 
 .ranking-data .header, .ranking-data .item {
-	grid-template-columns: 4rem 1fr 6rem 7.5rem;
+	grid-template-columns: 4rem 1fr 6rem 8.5rem;
 	grid-template-areas: 'rank name points time';
 }
 .player-list .header, .player-list .item {
-	grid-template-columns: 1fr 6rem 7.5rem;
+	grid-template-columns: 1fr 6rem 8.5rem;
 	grid-template-areas: 'name points time';
 }
 .player-times .header {
-	grid-template-columns: 1fr 7.5rem 4rem 7.5rem 4rem;
+	grid-template-columns: 1fr 8.5rem 4rem 8.5rem 4rem;
 	grid-template-areas: 'name time-3lap time-3lap time-1lap time-1lap';
 }
 .player-times .item {
-	grid-template-columns: 1fr 7.5rem 4rem 7.5rem 4rem;
+	grid-template-columns: 1fr 8.5rem 4rem 8.5rem 4rem;
 	grid-template-areas: 'name time-3lap rank-3lap time-1lap rank-1lap' 'name points-3lap rank-3lap points-1lap rank-1lap';
 }
 .track-list .header, .track-list .item {
-	grid-template-columns: 1fr 7.5rem 7.5rem;
+	grid-template-columns: 1fr 8.5rem 8.5rem;
 	grid-template-areas: 'name best-3lap best-1lap';
 }
 .track-ranking .header, .track-ranking .item {
-	grid-template-columns: 4rem 1fr 7rem 7.5rem;
+	grid-template-columns: 4rem 1fr 7rem 8.5rem;
 	grid-template-areas: 'rank name points time';
 }
 
@@ -924,18 +924,29 @@ h1 .cat-icon-no {
 		background-position: top left, bottom right, 65% center;
 	}
 	.ranking-data .header, .ranking-data .item {
-		grid-template-columns: 2.35rem 1fr 4.5rem 5rem;
+		grid-template-columns: 2.35rem 1fr 4.5rem 6rem;
 	}
 	.player-list .header, .player-list .item {
-		grid-template-columns: 1fr 4.5rem 5rem;
+		grid-template-columns: 1fr 4.5rem 6rem;
 	}
 	.player-times .header, .player-times .item {
-		grid-template-columns: 1fr 5rem 2.2rem 5rem 2.2rem;
+		grid-template-columns: 1fr 6rem 6rem;
 	}
+	.player-times .track {
+		margin-left: 0 !important;
+	}
+	.player-times .header {
+		grid-template-areas: 'name time-3lap time-1lap';
+	}
+	.player-times .item {
+		grid-template-areas: 'name time-3lap time-1lap' 'name points-3lap points-1lap';
+	}
+	.player-times .rank-3lap, .player-times .rank-1lap { display: none; } 
+	.player-times .best-3lap, .player-times .best-1lap { text-align: right !important; } 
 	.track-list .header, .track-list .item {
-		grid-template-columns: 1fr 5rem 5rem;
+		grid-template-columns: 1fr 6rem 6rem;
 	}
 	.track-ranking .header, .track-ranking .item {
-		grid-template-columns: 2.35rem 1fr 4.5rem 5rem;
+		grid-template-columns: 2.35rem 1fr 4.5rem 6rem;
 	}
 }
