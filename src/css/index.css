@@ -382,11 +382,15 @@ h1 .cat-icon-no {
 	top: 4rem;
 	padding: 1rem;
 	min-height: 12rem;
-	background-image: url("../img/ctxpan-tl.png"), url("../img/ctxpan-br.png"), url("../img/ctxpan-base-tl.png"), url("../img/ctxpan-base-br.png"), url("../img/ctxpan-base.png");
-	background-position: top left, bottom right, top left, bottom right, center;
-	background-size: contain, contain, contain, contain, cover;
-	background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+	background-image: linear-gradient(-65deg, #80808000 -25%, #80808014 20%, #80808000 20%, #80808000 80%, #80808014 80%, #80808000 125%),
+	                  linear-gradient(to left, #80808000, #80808018);
+	background-position: center, center;
+	background-size: cover, cover;
+	background-repeat: no-repeat, no-repeat;
 	text-shadow: var(--panel-text-shadow);
+	border: 1px solid;
+	border-image-slice: 1;
+	border-image-source: linear-gradient(to left top, #808080FF, #80808000, #808080FF);
 }
 .side-panel * {
 	transform: translateZ(1.25rem);
