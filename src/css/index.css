@@ -555,6 +555,27 @@ h1 .cat-icon-no {
 	cursor: pointer;
 	background-position: 75% center !important;
 }
+.table .item:after {
+	content: '';
+	pointer-events: none;
+	position: absolute;
+	top: -1px;
+	bottom: -1px;
+	left: -1px;
+	right: -1px;
+	opacity: 0;
+	transition: opacity 0.5s ease;
+	border: 1px solid;
+	border-image-slice: 1;
+	border-image-source: linear-gradient(to left top, #807000FF, #80700000, #807000FF);
+	background-image: linear-gradient(to left, #80700010, #80700010);
+	background-position: 100% center;
+	background-size: 200% 100%;
+	background-repeat: no-repeat;
+}
+.table .item:hover:after {
+	opacity: 1;
+}
 
 .ranking-data .header, .ranking-data .item {
 	grid-template-columns: 4rem 1fr 6rem 8.5rem;
