@@ -6,10 +6,10 @@ export default () => (
 		<h1>RacerRank</h1>
 		<h2>About</h2>
 
-		<p>RacerRank is a point system for Star Wars: Episode I Racer time trials. Players are ranked by total points based on performance in their personal records on each track.</p>
+		<p>RacerRank is a point system for Star Wars: Episode I Racer time trials. Players are ranked by ✦ based on performance in their personal records on each track.</p>
 
-		<h4>Point Calculation</h4>
-		<p>Points are given individually for full race (3-Lap) and individual lap (1-Lap) records. Within each category, times are scored against the best known time, with up to {VAL.Score.Max} points being given to times {VAL.Score.Scale}&times; this time or faster. Points are assigned linearly within this range and are calculated to {VAL.Score.Precision} decimal places.</p>
+		<h4>✦ Calculation</h4>
+		<p>✦ are given individually for full race (3-Lap) and individual lap (1-Lap) records. Times above a category-dependent baseline ({VAL.Score.ScaleMin}&times; to {VAL.Score.ScaleMax}&times; WR) are given up to ✦{VAL.Score.Max}, calculated linearly to {VAL.Score.Precision} decimal places based on where the time lies on this range.</p>
 
 		<h4>Submitting Times</h4>
 		<p>Times are gathered using the Speedrun.com API. To join the rankings, submit your times to the Star Wars Racer <a href="https://www.speedrun.com/swe1r/individual_levels" alt="SWE1R Level Leaderboard" target="_blank" rel="noopener noreferrer">Level Leaderboard</a> on Speedrun.com, and they will automatically appear on RacerRank once verified.</p>
