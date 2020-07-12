@@ -15,6 +15,12 @@
 #container {
 	color: black;
 	background-color: white;
+	background-image: linear-gradient(to left, #000000E8 calc(50% - 360px), #000000C8, #000000E8 calc(50% + 360px)),
+	                  url("../img/podsel-bg.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center;
 	min-height: 100vh;
 }
 
@@ -98,7 +104,7 @@ header {
 	padding: 0.5rem !important;
 	grid-template-columns: auto 1fr;
 	grid-template-areas: 'logo nav';
-	background: inherit;
+	background: #000;
 	text-align: right;
 	z-index: 100;
 }
@@ -134,7 +140,7 @@ header nav .small a.icon svg, header nav .small button.icon svg {
 main {
 	max-width: min(100vw,720px);
 	margin: 0 auto !important;
-	padding: 0 1rem 4rem !important;
+	padding: 1rem 1rem 4rem !important;
 	display: grid;
 	grid-template-columns: repeat(9,1fr);
 	grid-template-rows: auto auto 1fr;
@@ -144,6 +150,7 @@ main {
 		'h2 h2 h2 h2 h2 h2 h2 h2 h2'
 		'table table table table table table panel panel panel';
 	--panel-text-shadow: 1px 1px 4px #FFF;
+	background: inherit;
 }
 
 main.player {
@@ -206,7 +213,7 @@ footer {
 	padding: 0.5em 1rem !important;
 	text-align: right;
 	color: #888;
-	background: inherit;
+	background: #000;
 	z-index: 100;
 	width: 100%;
 	box-sizing: border-box;
@@ -430,7 +437,7 @@ h1 .cat-icon-no {
 }
 .side-bar .Tilt {
 	position: sticky;
-	top: 4rem;
+	top: 4.75rem;
 }
 
 .highlight-panel {
@@ -515,6 +522,7 @@ h1 .cat-icon-no {
 	font-size: 1.5rem;
 	grid-area: table;
 	min-width: 100%;
+	background: inherit;
 }
 .table .header, .table .item {
 	display: grid;
@@ -533,8 +541,8 @@ h1 .cat-icon-no {
 	font-weight: bold;
 	position: sticky;
 	top: 3.8rem;
-	background: #FFF;
-	/*border-bottom: 1px solid #888;*/
+	background: inherit;
+	border-bottom: 1px solid #FFFFFF40;
 }
 .table .item {
 	text-shadow: var(--panel-text-shadow);
@@ -927,9 +935,9 @@ h1 .cat-icon-no {
 	--panel-text-shadow: 1px 1px 4px #000;
 }
 
-#container.dark-theme .table .header {
+/*#container.dark-theme .table .header {
 	background: #000;
-}
+}*/
 #container.dark-theme .dropdown-menu {
 	background: #000;
 	border-right-color: #404040;
@@ -946,6 +954,14 @@ h1 .cat-icon-no {
 }
 #container.dark-theme h1 .cat-icon-no {
 	fill: #804040;
+}
+
+
+@media all and (max-width: 720px) {
+	#container {
+		background-image: linear-gradient(to left, #000000E8, #000000C8, #000000E8),
+		                  url("../img/podsel-bg.jpg");
+	}
 }
 
 
