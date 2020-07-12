@@ -101,9 +101,9 @@ header {
 	display: grid;
 	position: sticky;
 	top: 0;
-	padding: 0.5rem !important;
-	grid-template-columns: auto 1fr;
-	grid-template-areas: 'logo nav';
+	padding: 0.5rem 1rem !important;
+	grid-template-columns: calc(100vw / 2 - 360px) auto 1fr calc(100vw / 2 - 360px);
+	grid-template-areas: 'pad1 logo nav pad2';
 	background: #000;
 	text-align: right;
 	z-index: 100;
@@ -217,13 +217,28 @@ footer {
 	z-index: 100;
 	width: 100%;
 	box-sizing: border-box;
+	display: grid;
+	grid-template-columns: calc(100vw / 2 - 360px) 1fr calc(100vw / 2 - 360px);
+	grid-template-areas: 'pad1 nav pad2';
 }
 
 footer nav {
+	grid-area: nav;
 	padding: 0 !important;
 }
 footer nav a, footer nav button {
 	font-size: 1rem;
+}
+
+
+header:before, header:after, footer:before, footer:after {
+	content: '';
+}
+header:before, footer:before {
+	grid-area: pad1;
+}
+header:after, footer:after {
+	grid-area: pad2;
 }
 
 
@@ -961,6 +976,16 @@ h1 .cat-icon-no {
 	#container {
 		background-image: linear-gradient(to left, #000000E8, #000000C8, #000000E8),
 		                  url("../img/podsel-bg.jpg");
+	}
+	header {
+		grid-template-columns: auto 1fr;
+		grid-template-areas: 'logo nav';
+	}
+	footer {
+		display: block;
+	}
+	header:before, header:after, footer:before, footer:after {
+		content: none;
 	}
 }
 
