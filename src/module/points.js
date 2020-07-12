@@ -6,7 +6,7 @@ export const CalculatePoints = (wr, pb, scale=Scale) => {
 }
 
 export const TimeNeededForPoints = (wr, scale=Scale, points=0) => {
-	return (1+(1-points/100) * (scale-1)) * wr;
+	return Math.floor(((1+(1-points/100) * (scale-1)) * wr) * 1000) / 1000;
 }
 
 export const CalculateLevelScale = (wrMin, wrMax, time) => {
