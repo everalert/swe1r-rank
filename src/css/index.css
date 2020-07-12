@@ -537,41 +537,46 @@ h1 .cat-icon-no {
 	/*border-bottom: 1px solid #888;*/
 }
 .table .item {
-	background-image: linear-gradient(-60deg, #80808040 -50%, #80808020 50%, #80808040 50%, #80808020 150%);
+	text-shadow: var(--panel-text-shadow);
+	color: inherit;
+	/*background-image: url("../img/mayu-dark.jpg");*/
+	background-position: center 50%;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	transition: background-size 0.25s ease;
+}
+.table .item:hover {
+	cursor: pointer;
+	background-size: 105% auto;
+}
+.table .item:before, .table .item:after {
+	content: '';
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border: 1px solid;
+	border-image-slice: 1;
+	border-image-source: linear-gradient(to left top, #FFFFFF80, #FFF0, #FFFFFF80);
+	background-image: linear-gradient(-60deg, #FFFFFF10 -50%, #FFFFFF00 50%, #FFFFFF10 50%, #FFFFFF00 150%);
 	background-position: 100% center;
 	background-size: 200% 100%;
 	background-repeat: no-repeat;
 	transition: background-position 0.25s ease;
-	text-shadow: var(--panel-text-shadow);
-	color: inherit;
-	border: 1px solid;
-	border-image-slice: 1;
-	border-image-source: linear-gradient(to left top, #808080FF, #80808000, #808080FF);
 }
-.table-wide .item {
+.table-wide .item:before {
 	background-position: 95% center !important;
 }
-.table .item:hover {
-	cursor: pointer;
+.table .item:hover:before {
 	background-position: 75% center !important;
 }
 .table .item:after {
-	content: '';
-	pointer-events: none;
-	position: absolute;
-	top: -1px;
-	bottom: -1px;
-	left: -1px;
-	right: -1px;
 	opacity: 0;
 	transition: opacity 0.5s ease;
-	border: 1px solid;
-	border-image-slice: 1;
 	border-image-source: linear-gradient(to left top, #807000FF, #80700000, #807000FF);
 	background-image: linear-gradient(to left, #80700010, #80700010);
-	background-position: 100% center;
-	background-size: 200% 100%;
-	background-repeat: no-repeat;
 }
 .table .item:hover:after {
 	opacity: 1;
