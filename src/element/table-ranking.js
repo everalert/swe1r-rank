@@ -1,10 +1,11 @@
 import VAL from '../state/const';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Numeral from 'numeral';
 import Tilt from 'react-tilt';
 import Actions from '../state/action';
+import { CalcElementScreenPosY } from '../module/viewport';
 
 export default (props) => {
 	const dispatch = useDispatch();
@@ -16,6 +17,20 @@ export default (props) => {
 		dispatch(Actions.changeCtxPan());
 		dispatch(Actions.updateCtxPan());
 	};
+	useEffect(() => {
+		// calc bg positions on pageload
+		const windowH = window.innerHeight;
+		Array.from(document.getElementsByClassName('table')[0].getElementsByClassName('item')).forEach(i => {
+			i.style.backgroundPosition = `center ${CalcElementScreenPosY(i, windowH)}%`;
+		})
+		// re-calc on scroll
+		return document.addEventListener("scroll", e => {
+			const windowH = window.innerHeight;
+			Array.from(document.getElementsByClassName('table')[0].getElementsByClassName('item')).forEach(i => {
+				i.style.backgroundPosition = `center ${CalcElementScreenPosY(i, windowH)}%`;
+			})
+		});
+	});
 	return (
 		<section className='table ranking-data' onMouseLeave={()=>closeDetail()}>
 			<div className='header'>
