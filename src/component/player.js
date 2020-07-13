@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Player from '../element/table-player';
+import RankList from '../element/ranklist';
 import HighlightPanel from '../element/hlpan';
 import Actions from '../state/action';
 import { FormatCategoryTitleFromSettings } from '../module/format';
@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		initialize: (playerId) => {
 			dispatch(Actions.changeSection('PLAYER',playerId));
-			dispatch(Actions.updateTable());
+			dispatch(Actions.updateRankList());
 			dispatch(Actions.updateCtxPan());
 		}
 	};
@@ -40,7 +40,7 @@ class PlayerPage extends React.Component {
 			<h1>{FormatCategoryTitleFromSettings(this.props.settings)}</h1>
 			<h2>{this.props.players[this.playerId].name}</h2>
 			<HighlightPanel/>
-			<Player player={this.playerId} data={this.props.data}/>
+			<RankList wide={true}/>
 			<TrophyPanel c={this.props.players[this.playerId].combinedTotals} o={this.props.players[this.playerId].overallTotals}/>
 		</main>
 	}

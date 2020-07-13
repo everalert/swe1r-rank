@@ -1,12 +1,14 @@
 import VAL from '../state/const';
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { CalcElementScreenPosY } from '../module/viewport';
 import Tilt from 'react-tilt';
 import Actions from '../state/action';
-import { CalcElementScreenPosY } from '../module/viewport';
 
 export default (props) => {
+	const ranklist = useSelector(state => state.ranklist);
+
 	const dispatch = useDispatch();
 	const showDetail = (section,page,title) => {
 		dispatch(Actions.changeCtxPan(section,page));
@@ -16,6 +18,7 @@ export default (props) => {
 		dispatch(Actions.changeCtxPan());
 		dispatch(Actions.updateCtxPan());
 	};
+
 	useEffect(() => {
 		// calc bg positions on pageload
 		const windowH = window.innerHeight;
@@ -30,21 +33,18 @@ export default (props) => {
 			})
 		});
 	});
+
 	return (
-		<section className='table track-list' onMouseLeave={()=>closeDetail()}>
+		<section className={`table ${props.wide?'table-wide':''} ${ranklist.className}`} onMouseLeave={props.panel?()=>closeDetail():false}>
 			<div className='header'>
-				<div className='track'>TRACK</div>
-				<div className='best-3lap'>3-LAP</div>
-				<div className='best-1lap'>1-LAP</div>
+				{ ranklist.header.map((item,i) => <div className={item.className} key={i}>{item.label}</div>)}
 			</div>
-			{ props.data.map((item,i) => {
-				return (<Tilt className='Tilt' options={VAL.Setting.Tilt.TableItem}>
-					<Link to={VAL.Routes.TRACK.replace(':id',item.id)} onMouseEnter={()=>showDetail('TRACK',item.id,item.name)} className='Tilt-inner item' key={i}>
-						<div className='track'>{item.name}</div>
-						{ Object.entries(item.fields).map((f,i) =>
-							<div key={i} className={VAL.TableFields[f[0]]}>{f[1]}</div>) }
+			{ ranklist.items.map((item,i) => {
+				return <Tilt className='Tilt' options={VAL.Setting.Tilt.TableItem}>
+					<Link to={item.link} className={`Tilt-inner item ${item.className}`} onMouseEnter={props.panel&&item.panel?()=>showDetail(item.panel.s,item.panel.p,item.panel.t):false} key={i}>
+						{ item.fields.map((f,i) => <div className={f.className} key={i}>{f.label}</div>) }
 					</Link>
-				</Tilt>)
+				</Tilt>;
 			}) }
 		</section>
 	);

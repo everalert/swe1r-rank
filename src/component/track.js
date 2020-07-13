@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Track from '../element/table-track';
+import RankList from '../element/ranklist';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
 import { FormatCategoryTitleFromSettings } from '../module/format';
@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		initialize: (trackId) => {
 			dispatch(Actions.changeSection('TRACK',trackId));
-			dispatch(Actions.updateTable());
+			dispatch(Actions.updateRankList());
 			dispatch(Actions.updateCtxPan());
 		}
 	};
@@ -39,7 +39,7 @@ class TrackPage extends React.Component {
 			<h1>{FormatCategoryTitleFromSettings(this.props.settings)}</h1>
 			<h2>{this.props.tracks[this.trackId].name}</h2>
 			<ContextPanel/>
-			<Track track={this.trackId} data={this.props.data}/>
+			<RankList panel={true}/>
 		</main>
 	}
 }

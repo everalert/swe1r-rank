@@ -10,7 +10,7 @@ export default {
 	markLoaded: () => ({type:'MARK_LOADED'}),
 	markLoading: (isLoading) => ({ type:'MARK_LOADING', loading:isLoading }),
 
-	updateTable: () => ({ type:'UPDATE_TABLE' }),
+	updateRankList: () => ({ type:'UPDATE_RANKLIST' }),
 	updateCtxPan: (title) => ({ type:'UPDATE_CTXPAN', title:title }),
 
 	calcTotals: () => ({type:'CALCULATE_TOTALS'}),

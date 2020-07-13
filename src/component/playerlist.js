@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PlayerList from '../element/table-playerlist';
+import RankList from '../element/ranklist';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
 import { FormatCategoryTitleFromSettings } from '../module/format';
@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		initialize: () => {
 			dispatch(Actions.changeSection('PLAYERLIST'));
-			dispatch(Actions.updateTable());
+			dispatch(Actions.updateRankList());
 			dispatch(Actions.updateCtxPan());
 		}
 	};
@@ -36,7 +36,7 @@ class Players extends React.Component {
 				<h1>{FormatCategoryTitleFromSettings(this.props.settings)}</h1>
 				<h2>Racers</h2>
 				<ContextPanel/>
-				<PlayerList data={this.props.data}/>
+				<RankList panel={true}/>
 			</main>
 		);
 	}

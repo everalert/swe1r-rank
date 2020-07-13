@@ -1,11 +1,11 @@
 import VAL from './const';
 import { FormatIdFromPlayer } from '../module/format';
 import { CalculatePoints, CalculateLevelScale } from '../module/points';
-import { RankingTableFromState,
-         TrackListTableFromState,
-         TrackTableFromState,
-         PlayerListTableFromState,
-         PlayerTableFromState } from './reducer-table';
+import { RankingRankListFromState,
+         TrackListRankListFromState,
+         TrackRankListFromState,
+         PlayerListRankListFromState,
+         PlayerRankListFromState } from './reducer-ranklist';
 import { RankingCtxPanFromState,
          TrackListCtxPanFromState,
          TrackCtxPanFromState,
@@ -23,6 +23,7 @@ const initialState = {
 	page : 0,
 	loading : true,
 	table : [],
+	ranklist : {},
 	menu : [],
 	panel : {
 		section : null,
@@ -43,7 +44,7 @@ const initialState = {
 		overall: false,
 		debugMode: true,
 		debugInfo: false
-	}
+	},
 };
 
 export default (state = initialState, action) => {
@@ -106,22 +107,22 @@ export default (state = initialState, action) => {
 			output.settings.debugInfo = !state.settings.debugInfo;
 		}
 
-		if (action.type === 'UPDATE_TABLE') {
+		if (action.type === 'UPDATE_RANKLIST') {
 			switch (state.section) {
 				case 'RANKING':
-					output.table = RankingTableFromState(state);
+					output.ranklist = RankingRankListFromState(state);
 					break;
 				case 'TRACKLIST': 
-					output.table = TrackListTableFromState(state);
+					output.ranklist = TrackListRankListFromState(state);
 					break;
 				case 'TRACK': 
-					output.table = TrackTableFromState(state);
+					output.ranklist = TrackRankListFromState(state);
 					break;
 				case 'PLAYERLIST': 
-					output.table = PlayerListTableFromState(state);
+					output.ranklist = PlayerListRankListFromState(state);
 					break;
 				case 'PLAYER': 
-					output.table = PlayerTableFromState(state);
+					output.ranklist = PlayerRankListFromState(state);
 					break;
 				default: break;
 			}
