@@ -930,12 +930,12 @@ h1 .cat-icon-no {
 	fill: #FFF;
 }
 .trophy-cat svg.cat-on {
-	fill: #B8FFB8;
-	filter: drop-shadow(0 0 16px #B8FFB8);
+	fill: #B8B8FF;
+	filter: drop-shadow(0 0 16px #B8B8FF); /*#B8FFB8*/
 }
 .trophy-cat svg.cat-off {
-	fill: #FFB8B8;
-	filter: drop-shadow(0 0 16px #FFB8B8);
+	fill: #404040;
+	filter: drop-shadow(0 0 16px #404040); /*#FFB8B8*/
 }
 
 
