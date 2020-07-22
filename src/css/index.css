@@ -105,7 +105,7 @@ header {
 	position: sticky;
 	top: 0;
 	padding: 0.5rem 1rem !important;
-	grid-template-columns: calc(100vw / 2 - 360px) auto 1fr calc(100vw / 2 - 360px);
+	grid-template-columns: calc(100vw / 2 - 380px) auto 1fr calc(100vw / 2 - 380px); /* needing +20px = ??? */
 	grid-template-areas: 'pad1 logo nav pad2';
 	background: #000;
 	text-align: right;
@@ -224,7 +224,7 @@ footer {
 	width: 100%;
 	box-sizing: border-box;
 	display: grid;
-	grid-template-columns: calc(100vw / 2 - 360px) 1fr calc(100vw / 2 - 360px);
+	grid-template-columns: calc(100vw / 2 - 380px) 1fr calc(100vw / 2 - 380px); /* needing +20px = ??? */
 	grid-template-areas: 'pad1 nav pad2';
 }
 
