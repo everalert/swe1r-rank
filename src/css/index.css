@@ -16,7 +16,7 @@
 	color: black;
 	background-color: white;
 	background-image: linear-gradient(to left, #000000E8 calc(50% - 360px), #000000C8, #000000E8 calc(50% + 360px)),
-	                  url("../img/podsel-bg.jpg");
+	                  url("../img/podsel-bg-mono.jpg");
 	background-size: cover;
 	background-attachment: fixed;
 	background-repeat: no-repeat;
