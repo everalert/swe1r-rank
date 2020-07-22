@@ -669,25 +669,25 @@ h1 .cat-icon-no {
 	background: -webkit-linear-gradient(#FFF, #8080FF);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	filter: drop-shadow(0 0 8px #8080FF);
+	filter: drop-shadow(0 0 1px #8080FF);
 }
 .rank.rank-1, .rank-1lap.rank-1, .rank-3lap.rank-1 {
 	background: -webkit-linear-gradient(#FF0, #FF8000);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	filter: drop-shadow(0 0 6px #00F);
+	filter: drop-shadow(0 0 1px #00F);
 }
 .rank.rank-2, .rank-1lap.rank-2, .rank-3lap.rank-2 {
 	background: -webkit-linear-gradient(#E0E0E0, #808080);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	filter: drop-shadow(0 0 6px #F00);
+	filter: drop-shadow(0 0 1px #F00);
 }
 .rank.rank-3, .rank-1lap.rank-3, .rank-3lap.rank-3 {
 	background: -webkit-linear-gradient(#FFE0E0, #FF2020);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	filter: drop-shadow(0 0 6px #E6CBCB);
+	filter: drop-shadow(0 0 1px #B68B8B); /*#E6CBCB*/
 }
 /*.rank-1lap:after, .rank-3lap:after, .rank:after {
 	content: '';
