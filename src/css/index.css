@@ -118,13 +118,16 @@ header .logo {
 	height: var(--height);
 	width: calc(var(--ratio) * var(--height));
 	margin: 0.25rem auto;
-	text-indent: 100vw;
 	overflow: hidden;
 	grid-area: logo;
-	background-image: url("../img/logo.png");
-	background-size: 100% auto;
-	background-position: top center;
 	cursor: pointer;
+}
+.logo svg .logoRankCore {
+	opacity: 0;
+	transition: opacity 0.25s ease;
+}
+.logo:hover svg .logoRankCore {
+	opacity: 0.2;
 }
 
 header nav a, header nav button {
