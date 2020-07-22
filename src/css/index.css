@@ -568,8 +568,8 @@ h1 .cat-icon-no {
 .table .item {
 	text-shadow: var(--panel-text-shadow);
 	color: inherit;
-	background-image: linear-gradient(#000000B0, #000000B0),
-	                  url("../img/podsel-bg.jpg");
+	/*background-image: linear-gradient(#000000B0, #000000B0),
+	                  url("../img/podsel-bg.jpg");*/
 	background-position: center 50%;
 	background-size: 100% auto;
 	background-repeat: no-repeat;
@@ -589,8 +589,10 @@ h1 .cat-icon-no {
 	right: 0;
 	border: 1px solid;
 	border-image-slice: 1;
-	border-image-source: linear-gradient(to left top, #FFFFFF80, #FFF0, #FFFFFF80);
-	background-image: linear-gradient(-60deg, #FFFFFF10 -50%, #FFFFFF00 50%, #FFFFFF10 50%, #FFFFFF00 150%);
+	/*border-image-source: linear-gradient(to left top, #FFFFFF80, #FFF0, #FFFFFF80);
+	background-image: linear-gradient(-60deg, #FFFFFF10 -50%, #FFFFFF00 50%, #FFFFFF10 50%, #FFFFFF00 150%);*/
+	border-image-source: linear-gradient(to left top, #B0B0FF80, #B0B0FF00, #B0B0FF80);
+	background-image: linear-gradient(-60deg, #B0B0FF10 -50%, #B0B0FF00 50%, #B0B0FF10 50%, #B0B0FF00 150%);
 	background-position: 100% center;
 	background-size: 200% 100%;
 	background-repeat: no-repeat;
