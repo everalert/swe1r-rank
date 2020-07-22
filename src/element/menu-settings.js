@@ -40,31 +40,31 @@ export default () => {
 	const reload = () => dispatch(Actions.markLoading());
 	const toggleDebugInfo = () => {
 		dispatch(Actions.toggleDebugInfo());
-		dispatch(Actions.updateTable());
+		dispatch(Actions.updateRankList());
 		dispatch(Actions.updateCtxPan());
 	};
 	const cycleLap = () => {
 		dispatch(Actions.cycleLapSetting());
-		dispatch(Actions.updateTable());
+		dispatch(Actions.updateRankList());
 		dispatch(Actions.updateCtxPan());
 	};
 	const toggleSkips = () => {
 		dispatch(Actions.toggleSkipsSetting());
 		if (!overall) {
-			dispatch(Actions.updateTable());
+			dispatch(Actions.updateRankList());
 			dispatch(Actions.updateCtxPan());
 		}
 	};
 	const toggleUpgrades = () => {
 		dispatch(Actions.toggleUpgradesSetting());
 		if (!overall) {
-			dispatch(Actions.updateTable());
+			dispatch(Actions.updateRankList());
 			dispatch(Actions.updateCtxPan());
 		}
 	};
 	const toggleOverall = () => {
 		dispatch(Actions.toggleOverallSetting());
-		dispatch(Actions.updateTable());
+		dispatch(Actions.updateRankList());
 		dispatch(Actions.updateCtxPan());
 	};
 
