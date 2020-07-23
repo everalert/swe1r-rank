@@ -328,10 +328,10 @@ header:after, footer:after {
 }
 
 .icon svg.warning {
-	fill: #FF8080;
+	fill: #FF8000;
 }
 .icon:hover svg.warning {
-	fill: #FFA0A0;
+	fill: #FFA000;
 }
 
 
