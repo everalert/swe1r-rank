@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import RankList from '../element/ranklist';
 import HighlightPanel from '../element/hlpan';
 import Actions from '../state/action';
-import { FormatCategoryTitleFromSettings } from '../module/format';
+import { FormatCategoryTitle } from '../module/format';
 import TrophyPanel from '../element/trophy-panel';
 
 
@@ -11,7 +11,9 @@ const mapStateToProps = state => {
 	return {
 		data: state.table,
 		players: state.players,
-		settings: state.settings
+		overall: state.settings.overall,
+		skips: state.settings.skips,
+		upgrades: state.settings.upgrades
 	};
 }
 
@@ -37,7 +39,7 @@ class PlayerPage extends React.Component {
 		if (!this.props.players[this.playerId])
 			return <main className='error-message'><p>Racer {this.playerId} not found.</p></main>
 		return <main className='player'>
-			<h1>{FormatCategoryTitleFromSettings(this.props.settings)}</h1>
+			<h1>{FormatCategoryTitle(this.props.overall, this.props.skips, this.props.upgrades, 0)}</h1>
 			<h2>{this.props.players[this.playerId].name}</h2>
 			<HighlightPanel/>
 			<RankList wide={true}/>

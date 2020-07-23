@@ -58,3 +58,17 @@ export const FormatCategoryTitleFromSettings = (settings) => {
 
 	return <span className="cat-string">{strings.reduce((acc,next) => [acc,<span className="cat-sep">‧</span>,next])}</span>;
 }
+
+export const FormatCategoryTitle = (overall, skips, upgrades, lap) => {
+	const strings = [];
+	if (overall)
+		strings.push(<span className="cat-label">Overall</span>);
+	else {
+		strings.push(skips?<span className="cat-label">Skips<IoIosCheckmarkCircleOutline className="cat-icon-yes"/></span>:<span className="cat-label">No Skips<IoIosCloseCircleOutline className="cat-icon-no"/></span>);
+		strings.push(upgrades?<span className="cat-label">Upgrades<IoIosCheckmarkCircleOutline className="cat-icon-yes"/></span>:<span className="cat-label">No Upgrades<IoIosCloseCircleOutline className="cat-icon-no"/></span>);
+	}
+	if (VAL.Setting.Lap[lap].key!=='ALL')
+		strings.push(<span className="cat-label">{VAL.Setting.Lap[lap].name}</span>);
+
+	return <span className="cat-string">{strings.reduce((acc,next) => [acc,<span className="cat-sep">‧</span>,next])}</span>;
+}

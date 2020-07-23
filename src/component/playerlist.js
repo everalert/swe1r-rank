@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import RankList from '../element/ranklist';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
-import { FormatCategoryTitleFromSettings } from '../module/format';
+import { FormatCategoryTitle } from '../module/format';
 
 
 const mapStateToProps = state => {
 	return {
 		data: state.table,
-		settings: state.settings
+		overall: state.settings.overall,
+		skips: state.settings.skips,
+		upgrades: state.settings.upgrades
 	};
 }
 
@@ -33,7 +35,7 @@ class Players extends React.Component {
 	render() {
 		return (
 			<main>
-				<h1>{FormatCategoryTitleFromSettings(this.props.settings)}</h1>
+				<h1>{FormatCategoryTitle(this.props.overall, this.props.skips, this.props.upgrades, 0)}</h1>
 				<h2>Racers</h2>
 				<ContextPanel/>
 				<RankList panel={true}/>

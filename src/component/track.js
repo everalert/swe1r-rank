@@ -3,14 +3,17 @@ import { connect } from 'react-redux';
 import RankList from '../element/ranklist';
 import ContextPanel from '../element/ctxpan';
 import Actions from '../state/action';
-import { FormatCategoryTitleFromSettings } from '../module/format';
+import { FormatCategoryTitle } from '../module/format';
 
 
 const mapStateToProps = state => {
 	return {
 		data: state.table,
 		tracks: state.levels,
-		settings: state.settings
+		overall: state.settings.overall,
+		skips: state.settings.skips,
+		upgrades: state.settings.upgrades,
+		lap: state.settings.lap
 	};
 }
 
@@ -36,7 +39,7 @@ class TrackPage extends React.Component {
 		if (!this.props.tracks[this.trackId])
 			return <main className='error-message'><p>Track {this.trackId} not found.</p></main>
 		return <main>
-			<h1>{FormatCategoryTitleFromSettings(this.props.settings)}</h1>
+			<h1>{FormatCategoryTitle(this.props.overall, this.props.skips, this.props.upgrades, this.props.lap)}</h1>
 			<h2>{this.props.tracks[this.trackId].name}</h2>
 			<ContextPanel/>
 			<RankList panel={true}/>
