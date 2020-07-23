@@ -971,17 +971,17 @@ h1 .cat-icon-no {
 }
 
 #container.dark-theme .cat-icon-yes {
-	fill: #40FF40;
+	fill: #6060FF;
 }
 #container.dark-theme .cat-icon-no {
-	fill: #FF4040;
+	fill: #404040;
 }
-#container.dark-theme h1 .cat-icon-yes {
-	fill: #408040;
+/*#container.dark-theme h1 .cat-icon-yes {
+	fill: #4040C0;
 }
 #container.dark-theme h1 .cat-icon-no {
-	fill: #804040;
-}
+	fill: #404040;
+}*/
 
 
 @media all and (max-width: 720px) {
