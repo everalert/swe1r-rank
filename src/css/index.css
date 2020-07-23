@@ -648,8 +648,11 @@ h1 .cat-icon-no {
 	grid-area: name;
 	font-weight: bold;
 }
+.item .player, .item .track {
+	color: #C0C0FF;
+}
 .item:hover .player, .item:hover .track {
-	color: #88F;
+	color: #FFC000;
 }
 .best-3lap, .best-1lap, .time-3lap, .time-1lap, .time, .time-total {
 	grid-area: time;
