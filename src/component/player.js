@@ -43,7 +43,7 @@ class PlayerPage extends React.Component {
 			<h2>{this.props.players[this.playerId].name}</h2>
 			<HighlightPanel/>
 			<RankList wide={true}/>
-			<TrophyPanel c={this.props.players[this.playerId].combinedTotals} o={this.props.players[this.playerId].overallTotals}/>
+			<TrophyPanel totals={this.props.players[this.playerId].totals}/>
 		</main>
 	}
 }

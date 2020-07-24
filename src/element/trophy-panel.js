@@ -2,10 +2,10 @@ import React from 'react';
 import Trophy from './trophy.js'
 
 export default (props) => {
+	const panels = props.totals.filter(c => c.laps==='ALL');
 	return (
 		<div class="trophy-panel">
-			<Trophy rank={props.o.rank} points={props.o.pts} overall={true} />
-			{ props.c.map(c => <Trophy rank={c.rank} points={c.pts} upgrades={c.upgrades} skips={c.skips} />)}
+			{ panels.map(c => <Trophy overall={c.overall} rank={c.rank} points={c.pts} upgrades={c.upgrades} skips={c.skips} />)}
 		</div>
 	);
 }

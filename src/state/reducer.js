@@ -221,49 +221,41 @@ export default (state = initialState, action) => {
 					let best = state.levels[t.level].bests.filter(b => b.laps===t.laps && b.skips===t.skips && b.upgrades===t.upgrades)[0];
 					let WR = best.time, scale = best.scale;
 					let pts = CalculatePoints(WR, t.time, scale);
-					let category = v.totals.filter(c => c.laps===t.laps && c.skips===t.skips && c.upgrades===t.upgrades)[0];
-					let combined = v.combinedTotals.filter(c => c.skips===t.skips && c.upgrades===t.upgrades)[0];
-					category.pts += pts;
-					combined.pts += pts;
-					v.overallTotals.pts += pts;
-					category.time += t.time;
-					combined.time += t.time;
-					v.overallTotals.time += t.time;
+					let totals = v.totals.filter(c => ((!c.overall && c.skips===t.skips && c.upgrades===t.upgrades) || c.overall) && (c.laps===t.laps || c.laps==='ALL'));
+					totals.forEach(i => {
+						i.pts += pts;
+						i.time += t.time;
+					})
 					t.points = pts;
 					return v;
 				}, CreateBlankTotalsObj());
 				output.players[p].totals = totals.totals;
-				output.players[p].combinedTotals = totals.combinedTotals;
-				output.players[p].overallTotals = totals.overallTotals;
-				player_ranks.push({ p:p, o:true, pts:totals.overallTotals.pts, rnk:0 });
-				totals.combinedTotals.forEach(t => {
-					if (t.time>0)
-						player_ranks.push({ p:p, s:t.skips, u:t.upgrades, l:'ALL', pts:t.pts, rnk:0 })
-				});
 				totals.totals.forEach(t => {
 					if (t.time>0)
-						player_ranks.push({ p:p, s:t.skips, u:t.upgrades, l:t.laps, pts:t.pts, rnk:0 })
+						player_ranks.push({ p:p, s:t.skips, u:t.upgrades, l:t.laps, o:t.overall, pts:t.pts, rnk:0 })
 				});
 			});
 			// calc category ranks
 			player_ranks.sort((a,b) => b.pts - a.pts);
 			let rank_track = {
-				OVERALL_rank:0, OVERALL_streak:0, OVERALL_last:null,
+				ALL_ALL_rank:0, ALL_ALL_streak:0, ALL_ALL_last:null,
 				SU_ALL_rank:0, SU_ALL_streak:0, SU_ALL_last:null,
 				NSU_ALL_rank:0, NSU_ALL_streak:0, NSU_ALL_last:null,
 				SNU_ALL_rank:0, SNU_ALL_streak:0, SNU_ALL_last:null,
 				NSNU_ALL_rank:0, NSNU_ALL_streak:0, NSNU_ALL_last:null,
+				ALL_1L_rank:0, ALL_1L_streak:0, ALL_1L_last:null,
 				SU_1L_rank:0, SU_1L_streak:0, SU_1L_last:null,
 				NSU_1L_rank:0, NSU_1L_streak:0, NSU_1L_last:null,
 				SNU_1L_rank:0, SNU_1L_streak:0, SNU_1L_last:null,
 				NSNU_1L_rank:0, NSNU_1L_streak:0, NSNU_1L_last:null,
+				ALL_3L_rank:0, ALL_3L_streak:0, ALL_3L_last:null,
 				SU_3L_rank:0, SU_3L_streak:0, SU_3L_last:null,
 				NSU_3L_rank:0, NSU_3L_streak:0, NSU_3L_last:null,
 				SNU_3L_rank:0, SNU_3L_streak:0, SNU_3L_last:null,
 				NSNU_3L_rank:0, NSNU_3L_streak:0, NSNU_3L_last:null,
 			}
 			player_ranks.forEach(i => {
-				const pre = i.o ? 'OVERALL' : `${i.s?'S':'NS'}${i.u?'U':'NU'}_${i.l}`;
+				const pre = `${i.o ? 'ALL' : `${i.s?'S':'NS'}${i.u?'U':'NU'}`}_${i.l}`;
 				rank_track[`${pre}_streak`]++;
 				if (i.pts !== rank_track[`${pre}_last`]) {
 					rank_track[`${pre}_rank`] += rank_track[`${pre}_streak`];
@@ -271,12 +263,7 @@ export default (state = initialState, action) => {
 				}
 				rank_track[`${pre}_last`] = i.pts;
 				i.rnk = rank_track[`${pre}_rank`];
-				if (i.o)
-					output.players[i.p].overallTotals.rank = i.rnk;
-				else if (i.l==='ALL')
-					output.players[i.p].combinedTotals.filter(c => i.s===c.skips && i.u===c.upgrades)[0].rank = i.rnk;
-				else
-					output.players[i.p].totals.filter(c => i.s===c.skips && i.u===c.upgrades && i.l===c.laps)[0].rank = i.rnk;
+				output.players[i.p].totals.filter(c => i.s===c.skips &&  i.s===c.skips && i.u===c.upgrades && i.l===c.laps)[0].rank = i.rnk;
 			});
 			// calc time ranks
 			player_ranks.sort((a,b) => b.pts - a.pts);

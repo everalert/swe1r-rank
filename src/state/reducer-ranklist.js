@@ -12,11 +12,7 @@ export const RankingRankListFromState = (state) => {
 
 	let data = Object.keys(state.players).map(k => {
 		let p = state.players[k];
-		let totals = state.settings.overall ?
-			p.overallTotals :
-			VAL.Setting.Lap[state.settings.lap].key==='ALL' ?
-				p.combinedTotals.filter(c => c.skips===state.settings.skips && c.upgrades===state.settings.upgrades)[0] :
-				p.totals.filter(c => c.laps===VAL.Setting.Lap[state.settings.lap].key && c.skips===state.settings.skips && c.upgrades===state.settings.upgrades)[0];
+		let totals = p.totals.filter(c => c.laps==='ALL' && ((state.settings.overall && c.overall===true) || (c.skips===state.settings.skips && c.upgrades===state.settings.upgrades)))[0];
 		let player = {
 			id:k,
 			name:p.name,
@@ -165,11 +161,7 @@ export const PlayerListRankListFromState = (state) => {
 
 	let data = Object.keys(state.players).map(k => {
 		let p = state.players[k];
-		let totals = state.settings.overall ?
-			p.overallTotals :
-			VAL.Setting.Lap[state.settings.lap].key==='ALL' ?
-				p.combinedTotals.filter(c => c.skips===state.settings.skips && c.upgrades===state.settings.upgrades)[0] :
-				p.totals.filter(c => c.laps===VAL.Setting.Lap[state.settings.lap].key && c.skips===state.settings.skips && c.upgrades===state.settings.upgrades)[0];
+		let totals = p.totals.filter(c => c.laps==='ALL' && ((state.settings.overall && c.overall===true) || (c.skips===state.settings.skips && c.upgrades===state.settings.upgrades)))[0];
 		let player = {
 			id:k,
 			name:p.name,
