@@ -7,11 +7,8 @@ import { DevFormatCategoryMultiplier } from '../module/debug';
 
 export const RankingCtxPanFromState = (state) => {
 	let items = [];
-	let runs = state.settings.overall ? 
-		state.runs :
-		VAL.Setting.Lap[state.settings.lap].key === 'ALL' ?
-			state.runs.filter(r => r.skips===state.settings.skips && r.upgrades===state.settings.upgrades) :
-			state.runs.filter(r => r.laps===VAL.Setting.Lap[state.settings.lap].key && r.skips===state.settings.skips && r.upgrades===state.settings.upgrades);
+	const laps = 'ALL';
+	const runs = state.runs.filter(t => !t.overall && (laps==='ALL'?t.laps!=='ALL':t.laps===laps) && (state.settings.overall || (t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)));
 	let players = [];
 	runs.forEach(r => { if (players.indexOf(r.player)<0) players.push(r.player) });
 	let playerCount = players.length;
@@ -91,11 +88,8 @@ export const TrackCtxPanFromState = (state) => {
 
 export const PlayerListCtxPanFromState = (state) => {
 	let items = [];
-	let runs = state.settings.overall ? 
-		state.runs :
-		VAL.Setting.Lap[state.settings.lap].key === 'ALL' ?
-			state.runs.filter(r => r.skips===state.settings.skips && r.upgrades===state.settings.upgrades) :
-			state.runs.filter(r => r.laps===VAL.Setting.Lap[state.settings.lap].key && r.skips===state.settings.skips && r.upgrades===state.settings.upgrades);
+	const laps = 'ALL';
+	const runs = state.runs.filter(t => !t.overall && (laps==='ALL'?t.laps!=='ALL':t.laps===laps) && (state.settings.overall || (t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)));
 	let players = [];
 	runs.forEach(r => { if (players.indexOf(r.player)<0) players.push(r.player) });
 	let playerCount = players.length;
@@ -110,9 +104,8 @@ export const PlayerListCtxPanFromState = (state) => {
 export const PlayerCtxPanFromState = (state) => {
 	const page = state.panel.section ? state.panel.page : state.page;
 	const maxRuns = Object.keys(VAL.Id.Level).length * (state.settings.overall ? Math.pow(2,3) : Math.pow(2,1));
-	let runs = state.settings.overall ? 
-		state.runs.filter(r => r.player===page) :
-		state.runs.filter(r => r.player===page && r.skips===state.settings.skips && r.upgrades===state.settings.upgrades);
+
+	const runs = state.runs.filter(t => t.player===state.page && (t.laps==='3L' || t.laps==='1L') && ((state.settings.overall) || (!t.overall && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)));
 	let items = [];
 	let totals = runs.reduce((v,t) => {
 		if (t.player === page) {

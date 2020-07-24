@@ -15,7 +15,8 @@ import { CreateBlankPlayerObj,
          CreateBlankLevelObj,
          CreateBlankTotalsObj,
          CreateBlankRecordScaleArr,
-         GenerateRunVariations } from './reducer-runs';
+         GenerateRunVariations,
+         GenerateRunMetaVariations } from './reducer-runs';
 //import { merge } from 'lodash';
 
 const initialState = {
@@ -203,6 +204,7 @@ export default (state = initialState, action) => {
 				else
 					output.runs.push(new_r);
 			});
+
 		}
 
 		if (action.type === 'CALCULATE_TOTALS') {
@@ -216,7 +218,7 @@ export default (state = initialState, action) => {
 			});
 			// calc point/time totals
 			Object.keys(state.players).forEach(p => {
-				let times = state.runs.filter(r => r.player===p);
+				let times = output.runs.filter(r => !r.overall && r.laps!=='ALL' && r.player===p);
 				let totals = times.reduce((v,t) => {
 					let best = state.levels[t.level].bests.filter(b => b.laps===t.laps && b.skips===t.skips && b.upgrades===t.upgrades)[0];
 					let WR = best.time, scale = best.scale;
@@ -235,6 +237,22 @@ export default (state = initialState, action) => {
 						player_ranks.push({ p:p, s:t.skips, u:t.upgrades, l:t.laps, o:t.overall, pts:t.pts, rnk:0 })
 				});
 			});
+			// calc meta totals
+			let runs = []
+			output.runs.filter(r => !r.overall && r.laps!=='ALL').forEach(r => {
+				GenerateRunMetaVariations(r).forEach(v => {
+					let test = runs.filter(r => v.level===r.level && v.player===r.player && v.laps===r.laps && ((v.overall && r.overall) || (v.skips===r.skips && v.upgrades===r.upgrades)))
+						//v.overall===r.overall && v.laps===r.laps && v.skips===r.skips && v.upgrades===r.upgrades);
+					if (test.length) {
+						test[0].points += v.points;
+						test[0].time += v.time;
+					}
+					else
+						runs.push(v);
+				});
+			});
+			console.log(runs);
+			runs.forEach(r => { output.runs.push(r) });
 			// calc category ranks
 			player_ranks.sort((a,b) => b.pts - a.pts);
 			let rank_track = {
@@ -270,10 +288,17 @@ export default (state = initialState, action) => {
 			let rank_time = {};
 			Object.keys(VAL.Id.Level).forEach(k => {
 				rank_time[VAL.Id.Level[k].abbr] = {
+					ALL_ALL_rank:0, ALL_ALL_streak:0, ALL_ALL_last:null,
+					SU_ALL_rank:0, SU_ALL_streak:0, SU_ALL_last:null,
+					NSU_ALL_rank:0, NSU_ALL_streak:0, NSU_ALL_last:null,
+					SNU_ALL_rank:0, SNU_ALL_streak:0, SNU_ALL_last:null,
+					NSNU_ALL_rank:0, NSNU_ALL_streak:0, NSNU_ALL_last:null,
+					ALL_1L_rank:0, ALL_1L_streak:0, ALL_1L_last:null,
 					SU_1L_rank:0, SU_1L_streak:0, SU_1L_last:null,
 					NSU_1L_rank:0, NSU_1L_streak:0, NSU_1L_last:null,
 					SNU_1L_rank:0, SNU_1L_streak:0, SNU_1L_last:null,
 					NSNU_1L_rank:0, NSNU_1L_streak:0, NSNU_1L_last:null,
+					ALL_3L_rank:0, ALL_3L_streak:0, ALL_3L_last:null,
 					SU_3L_rank:0, SU_3L_streak:0, SU_3L_last:null,
 					NSU_3L_rank:0, NSU_3L_streak:0, NSU_3L_last:null,
 					SNU_3L_rank:0, SNU_3L_streak:0, SNU_3L_last:null,
@@ -282,7 +307,7 @@ export default (state = initialState, action) => {
 			});
 			output.runs.sort((a,b) => b.points - a.points);
 			output.runs.forEach(i =>{
-				const pre = `${i.skips?'S':'NS'}${i.upgrades?'U':'NU'}_${i.laps}`;
+				const pre = `${i.overall ? 'ALL' : `${i.skips?'S':'NS'}${i.upgrades?'U':'NU'}`}_${i.laps}`;
 				rank_time[i.level][`${pre}_streak`]++;
 				if (i.points !== rank_time[i.level][`${pre}_last`]) {
 					rank_time[i.level][`${pre}_rank`] += rank_time[i.level][`${pre}_streak`];

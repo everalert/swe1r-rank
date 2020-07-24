@@ -86,3 +86,12 @@ export const GenerateRunVariations = (data) => {
 	})
 	return output;
 }
+
+export const GenerateRunMetaVariations = (data) => {
+	// create overall + combined lap variations based on input data
+	const output = [];
+	output.push(merge({},data,{laps:'ALL'}));
+	output.push(merge({},data,{overall:true}));
+	output.push(merge({},data,{overall:true,laps:'ALL',skips:null,upgrades:null}));
+	return output;
+}

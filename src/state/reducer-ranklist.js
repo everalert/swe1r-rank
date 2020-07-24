@@ -100,30 +100,16 @@ export const TrackRankListFromState = (state) => {
 		{ className:'time', label:'TIME' },
 	];
 	
-	const times = state.settings.overall ?
-		state.runs.filter(t => t.level === state.page) :
-		VAL.Setting.Lap[state.settings.lap].key==='1L' ?
-			state.runs.filter(t => t.level===state.page && t.laps==='1L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades) :
-			state.runs.filter(t => t.level===state.page && t.laps==='3L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
-	let data = [];
-	times.forEach(t => {
-		let player = data.filter(p => p.id===t.player);
-		if (player.length) {
-			player[0].sort += t.points;
-			player[0].time += t.time;
-			player[0].out_pts = FormatPoints(player[0].sort);
-			player[0].out_time = FormatTime(player[0].time);
-		} else {
-			data.push({
-				id:t.player,
-				name:state.players[t.player].name,
-				rank:t.rank,
-				time:t.time,
-				out_pts:FormatPoints(t.points),
-				out_time:FormatTime(t.time)
-			});
-		}
-	});
+	const laps = VAL.Setting.Lap[state.settings.lap].key==='1L'?'1L':'3L';
+	const times = state.runs.filter(t => t.level===state.page && t.laps===laps && ((state.settings.overall && t.overall) || (!state.settings.overall && !t.overall && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)));
+	let data = times.map(t => ({
+		id:t.player,
+		name:state.players[t.player].name,
+		rank:t.rank,
+		time:t.time,
+		out_pts:FormatPoints(t.points),
+		out_time:FormatTime(t.time)
+	}));
 	data = data.filter(t => t.time > 0);
 	data.sort((a,b) => a.time - b.time);
 	data.sort((a,b) => a.rank - b.rank);
@@ -204,9 +190,7 @@ export const PlayerRankListFromState = (state) => {
 		{ className:'best-1lap', label:'1-LAP' },
 	];
 	
-	const times = state.settings.overall ?
-		state.runs.filter(t => t.player===state.page) :
-		state.runs.filter(t => t.player===state.page && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
+	const times = state.runs.filter(t => t.player===state.page && (t.laps==='3L' || t.laps==='1L') && ((state.settings.overall && t.overall) || (!state.settings.overall && !t.overall && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)));
 	let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, data:{time1L:0,pts1L:0,rank1L:0,time3L:0,pts3L:0,rank3L:0} }) );
 	times.forEach(t => {
 		let p = tracks.filter(p => p.id===t.level)[0];
