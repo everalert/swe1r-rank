@@ -989,7 +989,7 @@ h1 .cat-icon-no {
 @media all and (max-width: 720px) {
 	#container {
 		background-image: linear-gradient(to left, #000000E8, #000000C8, #000000E8),
-		                  url("../img/podsel-bg.jpg");
+		                  url("../img/podsel-bg-mono.jpg");
 	}
 	header {
 		grid-template-columns: auto 1fr;
