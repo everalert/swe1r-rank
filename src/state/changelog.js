@@ -47,12 +47,18 @@ export default {
 		4 : {
 			Release : new Date(),
 			Notes : [
-				"Settings moved to dropdown menu.",
-				"Category titles re-styled to improve clarity.",
-				"Lap setting now skips Combined when on an individual track page.",
-				"Individual track pages now show 3-Lap data when the lap setting is Combined.",
-				"Added category trophies to player profiles.",
-				"Added ranking information to player timesheets."
+				"Feature - Added category trophies to player profiles.",
+				"Feature - Added ranking information to player timesheets.",
+				"Design - New blue/gold color scheme",
+				"Design - Reworked overall design and design elements.",
+				"Design - Reworked highlights on Player profiles.",
+				"Design - Disabled light theme.",
+				"UX/UI - Settings moved to dropdown menu.",
+				"UX/UI - Category title visual clarity improved.",
+				"UX/UI - Lap setting now skips Combined when on an individual track page.",
+				"UX/UI - Individual track pages now show 3-Lap data when the lap setting is Combined.",
+				"Other - Various performance improvements.",
+				"Other - Various bugfixes."
 			]
 		}
 	},
