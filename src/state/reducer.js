@@ -251,7 +251,6 @@ export default (state = initialState, action) => {
 						runs.push(v);
 				});
 			});
-			console.log(runs);
 			runs.forEach(r => { output.runs.push(r) });
 			// calc category ranks
 			player_ranks.sort((a,b) => b.pts - a.pts);

@@ -35,13 +35,13 @@ export default (props) => {
 	});
 
 	return (
-		<section className={`table ${props.wide?'table-wide':''} ${ranklist.className}`} onMouseLeave={props.panel?()=>closeDetail():false}>
+		<section className={`table ${props.wide?'table-wide':''} ${ranklist.className}`} onMouseLeave={props.panel?()=>closeDetail():undefined}>
 			<div className='header'>
 				{ ranklist.header.map((item,i) => <div className={item.className} key={i}>{item.label}</div>)}
 			</div>
 			{ ranklist.items.map((item,i) => {
-				return <Tilt className='Tilt' options={VAL.Setting.Tilt.TableItem}>
-					<Link to={item.link} className={`Tilt-inner item ${item.className}`} onMouseEnter={props.panel&&item.panel?()=>showDetail(item.panel.s,item.panel.p,item.panel.t):false} key={i}>
+				return <Tilt className='Tilt' options={VAL.Setting.Tilt.TableItem} key={i}>
+					<Link to={item.link} className={`Tilt-inner item ${item.className}`} onMouseEnter={props.panel&&item.panel?()=>showDetail(item.panel.s,item.panel.p,item.panel.t):undefined}>
 						{ item.fields.map((f,i) => <div className={f.className} key={i}>{f.label}</div>) }
 					</Link>
 				</Tilt>;
