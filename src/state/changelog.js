@@ -45,7 +45,7 @@ export default {
 			]
 		},
 		4 : {
-			Release : new Date(),
+			Release : new Date('2020-07-26'),
 			Notes : [
 				"Feature - Added category trophies to player profiles.",
 				"Feature - Added ranking information to player timesheets.",
