@@ -19,19 +19,22 @@ export default (props) => {
 		dispatch(Actions.updateCtxPan());
 	};
 
-	useEffect(() => {
-		// calc bg positions on pageload
+	const positionItemBGs = (e) => {
 		const windowH = window.innerHeight;
 		Array.from(document.getElementsByClassName('table')[0].getElementsByClassName('item')).forEach(i => {
 			i.style.backgroundPosition = `center ${CalcElementScreenPosY(i, windowH)}%`;
 		})
+	}
+
+	useEffect(() => {
+		// calc bgs on mount
+		positionItemBGs();
+
 		// re-calc on scroll
-		return document.addEventListener("scroll", e => {
-			const windowH = window.innerHeight;
-			Array.from(document.getElementsByClassName('table')[0].getElementsByClassName('item')).forEach(i => {
-				i.style.backgroundPosition = `center ${CalcElementScreenPosY(i, windowH)}%`;
-			})
-		});
+		document.addEventListener("scroll", positionItemBGs);
+
+		// remove listener on unmount
+		return () => document.removeEventListener("scroll", positionItemBGs)
 	});
 
 	return (
