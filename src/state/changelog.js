@@ -60,6 +60,12 @@ export default {
 				"Other - Various performance improvements.",
 				"Other - Various bugfixes."
 			]
+		},
+		5 : {
+			Release : new Date(),
+			Notes : [
+				"in development"
+			]
 		}
 	},
 };
