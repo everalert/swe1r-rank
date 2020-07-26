@@ -157,6 +157,7 @@ main {
 		'table table table table table table panel panel panel';
 	--panel-text-shadow: 1px 1px 4px #FFF;
 	background: inherit;
+	overflow: hidden;
 }
 
 main.player {
