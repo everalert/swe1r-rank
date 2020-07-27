@@ -196,10 +196,14 @@ main li {
 }
 
 p, ul {
-	margin-bottom: 1em !important;
+	margin-bottom: 1.35em !important;
 	line-height: 1.35em;
 	text-align: justify;
 	list-style-type: square;
+}
+ul > ul {
+	margin-bottom: 0.25em !important;
+	margin-left: 1.15em !important;
 }
 
 
