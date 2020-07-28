@@ -60,7 +60,7 @@
 .highlight-item .name {
 	font-family: 'Roboto Condensed', sans-serif;
 	position: absolute;
-	top: calc(4.25 / 8 * var(--hlw));
+	bottom: 0;
 	left: 0;
 	width: var(--hlw);
 	text-align: center;
