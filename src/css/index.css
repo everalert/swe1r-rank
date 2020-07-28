@@ -105,6 +105,14 @@ main {
 	background: inherit;
 }
 
+main.ranking, main.track, main.track-list, main.player-list {
+	grid-template-areas:
+		'h2 h2 h2 h2 h2 h2 h2 h2 h2'
+		'h1 h1 h1 h1 h1 h1 h1 h1 h1'
+		'hl-panel hl-panel hl-panel hl-panel hl-panel hl-panel hl-panel hl-panel hl-panel'
+		'table table table table table table table table table';
+}
+
 main.player {
 	grid-template-areas:
 		'h2 h2 h2 h2 h2 h2 h2 h2 h2'

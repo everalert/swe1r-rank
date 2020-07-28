@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import RankList from '../element/ranklist';
-import ContextPanel from '../element/ctxpan';
+import HighlightPanel from '../element/hlpan';
 import { FormatCategoryTitle } from '../module/format';
 import Actions from '../state/action';
 
@@ -35,11 +35,11 @@ class RankingPage extends React.Component {
 
 	render() {
 		return (
-			<main>
+			<main className="ranking">
 				<h1>Ranking</h1>
 				<h2>{FormatCategoryTitle(this.props.overall, this.props.skips, this.props.upgrades, 0)}</h2>
-				<ContextPanel/>
-				<RankList panel={true}/>
+				<HighlightPanel/>
+				<RankList wide={true}/>
 			</main>
 		);
 	}

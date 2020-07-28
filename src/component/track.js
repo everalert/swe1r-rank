@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import RankList from '../element/ranklist';
-import ContextPanel from '../element/ctxpan';
+import HighlightPanel from '../element/hlpan';
 import Actions from '../state/action';
 import { FormatCategoryTitle } from '../module/format';
 
@@ -38,11 +38,11 @@ class TrackPage extends React.Component {
 	render() {
 		if (!this.props.tracks[this.trackId])
 			return <main className='error-message'><p>Track {this.trackId} not found.</p></main>
-		return <main>
+		return <main className="track">
 			<h1>{FormatCategoryTitle(this.props.overall, this.props.skips, this.props.upgrades, this.props.lap)}</h1>
 			<h2>{this.props.tracks[this.trackId].name}</h2>
-			<ContextPanel/>
-			<RankList panel={true}/>
+			<RankList wide={true}/>
+			<HighlightPanel/>
 		</main>
 	}
 }
