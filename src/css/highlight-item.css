@@ -1,22 +1,23 @@
 .highlight-item {
-	width: 8rem;
-	height: 6rem;
+	width: var(--hlw);
+	height: var(--hlh);
 	position: relative;
 	margin: 0 0 0.75em;
 	display: inline-block;
+	/*background-color: #00FF0020;*/
 }
 .highlight-item .value {
 	font-family: 'Anton', 'Impact', sans-serif;
-	width: 4rem;
-	height: 4rem;
+	font-size: calc(1.5 / 8 * var(--hlw));
+	width: calc(var(--hlw) / 2);
+	height: calc(var(--hlw) / 2);
 	position: absolute;
 	top: 0;
-	left: 2rem;
-	font-size: 1.5rem;
+	left: calc(var(--hlw) / 4);
 }
 .highlight-item .value:before {
 	content: '';
-	background-image: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,0.35));
+	background-image: radial-gradient(#FFFFFF00, #FFFFFF60);
 	position: absolute;
 	top: 7.5%;
 	left: 7.5%;
@@ -31,7 +32,7 @@
 .highlight-item:hover .value:before { opacity: 1; }
 .highlight-item .value:after {
 	content: '';
-	background-image: radial-gradient(rgba(0,0,255,0), rgba(0,0,255,0.35));
+	background-image: radial-gradient(#0000FF00, #0000FF60);
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -40,32 +41,32 @@
 	border-radius: 50%;
 	border: 2px solid #8080FF;
 	box-sizing: border-box;
-	transform: translateZ(-1rem);
-	filter: drop-shadow(0 0 16px #00F);
+	transform: translateZ(calc(var(--hlw) / -8));
+	filter: drop-shadow(0 0 calc(1.35 / 8 * var(--hlw)) #00F);
 }
 .highlight-item .value .Tilt-inner {
 	position: absolute;
 	top: calc(50% - 0.65em);
-	left: -2rem;
-	width: 8rem;
+	left: calc(var(--hlw) / -4);
+	width: var(--hlw);
 	text-align: center;
-	transform: translateZ(1rem);
+	transform: translateZ(calc(var(--hlw) / 8));
 	pointer-events: none;
-	background: -webkit-linear-gradient(#FFF, #C0C0FF);
+	background: -webkit-linear-gradient(#FFFFFF, #C0C0FF);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	filter: drop-shadow(0 0 16px #00F);
+	filter: drop-shadow(0 0 calc(1.35 / 8 * var(--hlw)) #0000FF);
 }
 .highlight-item .name {
 	font-family: 'Roboto Condensed', sans-serif;
 	position: absolute;
-	top: 4.25rem;
-	left: 0rem;
-	width: 8rem;
+	top: calc(4.25 / 8 * var(--hlw));
+	left: 0;
+	width: var(--hlw);
 	text-align: center;
-	font-size: 1.15rem;
+	font-size: calc(1.15 / 8 * var(--hlw));
 	color: #C0C0FF;
-	text-shadow: 0 0 16px #00F;
+	text-shadow: 0 0 calc(1.35 / 8 * var(--hlw)) #0000FF;
 	font-weight: bold;
 	text-transform: uppercase;
 }
