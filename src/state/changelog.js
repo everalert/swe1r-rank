@@ -86,7 +86,9 @@ export default {
 		5 : {
 			Release : new Date(),
 			Notes : [
-				"in development"
+				"UI/UX", [
+					"Mobile layout improvements."
+				]
 			]
 		}
 	},

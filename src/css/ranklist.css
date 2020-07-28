@@ -23,6 +23,7 @@
 	position: sticky;
 	top: 3.8rem;
 	background: inherit;
+	padding-top: 0.5em;
 	border-bottom: 1px solid #FFFFFF40;
 }
 .table .item {
@@ -82,12 +83,13 @@
 	grid-template-columns: 1fr 6rem 8.5rem;
 	grid-template-areas: 'name points time';
 }
+.player-times .header, .player-times .item {
+	grid-template-columns: 1fr 7.5rem 4rem 7.5rem 4rem;
+}
 .player-times .header {
-	grid-template-columns: 1fr 8.5rem 4rem 8.5rem 4rem;
 	grid-template-areas: 'name time-3lap time-3lap time-1lap time-1lap';
 }
 .player-times .item {
-	grid-template-columns: 1fr 8.5rem 4rem 8.5rem 4rem;
 	grid-template-areas: 'name time-3lap rank-3lap time-1lap rank-1lap' 'name points-3lap rank-3lap points-1lap rank-1lap';
 }
 .track-list .header, .track-list .item {
@@ -175,8 +177,11 @@
 	content: '✦';
 	margin-right: 0.15em;
 }
+.player-times .time-3lap, .player-times .time-1lap {
+	font-size: 0.9em;
+}
 .player-times .points-3lap, .player-times .points-1lap {
-	font-size: 0.85em;
+	font-size: 0.7em;
 }
 .track-list .best-3lap {
 	grid-area: best-3lap;
@@ -214,16 +219,49 @@
 
 
 
+@media all and (max-width: 640px) {
+	.table {
+		font-size: 1.2rem;
+	}
+	.player-times .time-3lap, .player-times .time-1lap {
+		font-size: 1em;
+	}
+	.player-times .points-3lap, .player-times .points-1lap {
+		font-size: 0.85em;
+	}
+	.player-times .header .track {
+		display: none;
+	}
+	.player-times .item .track {
+		margin-top: 0.35em;
+		margin-bottom: 0.35em;
+		text-align: center;
+	}
+	.player-times .header, .player-times .item {
+		grid-template-columns: 1fr 6.75rem 4.4rem 2.5rem 1fr 6.75rem 4.4rem 2.5rem 1fr;
+	}
+	.player-times .header {
+		grid-template-areas: '. time-3lap time-3lap time-3lap . time-1lap time-1lap time-1lap .';
+	}
+	.player-times .item {
+		grid-template-areas: 'name name name name name name name name name'
+		                     '. time-3lap points-3lap rank-3lap . time-1lap points-1lap rank-1lap .';
+	}
+}
+
 
 @media all and (max-width: 480px) {
 	.table {
 		font-size: 1rem;
 	}
 	.table .header {
-		position: initial;
+		top: 4.5rem;
 	}
 	.table .item:hover {
 		background-position: top left, bottom right, 65% center;
+	}
+	.table .item .track {
+		font-size: 1.15em;
 	}
 	.ranking-data .header, .ranking-data .item {
 		grid-template-columns: 2.35rem 1fr 4.5rem 6rem;
@@ -231,20 +269,22 @@
 	.player-list .header, .player-list .item {
 		grid-template-columns: 1fr 4.5rem 6rem;
 	}
-	.player-times .header, .player-times .item {
-		grid-template-columns: 1fr 6rem 6rem;
+
+	.player-times .rank-3lap, .player-times .rank-1lap {
+		font-size: 1.15em;
 	}
-	.player-times .track {
-		margin-left: 0 !important;
+	.player-times .header, .player-times .item {
+		grid-template-columns: 1fr 5.65rem 2.5rem 1fr 5.65rem 2.5rem 1fr;
 	}
 	.player-times .header {
-		grid-template-areas: 'name time-3lap time-1lap';
+		grid-template-areas: '. time-3lap time-3lap . time-1lap time-1lap .';
 	}
 	.player-times .item {
-		grid-template-areas: 'name time-3lap time-1lap' 'name points-3lap points-1lap';
+		grid-template-areas: 'name name name name name name name'
+		                     '. time-3lap rank-3lap . time-1lap rank-1lap .'
+		                     '. points-3lap rank-3lap . points-1lap rank-1lap .';
 	}
-	.player-times .rank-3lap, .player-times .rank-1lap { display: none; } 
-	.player-times .best-3lap, .player-times .best-1lap { text-align: right !important; } 
+
 	.track-list .header, .track-list .item {
 		grid-template-columns: 1fr 6rem 6rem;
 	}
