@@ -105,7 +105,7 @@ export const PlayerCtxPanFromState = (state) => {
 	const page = state.panel.section ? state.panel.page : state.page;
 	const maxRuns = Object.keys(VAL.Id.Level).length * (state.settings.overall ? Math.pow(2,3) : Math.pow(2,1));
 
-	const runs = state.runs.filter(t => t.player===state.page && (t.laps==='3L' || t.laps==='1L') && ((state.settings.overall) || (!t.overall && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)));
+	const runs = state.runs.filter(t => t.player===state.page && (t.laps==='3L' || t.laps==='1L') && !t.overall && (state.settings.overall || (t.skips===state.settings.skips && t.upgrades===state.settings.upgrades)));
 	let items = [];
 	let totals = runs.reduce((v,t) => {
 		if (t.player === page) {
