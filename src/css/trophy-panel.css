@@ -3,7 +3,7 @@
 	--tpw: calc(min(720px,100vw) - 50px - 2rem);
 	--tw: calc(var(--tpw) * 0.18);
 	--th: calc(700 / 300 * var(--tw));
-	--zs: calc(24 / 300 * var(--tw));
+	--zs: calc(32 / 300 * var(--tw));
 	grid-area: trophy-panel;
 	width: var(--tpw);
 	display: grid;
