@@ -4,6 +4,8 @@ import UpgradesIcon from '../element/icon-upgrades';
 import VAL from '../state/const';
 import Numeral from 'numeral';
 import Tilt from 'react-tilt';
+import '../css/tilt.css';
+import '../css/trophy.css';
 
 export default (props) => {
 	const catStr = props.overall ?

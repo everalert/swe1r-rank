@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { CalcElementScreenPosY } from '../module/viewport';
 import Tilt from 'react-tilt';
 import Actions from '../state/action';
+import '../css/tilt.css';
+import '../css/ranklist.css';
 
 export default (props) => {
 	const ranklist = useSelector(state => state.ranklist);

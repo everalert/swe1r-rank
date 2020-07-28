@@ -8,6 +8,7 @@ import OverallIcon from '../element/icon-overall';
 import Actions from '../state/action';
 import { MdLoop, MdLightbulbOutline } from 'react-icons/md';
 import { IoIosSettings, IoIosClose } from 'react-icons/io';
+import '../css/menu-settings.css';
 
 export default () => {
 	const node = useRef();

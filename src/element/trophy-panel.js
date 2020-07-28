@@ -1,5 +1,7 @@
 import React from 'react';
-import Trophy from './trophy.js'
+import Trophy from './trophy.js';
+import '../css/tilt.css';
+import '../css/trophy-panel.css';
 
 export default (props) => {
 	const panels = props.totals.filter(c => c.laps==='ALL');

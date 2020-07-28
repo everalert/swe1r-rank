@@ -1,0 +1,79 @@
+header {
+	display: grid;
+	position: sticky;
+	top: 0;
+	padding: 0.5rem 1rem !important;
+	grid-template-columns: calc(100vw / 2 - 380px) auto 1fr calc(100vw / 2 - 380px); /* needing +20px = ??? */
+	grid-template-areas: 'pad1 logo nav pad2';
+	background: #000;
+	text-align: right;
+	z-index: 100;
+}
+
+header .logo {
+	--ratio: calc(824 / 128);
+	--height: 2.35rem;
+	height: var(--height);
+	width: calc(var(--ratio) * var(--height));
+	margin: 0.25rem auto;
+	overflow: hidden;
+	grid-area: logo;
+	cursor: pointer;
+}
+.logo svg .logoRankCore {
+	opacity: 0;
+	transition: opacity 0.25s ease;
+}
+.logo:hover svg .logoRankCore {
+	opacity: 0.2;
+}
+
+header nav a, header nav button {
+	font-size: 1.25rem;
+}
+header nav a.icon svg, header nav button.icon svg {
+	width: 1.65em;
+	height: 1.65em;
+}
+header nav .small a.icon svg, header nav .small button.icon svg {
+	width: 1.25em;
+	height: 1.25em;
+}
+
+
+header:before, header:after {
+	content: '';
+}
+header:before {
+	grid-area: pad1;
+}
+header:after {
+	grid-area: pad2;
+}
+
+
+@media all and (max-width: 720px) {
+	header {
+		grid-template-columns: auto 1fr;
+		grid-template-areas: 'logo nav';
+	}
+	footer:before, footer:after {
+		content: none;
+	}
+}
+
+
+@media all and (max-width: 480px) {
+	header {
+		/*position: initial;*/
+		padding: 0.25rem !important;
+		grid-template-areas: 'nav nav' 'logo logo';
+		text-align: center;
+	}
+	header nav a, header nav button {
+		font-size: 1rem;
+	}
+	header .logo {
+		--height: 1.6rem;
+	}
+}

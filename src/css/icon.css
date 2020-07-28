@@ -1,0 +1,21 @@
+.icon {
+	padding: 0 !important;
+	margin-left: 0.5em !important;
+	height: 1.85em;
+	width: 1.65em;
+	box-sizing: border-box !important;
+}
+.small .icon {
+	height: 1.35em;
+	width: 1.25em;
+}
+.icon:hover {
+	background-color: transparent;
+}
+
+.icon svg.warning {
+	fill: #FF8000;
+}
+.icon:hover svg.warning {
+	fill: #FFA000;
+}

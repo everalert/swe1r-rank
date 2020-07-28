@@ -1,0 +1,89 @@
+.settings-menu {
+	position: relative;
+}
+.dropdown-menu {
+	list-style: none;
+	position: absolute;
+	top: calc(100% + 1rem);
+	right: 0;
+	width: 13em;
+	box-sizing: border-box;
+	background-color: #000000F0;
+	border: 1px solid #202020;
+	font-size: 1.25rem;
+	padding: 0.5em;
+	opacity: 0;
+	visibility: hidden;
+	transition: visibility 0.1s linear, opacity 0.1s linear;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+.dropdown-menu button {
+}
+.dropdown-menu.dropdown-show {
+	visibility: visible;
+	opacity: 1;
+}
+.dropdown-menu li {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	margin-left: 0;
+	padding: 0.25em 0.5em 0.1em !important;
+	text-transform: uppercase;
+	text-align: right;
+	transition: opacity ease 0.1s;
+}
+.dropdown-menu li.small {
+	font-size: 0.85em;
+}
+.dropdown-menu li button {
+	margin-left: 0.5em !important;
+	font-family: 'Roboto Condensed', sans-serif !important;
+}
+.dropdown-menu li button:not(.icon) {
+	color: #8080FF;
+	font-size: 1.25em;
+	text-transform: uppercase;
+	padding: 0.15em 0.35em !important;
+	/*margin: 0 0 0 0.35em !important;*/
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+}
+.dropdown-menu button:not(.icon):hover, .dropdown-menu li:hover button:not(.icon) {
+	background: rgba(127,127,255,0.1);
+}
+.dropdown-menu li:hover {
+	/*background: rgba(127,127,255,0.1);*/
+	font-weight: bold;
+	cursor: pointer;
+}
+.dropdown-menu li:hover svg, .icon:hover svg {
+	fill: #A0A0FF;
+}
+.dropdown-menu li svg, nav .icon svg {
+	display: inline-block;
+	fill: #8080FF;
+}
+.dropdown-menu li.disabled {
+	opacity: 0.35;
+}
+.dropdown-menu li.disabled svg {
+	fill: #808080;
+}
+.dropdown-menu li.disabled:hover {
+	opacity: 1;
+}
+
+
+@media all and (max-width: 480px) {
+	.settings-menu {
+		position: inherit;
+	}
+	.dropdown-menu {
+		top: 100%;
+		width: calc(100vw);
+		right: 0;
+		font-size: 1rem;
+		border: 0;
+	}
+}

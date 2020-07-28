@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Entry from './hlpan-entry';
+import '../css/highlight-panel.css';
 
 export default () => {
 	const items = useSelector(state => state.panel.items);

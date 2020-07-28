@@ -1,6 +1,8 @@
 import React from 'react';
 import VAL from '../state/const';
 import Tilt from 'react-tilt';
+import '../css/tilt.css';
+import '../css/highlight-item.css';
 
 export default (props) => {
 	let entry;

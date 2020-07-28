@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import VAL from '../state/const';
 import SettingsMenu from '../element/menu-settings'
 import Logo from '../element/logo';
+import '../css/header.css';
+import '../css/icon.css';
 
 export default () => {
 	return (

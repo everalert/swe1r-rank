@@ -1,0 +1,73 @@
+.side-bar {
+	grid-area: panel;
+}
+.side-panel {
+	position: sticky;
+	top: 4rem;
+	padding: 1rem;
+	min-height: 12rem;
+	background-image: linear-gradient(-65deg, #80808000 -25%, #80808014 20%, #80808000 20%, #80808000 80%, #80808014 80%, #80808000 125%),
+	                  linear-gradient(to left, #80808000, #80808018);
+	background-position: center, center;
+	background-size: cover, cover;
+	background-repeat: no-repeat, no-repeat;
+	text-shadow: var(--panel-text-shadow);
+	border: 1px solid;
+	border-image-slice: 1;
+	border-image-source: linear-gradient(to left top, #808080FF, #80808000, #808080FF);
+}
+.side-panel * {
+	transform: translateZ(1.25rem);
+}
+.side-panel.hide {
+	display: none;
+}
+.side-panel :nth-child(1) {
+	margin-top: 0 !important;
+}
+.side-panel :nth-last-child(1) {
+	margin-bottom: 0 !important;
+}
+.panel-heading, .panel-text, .panel-item {
+	margin-bottom: 0.25rem;
+	font-size: 1.25rem;
+}
+.panel-heading {
+	font-size: 2rem;
+	margin: 0.25em 0 0;
+	/*font-style: italic;*/
+	font-weight: 300;
+	font-family: 'Teko', 'Roboto', sans-serif;
+	letter-spacing: 0.02em;
+}
+.panel-item {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-areas: 'name value';
+}
+.panel-item .name {
+	font-weight: bold;
+	grid-area: name;
+}
+.panel-item .value {
+	grid-area: value;
+}
+.side-bar .Tilt {
+	position: sticky;
+	top: 4.75rem;
+}
+
+
+@media all and (max-width: 480px) {
+	.side-panel {
+		min-height: auto;
+		margin-top: 1rem;
+		padding: 0.75rem;
+	}
+	.panel-heading {
+		font-size: 1.5rem;
+	}
+	.panel-item, .panel-text {
+		font-size: 1rem;
+	}
+}
