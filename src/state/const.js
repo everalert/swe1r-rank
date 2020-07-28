@@ -96,13 +96,6 @@ export default {
 				max:17.5,
 				scale:1.025
 			},
-			TableItem : {
-				perspective:1000,
-				reverse:true,
-				max:15,
-				scale:1.015,
-				axis:'x'
-			},
 			Trophy : {
 				perspective:1000,
 				reverse:true,

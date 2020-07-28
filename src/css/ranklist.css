@@ -5,6 +5,14 @@
 	min-width: 100%;
 	background: inherit;
 }
+.table .item-container {
+	transform: perspective(1000px);
+	transform-style: preserve-3d;
+}
+.table .item-container * {
+	transform-style: preserve-3d;
+	transform-origin: bottom;
+}
 .table .header, .table .item {
 	display: grid;
 	grid-gap: 0 1rem;
@@ -12,9 +20,7 @@
 	margin: 0 0 0.2em;
 	box-sizing: border-box;
 	align-items: center;
-}
-.table .item *, .table .header * {
-	transform: translateZ(1.25rem);
+	position: relative;
 }
 .table .header {
 	z-index: 70;
@@ -32,13 +38,20 @@
 	/*background-image: linear-gradient(#000000B0, #000000B0),
 	                  url("../img/podsel-bg.jpg");*/
 	background-position: center 50%;
-	background-size: 100% auto;
+	background-size: 105% auto;
 	background-repeat: no-repeat;
-	transition: background-size 0.25s ease;
+	transition: background-size 0.25s ease, transform 0.25s ease;
+}
+.table .item * {
+	transition: background-size 0.25s ease, transform 0.25s ease;
 }
 .table .item:hover {
 	cursor: pointer;
-	background-size: 105% auto;
+	background-size: 100% auto;
+	transform: translateZ(1.5rem);
+}
+.table .item:hover * {
+	transform: translateZ(1.5rem);
 }
 .table .item:before, .table .item:after {
 	content: '';

@@ -1,9 +1,7 @@
-import VAL from '../state/const';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CalcElementScreenPosY } from '../module/viewport';
-import Tilt from 'react-tilt';
 import Actions from '../state/action';
 import '../css/tilt.css';
 import '../css/ranklist.css';
@@ -45,11 +43,11 @@ export default (props) => {
 				{ ranklist.header.map((item,i) => <div className={item.className} key={i}>{item.label}</div>)}
 			</div>
 			{ ranklist.items.map((item,i) => {
-				return <Tilt className='Tilt' options={VAL.Setting.Tilt.TableItem} key={i}>
-					<Link to={item.link} className={`Tilt-inner item ${item.className}`} onMouseEnter={props.panel&&item.panel?()=>showDetail(item.panel.s,item.panel.p,item.panel.t):undefined}>
+				return <div className='item-container'>
+					<Link to={item.link} className={`item ${item.className}`} onMouseEnter={props.panel&&item.panel?()=>showDetail(item.panel.s,item.panel.p,item.panel.t):undefined}>
 						{ item.fields.map((f,i) => <div className={f.className} key={i}>{f.label}</div>) }
 					</Link>
-				</Tilt>;
+				</div>;
 			}) }
 		</section>
 	);
