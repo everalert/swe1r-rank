@@ -3,7 +3,7 @@ header {
 	position: sticky;
 	top: 0;
 	padding: 0.5rem 1rem !important;
-	grid-template-columns: calc(100vw / 2 - 380px) auto 1fr calc(100vw / 2 - 380px); /* needing +20px = ??? */
+	grid-template-columns: calc(100vw / 2 - 360px - 1rem) auto 1fr calc(100vw / 2 - 360px - 1rem);
 	grid-template-areas: 'pad1 logo nav pad2';
 	background: #000;
 	text-align: right;

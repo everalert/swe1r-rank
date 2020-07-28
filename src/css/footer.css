@@ -10,7 +10,7 @@ footer {
 	width: 100%;
 	box-sizing: border-box;
 	display: grid;
-	grid-template-columns: calc(100vw / 2 - 380px) 1fr calc(100vw / 2 - 380px); /* needing +20px = ??? */
+	grid-template-columns: calc(100vw / 2 - 360px - 1rem) 1fr calc(100vw / 2 - 360px - 1rem);
 	grid-template-areas: 'pad1 nav pad2';
 }
 
