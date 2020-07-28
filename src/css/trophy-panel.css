@@ -1,13 +1,15 @@
 .trophy-panel {
 	/* source size 300x700px + light bleed */
-	--tw: calc(calc(min(720px,100vw) - 2rem) * 0.18); /*2rem = main padding*/
+	--tpw: calc(min(720px,100vw) - 50px - 2rem);
+	--tw: calc(var(--tpw) * 0.18);
 	--th: calc(700 / 300 * var(--tw));
 	--zs: calc(24 / 300 * var(--tw));
 	grid-area: trophy-panel;
-	width: min(720px,100vw);
+	width: var(--tpw);
 	display: grid;
 	grid-template-columns: repeat(5,var(--tw));
 	grid-template-rows: var(--th);
 	grid-gap: 0 2.5%;
-	/*background-color: #004000;*/
+	margin: 0 auto;
+	/*background-color: #00FF0020;*/
 }

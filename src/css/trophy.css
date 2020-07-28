@@ -1,4 +1,3 @@
-
 .trophy-container {
 	width: var(--tw);
 	height: var(--th);
@@ -8,16 +7,13 @@
 	height: var(--th);
 	box-sizing: border-box;
 	position: relative;
-	/*background-color: #000040;*/
-	/*transform: scale(var(--ts),var(--ts)) translate(calc(350px * var(--ts) - 350px),calc(820px * var(--ts) - 820px));*/ /*why tho*/
-	/*transform: scale(var(--ts),var(--ts)) translate(calc(350px * var(--ts) - 350px), 0); /*why tho*/
 }
 .trophy:before, .trophy:after {
 	content: '';
 	position: absolute;
 	top: calc(-40 / 700 * var(--th));
 	left: calc(-50 / 300 * var(--tw));
-	width: calc(var(--tw) * 1.333);
+	width: calc(400 / 300 * var(--tw));
 	height: var(--th);
 	background-image: url("../img/trophy-gen-bg1.png");
 	background-size: 100%;
