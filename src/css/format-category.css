@@ -1,5 +1,5 @@
 .cat-string {
-	display: flex;
+	display: inline-flex;
 	flex-direction: row;
 }
 .cat-label {
