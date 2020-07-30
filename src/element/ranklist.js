@@ -43,7 +43,7 @@ export default (props) => {
 				{ ranklist.header.map((item,i) => <div className={item.className} key={i}>{item.label}</div>)}
 			</div>
 			{ ranklist.items.map((item,i) => {
-				return <div className='item-container'>
+				return <div className='item-container' key={i}>
 					<Link to={item.link} className={`item ${item.className}`} onMouseEnter={props.panel&&item.panel?()=>showDetail(item.panel.s,item.panel.p,item.panel.t):undefined}>
 						{ item.fields.map((f,i) => <div className={f.className} key={i}>{f.label}</div>) }
 					</Link>
