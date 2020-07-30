@@ -72,3 +72,7 @@ export const FormatCategoryTitle = (overall, skips, upgrades, lap) => {
 
 	return <span className="cat-string">{strings.reduce((acc,next,i) => [acc,<span className="cat-sep" key={strings.length+i}>‧</span>,next])}</span>;
 }
+
+export const GetLapSettingObj = (key) => {
+	return VAL.Setting.Lap.filter(l => l.key===key)[0];
+}
