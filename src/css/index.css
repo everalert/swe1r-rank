@@ -13,8 +13,8 @@
 }
 
 #container {
-	color: black;
-	background-color: white;
+	color: white;
+	background-color: black;
 	background-image: linear-gradient(to left, #000000E8 calc(50% - 360px), #000000C8, #000000E8 calc(50% + 360px)),
 	                  url("../img/podsel-bg-mono.jpg");
 	background-size: cover;
@@ -99,7 +99,7 @@ main {
 	grid-template-columns: repeat(9,1fr);
 	grid-template-rows: auto auto 1fr;
 	grid-gap: 0 1.5rem;
-	--panel-text-shadow: 1px 1px 4px #FFF;
+	--panel-text-shadow: 1px 1px 4px #000;
 	background: inherit;
 	box-sizing: border-box;
 }
@@ -174,46 +174,6 @@ a:hover {
 .load-screen {
 	height: 100vh;
 }
-
-
-
-#container.dark-theme {
-	color: white;
-	background-color: black;
-}
-
-
-#container.dark-theme header .logo {
-	background-position: bottom center;
-}
-#container.dark-theme nav a.icon:hover svg.disabled {
-	fill: #A0A0A0;
-}
-
-#container.dark-theme main {
-	--panel-text-shadow: 1px 1px 4px #000;
-}
-
-/*#container.dark-theme .table .header {
-	background: #000;
-}*/
-/*#container.dark-theme .dropdown-menu {
-	background: #000;
-	border-right-color: #404040;
-}*/
-
-#container.dark-theme .cat-icon-yes {
-	fill: #6060FF;
-}
-#container.dark-theme .cat-icon-no {
-	fill: #404040;
-}
-/*#container.dark-theme h1 .cat-icon-yes {
-	fill: #4040C0;
-}
-#container.dark-theme h1 .cat-icon-no {
-	fill: #404040;
-}*/
 
 
 @media all and (max-width: 720px) {

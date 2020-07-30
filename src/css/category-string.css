@@ -22,19 +22,13 @@
 	z-index: -10;
 }
 .cat-icon-yes {
-	fill: #C0FFC0;
+	fill: #6060FF;
 }
 .cat-icon-no {
-	fill: #FFC0C0;
+	fill: #404040;
 }
 h1 .cat-icon-yes, h1 .cat-icon-no {
 	top: 0.5em;
-}
-h1 .cat-icon-yes {
-	fill: #C080C0;
-}
-h1 .cat-icon-no {
-	fill: #80C0C0;
 }
 .cat-sep {
 	opacity: 0.5;
