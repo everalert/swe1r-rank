@@ -43,8 +43,9 @@ export const TrackListCtxPanFromState = (state) => {
 
 export const TrackCtxPanFromState = (state) => {
 	const page = state.panel.section ? state.panel.page : state.page;
-	const lap = VAL.Setting.Lap[state.settings.lap].key;
+	if (!state.levels[page]) return state.panel.items;
 	const bests = state.levels[page].bests;
+	const lap = VAL.Setting.Lap[state.settings.lap].key;
 	const debugInfo = state.settings.debugMode && state.settings.debugInfo;
 	let items = [];
 	if (Object.keys(state.levels).indexOf(page)>=0) {
