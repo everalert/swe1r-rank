@@ -92,12 +92,24 @@ export default (state = initialState, action) => {
 			output.settings.skips = !state.settings.skips;
 		}
 
+		if (action.type === 'SET_SKIPS_SETTING') {
+			output.settings.skips = action.active || false;
+		}
+
 		if (action.type === 'TOGGLE_UPGRADES_SETTING') {
 			output.settings.upgrades = !state.settings.upgrades;
 		}
 
+		if (action.type === 'SET_UPGRADES_SETTING') {
+			output.settings.upgrades = action.active || false;
+		}
+
 		if (action.type === 'TOGGLE_OVERALL_SETTING') {
 			output.settings.overall = !state.settings.overall;
+		}
+
+		if (action.type === 'SET_OVERALL_SETTING') {
+			output.settings.overall = action.active || false;
 		}
 
 		if (action.type === 'TOGGLE_DEBUG_MODE') {

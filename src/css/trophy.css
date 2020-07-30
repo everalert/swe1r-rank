@@ -7,6 +7,7 @@
 	height: var(--th);
 	box-sizing: border-box;
 	position: relative;
+	cursor: pointer;
 }
 .trophy:before, .trophy:after {
 	content: '';
@@ -19,8 +20,6 @@
 	background-size: 100%;
 	display: block;
 	pointer-events: none;
-}
-.trophy:hover:before {
 }
 .trophy:after {
 	background-image: url("../img/trophy-gen-bg2.png");
