@@ -33,17 +33,17 @@ export default {
 			'9d8wr6dn':'1L'
 		},
 		Skips : {
-			Id : '2lgz978p',
+			Id : '789x6p58',
 			Value : {
-				'p125ev1x':true,
-				'81p7we17':false
+				'rqvg3prq':true,
+				'013d38rl':false
 			}
 		},
 		Upgrades : {
-			Id : '789k49lw',
+			Id : 'rn1z02dl',
 			Value : {
-				'xqkrk919':true,
-				'z194gjl4':false
+				'klrvnpoq':true,
+				'21d9rzpq':false
 			}
 		}
 	},
