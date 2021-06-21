@@ -166,6 +166,9 @@ export default (state = initialState, action) => {
 
 
 		if (action.type === 'ADD_RUN') {
+			if (action.player === undefined)
+				return output;
+			
 			let laps = VAL.Id.Category[action.laps] || '1L';
 			let skips = Object.keys(VAL.Id.Skips.Value).indexOf(action.skips) >= 0 ? VAL.Id.Skips.Value[action.skips] : true;
 			let upgrades = Object.keys(VAL.Id.Upgrades.Value).indexOf(action.upgrades) >= 0 ? VAL.Id.Upgrades.Value[action.upgrades] : true;
