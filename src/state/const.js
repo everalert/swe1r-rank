@@ -33,17 +33,17 @@ export default {
 			'9d8wr6dn':'1L'
 		},
 		Skips : {
-			Id : '2lgz978p',
+			Id : '789x6p58',
 			Value : {
-				'81p7we17':false,
-				'p125ev1x':true
+				'rqvg3prq':true,
+				'013d38rl':false
 			}
 		},
 		Upgrades : {
-			Id : '789k49lw',
+			Id : 'rn1z02dl',
 			Value : {
-				'z194gjl4':false,
-				'xqkrk919':true
+				'klrvnpoq':true,
+				'21d9rzpq':false
 			}
 		}
 	},
@@ -68,6 +68,8 @@ export default {
 		timeALL: 'time-total',
 		time3L: 'time-3lap',
 		time1L: 'time-1lap',
+		rank3L: 'rank-3lap',
+		rank1L: 'rank-1lap',
 		best3L: 'best-3lap',
 		best1L: 'best-1lap',
 	},
@@ -78,12 +80,14 @@ export default {
 			TotalTimeFull: 'h:mm:ss.SSS',
 			Points: '0.000',
 			TotalPoints: '0.0',
+			TrophyPoints: '0,000',
 		},
 		Fallback : {
-			Time: '---',
-			TotalTime: '---',
+			Time: '—',
+			TotalTime: '—',
 			Points: 0,
 			TotalPoints: 0,
+			Rank: '—',
 		},
 		Tilt : {
 			CtxPan : {
@@ -92,16 +96,16 @@ export default {
 				max:17.5,
 				scale:1.025
 			},
-			TableItem : {
+			Trophy : {
 				perspective:1000,
 				reverse:true,
-				max:15,
-				scale:1.015,
+				max:25,
+				scale:1.075,
 				axis:'x'
 			}
 		},
 		Lap : [
-			{ name:'Overall', key:'ALL' },
+			{ name:'Combined Laps', key:'ALL' },
 			{ name:'3-Lap', key:'3L' },
 			{ name:'1-Lap', key:'1L' },
 		],

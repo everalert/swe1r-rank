@@ -13,7 +13,7 @@ export const RankingTableFromState = (state) => {
 		let player = {
 			id:k,
 			name:p.name,
-			sort:totals.pts,
+			rank:totals.rank,
 			time:totals.time,
 			fields:{
 				pts:FormatTotalPoints(totals.pts),
@@ -22,22 +22,9 @@ export const RankingTableFromState = (state) => {
 		};
 		return player;
 	});
-
+	table = table.filter(t => t.rank > 0);
 	table.sort((a,b) => a.time - b.time);
-	table.sort((a,b) => b.sort - a.sort);
-	let rank = 0, rankStreak = 0;
-	let last = null;
-	table = table.filter(t => t.time > 0);
-	table.forEach(item => {
-		rankStreak++;
-		if (item.sort !== last) {
-			rank += rankStreak;
-			rankStreak = 0;
-		}
-		item.rank = rank;
-		last = item.sort;
-	});
-
+	table.sort((a,b) => a.rank - b.rank);
 	return table;
 }
 
@@ -62,9 +49,9 @@ export const TrackListTableFromState = (state) => {
 export const TrackTableFromState = (state) => {
 	const times = state.settings.overall ?
 		state.runs.filter(t => t.level === state.page) :
-		VAL.Setting.Lap[state.settings.lap].key==='ALL' ?
-			state.runs.filter(t => t.level===state.page && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades) :
-			state.runs.filter(t => t.level===state.page && t.laps===VAL.Setting.Lap[state.settings.lap].key && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
+		VAL.Setting.Lap[state.settings.lap].key==='1L' ?
+			state.runs.filter(t => t.level===state.page && t.laps==='1L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades) :
+			state.runs.filter(t => t.level===state.page && t.laps==='3L' && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
 	let table = [];
 	times.forEach(t => {
 		let player = table.filter(p => p.id===t.player);
@@ -76,27 +63,15 @@ export const TrackTableFromState = (state) => {
 			table.push({
 				id:t.player,
 				name:state.players[t.player].name,
-				sort:t.points,
+				rank:t.rank,
 				time:t.time,
 				fields:{ pts:FormatPoints(t.points), time:FormatTime(t.time) }
 			});
 		}
 	});
-
 	table = table.filter(t => t.time > 0);
 	table.sort((a,b) => a.time - b.time);
-	table.sort((a,b) => b.sort - a.sort);
-	let rank = 0, rankStreak = 0;
-	let last = null;
-	table.forEach(item => {
-		rankStreak++;
-		if (item.sort !== last) {
-			rank += rankStreak;
-			rankStreak = 0;
-		}
-		item.rank = rank;
-		last = item.sort;
-	});
+	table.sort((a,b) => a.rank - b.rank);
 	return table;
 }
 
@@ -124,18 +99,21 @@ export const PlayerTableFromState = (state) => {
 	const times = state.settings.overall ?
 		state.runs.filter(t => t.player===state.page) :
 		state.runs.filter(t => t.player===state.page && t.skips===state.settings.skips && t.upgrades===state.settings.upgrades);
-	let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, data:{time1L:0,pts1L:0,time3L:0,pts3L:0}, fields:{} }) );
+	let tracks = Object.keys(state.levels).map(t => ({ id:t, name:state.levels[t].name, data:{time1L:0,pts1L:0,rank1L:0,time3L:0,pts3L:0,rank3L:0}, fields:{} }) );
 	times.forEach(t => {
 		let p = tracks.filter(p => p.id===t.level)[0];
 		p.data[`time${t.laps}`] += t.time;
 		p.data[`pts${t.laps}`] += t.points;
+		p.data[`rank${t.laps}`] += t.rank;
 	});
 	tracks.forEach(t => {
 		t.fields = {
 			time1L:FormatTime(t.data.time1L),
 			pts1L:FormatPoints(t.data.pts1L),
+			rank1L:t.data.rank1L,
 			time3L:FormatTime(t.data.time3L),
-			pts3L:FormatPoints(t.data.pts3L)
+			pts3L:FormatPoints(t.data.pts3L),
+			rank3L:t.data.rank3L
 		}
 	});
 	const levels = Object.keys(VAL.Id.Level).map(k => VAL.Id.Level[k].abbr);

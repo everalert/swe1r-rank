@@ -1,0 +1,307 @@
+.table {
+	margin: 0 auto;
+	font-size: 1.5rem;
+	grid-area: table;
+	min-width: 100%;
+	background: inherit;
+}
+.table .item-container {
+	transform: perspective(1000px);
+	transform-style: preserve-3d;
+}
+.table .item-container * {
+	transform-style: preserve-3d;
+	transform-origin: bottom;
+}
+.table .header, .table .item {
+	display: grid;
+	grid-gap: 0 1rem;
+	padding: 0.22em 1rem;
+	margin: 0 0 0.2em;
+	box-sizing: border-box;
+	align-items: center;
+	position: relative;
+}
+.table .header {
+	z-index: 70;
+	font-size: 1rem;
+	font-weight: bold;
+	position: sticky;
+	top: 3.8rem;
+	background: inherit;
+	padding-top: 0.5em;
+	border-bottom: 1px solid #FFFFFF40;
+}
+.table .item {
+	text-shadow: var(--panel-text-shadow);
+	color: inherit;
+	/*background-image: linear-gradient(#000000B0, #000000B0),
+	                  url("../img/podsel-bg.jpg");*/
+	background-position: center 50%;
+	background-size: 105% auto;
+	background-repeat: no-repeat;
+	transition: background-size 0.25s ease, transform 0.25s ease;
+}
+.table .item * {
+	transition: background-size 0.25s ease, transform 0.25s ease;
+}
+.table .item:hover {
+	cursor: pointer;
+	background-size: 100% auto;
+	transform: translateZ(1.5rem);
+}
+.table .item:hover * {
+	transform: translateZ(1.5rem);
+}
+.table .item:before, .table .item:after {
+	content: '';
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border: 1px solid;
+	border-image-slice: 1;
+	/*border-image-source: linear-gradient(to left top, #FFFFFF80, #FFF0, #FFFFFF80);
+	background-image: linear-gradient(-60deg, #FFFFFF10 -50%, #FFFFFF00 50%, #FFFFFF10 50%, #FFFFFF00 150%);*/
+	border-image-source: linear-gradient(to left top, #B0B0FF80, #B0B0FF00, #B0B0FF80);
+	background-image: linear-gradient(-60deg, #B0B0FF10 -50%, #B0B0FF00 50%, #B0B0FF10 50%, #B0B0FF00 150%);
+	background-position: 100% center;
+	background-size: 200% 100%;
+	background-repeat: no-repeat;
+	transition: background-position 0.25s ease;
+}
+.table-wide .item:before {
+	background-position: 95% center !important;
+}
+.table .item:hover:before {
+	background-position: 75% center !important;
+}
+.table .item:after {
+	opacity: 0;
+	transition: opacity 0.5s ease;
+	border-image-source: linear-gradient(to left top, #807000FF, #80700000, #807000FF);
+	background-image: linear-gradient(to left, #80700010, #80700010);
+}
+.table .item:hover:after {
+	opacity: 1;
+}
+
+.ranking-data .header, .ranking-data .item {
+	grid-template-columns: 4rem 1fr 6rem 8.5rem;
+	grid-template-areas: 'rank name points time';
+}
+.player-list .header, .player-list .item {
+	grid-template-columns: 1fr 6rem 8.5rem;
+	grid-template-areas: 'name points time';
+}
+.player-times .header, .player-times .item {
+	grid-template-columns: 1fr 7.5rem 4rem 7.5rem 4rem;
+}
+.player-times .header {
+	grid-template-areas: 'name time-3lap time-3lap time-1lap time-1lap';
+}
+.player-times .item {
+	grid-template-areas: 'name time-3lap rank-3lap time-1lap rank-1lap' 'name points-3lap rank-3lap points-1lap rank-1lap';
+}
+.track-list .header, .track-list .item {
+	grid-template-columns: 1fr 8.5rem 8.5rem;
+	grid-template-areas: 'name best-3lap best-1lap';
+}
+.track-ranking .header, .track-ranking .item {
+	grid-template-columns: 4rem 1fr 7rem 8.5rem;
+	grid-template-areas: 'rank name points time';
+}
+
+.rank {
+	grid-area: rank;
+	font-style: italic;
+	/*color: #888;*/
+}
+.player, .track {
+	grid-area: name;
+	font-weight: bold;
+}
+.item .player, .item .track {
+	color: #C0C0FF;
+}
+.item:hover .player, .item:hover .track {
+	color: #FFC000;
+}
+.best-3lap, .best-1lap, .time-3lap, .time-1lap, .time, .time-total {
+	grid-area: time;
+	text-align: right;
+}
+.rank-3lap, .rank-1lap, .rank {
+	text-align: center;
+	font-family: 'Anton', 'Impact', sans-serif;
+	font-style: italic;
+	text-indent: -0.6em;
+	text-shadow: none;
+	/*font-size: 1.1em;*/
+}
+.rank:not(.rank-1):not(.rank-2):not(.rank-3),
+.rank-1lap:not(.rank-1):not(.rank-2):not(.rank-3),
+.rank-3lap:not(.rank-1):not(.rank-2):not(.rank-3) {
+	background: -webkit-linear-gradient(#FFF, #8080FF);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	filter: drop-shadow(0 0 1px #8080FF);
+}
+.rank.rank-1, .rank-1lap.rank-1, .rank-3lap.rank-1 {
+	background: -webkit-linear-gradient(#FF0, #FF8000);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	filter: drop-shadow(0 0 1px #00F);
+}
+.rank.rank-2, .rank-1lap.rank-2, .rank-3lap.rank-2 {
+	background: -webkit-linear-gradient(#E0E0E0, #808080);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	filter: drop-shadow(0 0 1px #F00);
+}
+.rank.rank-3, .rank-1lap.rank-3, .rank-3lap.rank-3 {
+	background: -webkit-linear-gradient(#FFE0E0, #FF2020);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	filter: drop-shadow(0 0 1px #B68B8B); /*#E6CBCB*/
+}
+/*.rank-1lap:after, .rank-3lap:after, .rank:after {
+	content: '';
+	transform: translateZ(-1.25rem);
+	transform-style: preserve-3d;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #F00;
+}*/
+.time:before, .time-1lap:before, .time-3lap:before, .item .best-1lap:before, .item .best-3lap:before {
+	content: '⏱';
+	margin-right: 0.15em;
+}
+.points-3lap, .points-1lap, .points, .points-total {
+	grid-area: points;
+	text-align: right;
+}
+.points:before, .points-1lap:before, .points-3lap:before {
+	content: '✦';
+	margin-right: 0.15em;
+}
+.player-times .time-3lap, .player-times .time-1lap {
+	font-size: 0.9em;
+}
+.player-times .points-3lap, .player-times .points-1lap {
+	font-size: 0.7em;
+}
+.track-list .best-3lap {
+	grid-area: best-3lap;
+	text-align: right;
+}
+.track-list .best-1lap {
+	grid-area: best-1lap;
+	text-align: right;
+}
+.table .item .rank-0 { opacity: 0.25; }
+.table-wide .item .track { margin-left: 0.25em; }
+.table-wide .header .best-3lap, .table-wide .header .best-1lap { text-align: center; }
+
+
+.player-times .best-3lap, .player-times .time-3lap {
+	grid-area: time-3lap;
+}
+.player-times .best-1lap, .player-times .time-1lap {
+	grid-area: time-1lap;
+}
+.player-times .rank-3lap {
+	grid-area: rank-3lap;
+}
+.player-times .rank-1lap {
+	grid-area: rank-1lap;
+}
+.player-times .points-3lap {
+	grid-area: points-3lap;
+	color: #888;
+}
+.player-times .points-1lap {
+	grid-area: points-1lap;
+	color: #888;
+}
+
+
+
+@media all and (max-width: 640px) {
+	.table {
+		font-size: 1.2rem;
+	}
+	.player-times .time-3lap, .player-times .time-1lap {
+		font-size: 1em;
+	}
+	.player-times .points-3lap, .player-times .points-1lap {
+		font-size: 0.85em;
+	}
+	.player-times .header .track {
+		display: none;
+	}
+	.player-times .item .track {
+		margin-top: 0.35em;
+		margin-bottom: 0.35em;
+		text-align: center;
+	}
+	.player-times .header, .player-times .item {
+		grid-template-columns: 1fr 6.75rem 4.4rem 2.5rem 1fr 6.75rem 4.4rem 2.5rem 1fr;
+	}
+	.player-times .header {
+		grid-template-areas: '. time-3lap time-3lap time-3lap . time-1lap time-1lap time-1lap .';
+	}
+	.player-times .item {
+		grid-template-areas: 'name name name name name name name name name'
+		                     '. time-3lap points-3lap rank-3lap . time-1lap points-1lap rank-1lap .';
+	}
+}
+
+
+@media all and (max-width: 480px) {
+	.table {
+		font-size: 1rem;
+	}
+	.table .header {
+		top: 4.5rem;
+	}
+	.table .item:hover {
+		background-position: top left, bottom right, 65% center;
+	}
+	.table .item .track {
+		font-size: 1.15em;
+	}
+	.ranking-data .header, .ranking-data .item {
+		grid-template-columns: 2.35rem 1fr 4.5rem 6rem;
+	}
+	.player-list .header, .player-list .item {
+		grid-template-columns: 1fr 4.5rem 6rem;
+	}
+
+	.player-times .rank-3lap, .player-times .rank-1lap {
+		font-size: 1.15em;
+	}
+	.player-times .header, .player-times .item {
+		grid-template-columns: 1fr 5.65rem 2.5rem 1fr 5.65rem 2.5rem 1fr;
+	}
+	.player-times .header {
+		grid-template-areas: '. time-3lap time-3lap . time-1lap time-1lap .';
+	}
+	.player-times .item {
+		grid-template-areas: 'name name name name name name name'
+		                     '. time-3lap rank-3lap . time-1lap rank-1lap .'
+		                     '. points-3lap rank-3lap . points-1lap rank-1lap .';
+	}
+
+	.track-list .header, .track-list .item {
+		grid-template-columns: 1fr 6rem 6rem;
+	}
+	.track-ranking .header, .track-ranking .item {
+		grid-template-columns: 2.35rem 1fr 4.5rem 6rem;
+	}
+}

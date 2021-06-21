@@ -10,7 +10,7 @@ export default {
 	markLoaded: () => ({type:'MARK_LOADED'}),
 	markLoading: (isLoading) => ({ type:'MARK_LOADING', loading:isLoading }),
 
-	updateTable: () => ({ type:'UPDATE_TABLE' }),
+	updateRankList: () => ({ type:'UPDATE_RANKLIST' }),
 	updateCtxPan: (title) => ({ type:'UPDATE_CTXPAN', title:title }),
 
 	calcTotals: () => ({type:'CALCULATE_TOTALS'}),
@@ -45,8 +45,11 @@ export default {
 
 	cycleLapSetting: () => ({type:'CYCLE_LAP_SETTING'}),
 	toggleSkipsSetting: () => ({type:'TOGGLE_SKIPS_SETTING'}),
+	setSkipsSetting: (active) => ({type:'SET_SKIPS_SETTING', active:active }),
 	toggleUpgradesSetting: () => ({type:'TOGGLE_UPGRADES_SETTING'}),
+	setUpgradesSetting: (active) => ({type:'SET_UPGRADES_SETTING', active:active }),
 	toggleOverallSetting: () => ({type:'TOGGLE_OVERALL_SETTING'}),
+	setOverallSetting: (active) => ({type:'SET_OVERALL_SETTING', active:active }),
 	toggleDebugMode: () => ({type:'TOGGLE_DEBUG_MODE'}),
 	toggleDebugInfo: () => ({type:'TOGGLE_DEBUG_INFO'}),
 };

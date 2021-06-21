@@ -1,5 +1,6 @@
 import React from 'react';
 import VAL from '../state/const';
+import { IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline } from 'react-icons/io';
 import Numeral from 'numeral';
 import Moment from 'moment';
 import MomentDurationFormat from 'moment-duration-format';
@@ -47,12 +48,31 @@ export const FormatIdFromPlayer = (name) => {
 export const FormatCategoryTitleFromSettings = (settings) => {
 	const strings = [];
 	if (settings.overall)
-		strings.push('Overall');
+		strings.push(<span className="cat-label" key={strings.length}>Overall</span>);
 	else {
-		strings.push(`${!settings.skips?'No ':''}Skips`);
-		strings.push(`${!settings.upgrades?'No ':''}Upgrades`);
+		strings.push(settings.skips?<span className="cat-label" key={strings.length}>Skips<IoIosCheckmarkCircleOutline className="cat-icon-yes"/></span>:<span className="cat-label" key={strings.length}>No Skips<IoIosCloseCircleOutline className="cat-icon-no"/></span>);
+		strings.push(settings.upgrades?<span className="cat-label" key={strings.length}>Upgrades<IoIosCheckmarkCircleOutline className="cat-icon-yes"/></span>:<span className="cat-label" key={strings.length}>No Upgrades<IoIosCloseCircleOutline className="cat-icon-no"/></span>);
 	}
 	if (VAL.Setting.Lap[settings.lap].key!=='ALL')
-		strings.push(VAL.Setting.Lap[settings.lap].name);
-	return strings.join(', ');
+		strings.push(<span className="cat-label" key={strings.length}>{VAL.Setting.Lap[settings.lap].name}</span>);
+
+	return <span className="cat-string">{strings.reduce((acc,next,i) => [acc,<span className="cat-sep" key={strings.length+i}>‧</span>,next])}</span>;
+}
+
+export const FormatCategoryTitle = (overall, skips, upgrades, lap) => {
+	const strings = [];
+	if (overall)
+		strings.push(<span className="cat-label" key={strings.length}>Overall</span>);
+	else {
+		strings.push(skips?<span className="cat-label" key={strings.length}>Skips<IoIosCheckmarkCircleOutline className="cat-icon-yes"/></span>:<span className="cat-label" key={strings.length}>No Skips<IoIosCloseCircleOutline className="cat-icon-no"/></span>);
+		strings.push(upgrades?<span className="cat-label" key={strings.length}>Upgrades<IoIosCheckmarkCircleOutline className="cat-icon-yes"/></span>:<span className="cat-label" key={strings.length}>No Upgrades<IoIosCloseCircleOutline className="cat-icon-no"/></span>);
+	}
+	if (VAL.Setting.Lap[lap].key!=='ALL')
+		strings.push(<span className="cat-label" key={strings.length}>{VAL.Setting.Lap[lap].name}</span>);
+
+	return <span className="cat-string">{strings.reduce((acc,next,i) => [acc,<span className="cat-sep" key={strings.length+i}>‧</span>,next])}</span>;
+}
+
+export const GetLapSettingObj = (key) => {
+	return VAL.Setting.Lap.filter(l => l.key===key)[0];
 }

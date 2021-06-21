@@ -1,0 +1,6 @@
+.highlight-panel {
+	grid-area: hl-panel;
+	text-align: center;
+	--hlw: min(calc(min(720px,100vw) - 50px - 2rem) / 4, 8rem);
+	--hlh: calc(5.65 / 8 * var(--hlw));
+}

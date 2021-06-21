@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import VAL from '../state/const';
 import Entry from './ctxpan-entry';
 import Tilt from 'react-tilt';
+import '../css/tilt.css';
+import '../css/ctxpan.css';
 
 export default () => {
 	const title = useSelector(state => state.panel.title);

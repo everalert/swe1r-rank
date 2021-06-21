@@ -1,0 +1,35 @@
+.cat-string {
+	display: inline-flex;
+	flex-direction: row;
+}
+.cat-label {
+	z-index: 80;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: middle;
+}
+.cat-label:not(:first-child) {
+	margin-left: 0.125em;
+}
+.cat-label:not(:last-child) {
+	margin-right: 0.125em;
+}
+.cat-icon-yes, .cat-icon-no {
+	margin-right: -0.275em;
+	font-size: 0.65em;
+	position: relative;
+	top: 0.05em;
+	z-index: -10;
+}
+.cat-icon-yes {
+	fill: #6060FF;
+}
+.cat-icon-no {
+	fill: #404040;
+}
+h1 .cat-icon-yes, h1 .cat-icon-no {
+	top: 0.5em;
+}
+.cat-sep {
+	opacity: 0.5;
+}

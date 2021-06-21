@@ -1,0 +1,10 @@
+.Tilt {
+	transform: perspective(1000px);
+}
+.Tilt, .Tilt * {
+	transform-style: preserve-3d;
+}
+.Tilt-inner *, .Tilt-item * {
+	/*transform: translateZ(1.25rem);*/
+	transform-origin: top;
+}
