@@ -84,11 +84,14 @@ export default {
 			]
 		},
 		5 : {
-			Release : new Date(),
+			Release : new Date('2021-07-22'),
 			Notes : [
 				"UI/UX", [
 					"Mobile layout improvements.",
-					"Category navigation improvements."
+					"Category navigation improvements.",
+				],
+				"Other", [
+					"Update API calls to match speedrun.com leaderboard restructure."
 				]
 			]
 		}
